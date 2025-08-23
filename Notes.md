@@ -143,3 +143,167 @@ In web development, our application code is kept on the server so it’s accessi
 
 - **Client-side :** The language which runs on client's computer (browser) is called client side language. ex - HTML, CSS, JavaScript, VBScript(outdated).
 - **Server-side :** The language which runs on server is called server-side language. ex - Node.js, php, Laravel, CodeIgnitor, Java, python, c++, .Net, C#.
+
+# Day - 16 Node.js API
+
+### 🔹 Definition
+
+- API stands for Application Programming Interface.
+- It is a way to write server code efficiently, making it independent of the client.
+- APIs allow different applications or systems to communicate with each other.
+
+### 🔹 How APIs Work
+
+- Server-side code can be written in any backend language:
+  - PHP, Node.js, Python, Java, Go, etc.
+- The API then exposes functionalities that can be consumed by client-side applications:
+  - JavaScript (JS), React, Angular, Vue.js, PHP, Java, Go, etc.
+
+### 🔹 Example Use Case: Video Calling
+
+- Earlier (Old Way – SDKs)
+  - SDKs were language-dependent, requiring separate implementations for PHP, Node.js, Java, etc..
+- Now (Modern Way – APIs)
+  - APIs are language-independent → one API works for all clients regardless of language.
+
+### 🔹 Types of APIs
+
+#### 1. SOAP (Simple Object Access Protocol)
+
+- Uses XML format for requests & responses.
+- Considered outdated (heavy and verbose).
+- Traditionally used for server–client data transfer.
+- Example:
+
+```xml
+<salary> 2000 </salary>
+<employee> Employee Name </employee>
+```
+
+- XML = Xtensible markup language used for data transfer.
+
+#### 2. REST (Representational State Transfer)
+
+- Modern approach.
+- Sends responses in JSON format (after many innovations).
+- JSON transfers data in the form of objects.
+- Example:
+
+```json
+{
+  "salary": 2000,
+  "employee": "Employee Name"
+}
+```
+
+### 🔹 Key Differences Between SOAP & REST
+
+| Feature          | SOAP (Old)              | REST (Modern)             |
+| ---------------- | ----------------------- | ------------------------- |
+| Data Format      | XML                     | JSON (lightweight)        |
+| Complexity       | Complex, heavy          | Simple, widely used       |
+| Status           | Outdated                | Industry standard         |
+| Language Binding | Language-dependent SDKs | Language-independent APIs |
+
+### ✅ Conclusion:
+
+APIs provide a bridge between server and client, making development easier, faster, and independent of language or platform.
+Modern APIs use REST + JSON for efficient and flexible data transfer.
+
+## How to create REST API
+
+1. Always return responses in JSON format.
+2. Send an appropriate HTTP status code with every response.
+3. Declare endpoints (URLs that represent resources).
+4. Use the correct HTTP method to define the action (CRUD).
+
+#### endpoint example
+
+```js
+http://localhost:8080/users
+http://www.codingott.com/users
+
+- Here, `/users` is the endpoint (resource)(interms of backend)
+```
+
+### 🔹 CRUD Operations in REST API
+
+- Generally when we create APIs, we do mainly 4 things and this is called CRUD.
+- Each resource usually supports 4 main actions:
+
+  - Store (Create)
+  - Fetch (Read)
+  - Update
+  - Delete
+
+- This is the rule for creating REST API : for single task there should be one endpoint.
+- So with same endpoint how you perform 4 different task or when your endpoint perform which task to do that we use http methods.
+- Example: `/users` is the same endpoint, but the HTTP method decides the action.
+- there are multiple type of http methods but we generally use 6 of them:
+
+- http methods / http request method
+
+  - GET → Fetch/read data (default if no method is specified).
+  - POST → Create (store) new resource.
+  - PUT → Update a resource (replace entire object).
+  - PATCH → Partial update (rarely used but useful).
+  - DELETE → Remove resource.
+  - OPTIONS → Used automatically by browsers to check which methods are allowed (important for CORS preflight)
+  - HEAD → Same as GET but returns only headers (no body).
+
+### 🔹 Status Codes
+
+- 200 → Success (OK)
+- 201 → Resource created
+- 400 → Bad request
+- 404 → Resource not found
+- 405 → Method not allowed
+- 500 → Server error
+
+- `req.method` method property returns which method is used by client for a particular endpoint.
+
+- Whenever client sends a request for a particular endpoint via URL, request method will be GET by default.
+
+### 🔹 API Testing Tools
+
+- For http method testing we use API testing tools, there are multiple tool for that
+
+  - Thunder Client → lightweight VS Code extension.
+  - Postman (recommended) → industry standard, widely used for manual API testing.
+
+- `res.end()` `end()` method does not accept object. but according to API rule we have to send JSON data in object format for that we will convert object into string using `JSON.stringify()` method.
+- `res.end(data)` → ends response, sends string, buffer or no argument.
+- Since JSON must be a string, we use `JSON.stringify(object)`.
+
+```js
+if (method === "GET") {
+  res.writeHead(200, { "content-type": "application/json" });
+  res.end(JSON.stringify({ message: "Here is you fetched data." }));
+  return;
+}
+```
+
+- But there is a problem to make readble to client we need JSON data but we are sending string for that we use `res.writeHead(statusCode, header)` writeHead(statusCode, header) method takes 2 arguments `statusCode` and `header`
+
+- `res.writeHead(statusCode, headers)` → sets status code & headers.
+
+```js
+if (method === "GET") {
+  res.writeHead(200, { "content-type": "application/json" });
+  res.end(JSON.stringify({ message: "Here is your fetched data." }));
+  return;
+}
+```
+
+- content-type for some formats:
+  - Video
+    - video/mp4
+  - Image
+    - image/jpeg
+  - PDF
+    - application/pdf
+  - JSON
+    - application/json
+
+✅ Final Takeaway:
+A REST API is built around endpoints (resources) + HTTP methods (actions). Always return JSON responses with proper status codes.
