@@ -64,7 +64,7 @@ In web development, our application code is kept on the server so it’s accessi
 
 - Hosted on cloud infrastructure (AWS, Azure, GCP, DigitalOcean, etc.).
 
-- Provides virtualized resources that scale on demand.
+- Provides virtualized resources(dedicated CPU) that scale on demand.
 - In software world everything is depend on data and we store data in data centers, data centers are nothing but infinite collection of Harddisk, which stores data(text, image, audio, video etc)
 
 - Data centers serves data based on edge location (nearest location), if data is not present at nearest data center it fetches data from origin server, cache it and serve it.
@@ -110,6 +110,124 @@ In web development, our application code is kept on the server so it’s accessi
   - Vercel/Netlify → Modern frontend hosting.
   - AWS/Azure/GCP → Enterprise-level hosting.
 
+# 👩🏼‍💻 Day-02: Understanding Servers and Databases
+
+### Levels of Workshop
+
+- Here we will learn software development in **3 phases** :
+  1. Smaller Applications
+  2. Mid Range Application (Project Development)
+  3. Enterprise Applications (Product Development)
+
+### Web Servers
+
+- **Shared Server** - Multiple applications/websites are hosted on the same CPU.
+  - No root access.
+  - Limited flexibility.
+- **Cloud Server** - Dedicated CPU with root access. You can configure OS, applications, and settings as needed.
+  - Cloud servers provide consistent speed for overseas market (World wide market - worldwide accessibility).
+
+**Que: Can you host your application on your own CPU?**
+
+- Yes,but we usually don’t.
+- Reason: Lack of fault tolerance and scalability.
+
+**Hosting Company?**
+
+- Companies which gives CPUs(servers) on rent, called Hosting companies.
+- Example : GoDaddy, BigRock, Hostinger, AWS, Azure, Google Cloud.
+
+- If Possible learn about hardware configuration it will help you in Software development.
+- 👉 Knowing basic hardware configurations (CPU, RAM, Storage, Network) helps you write efficient and machine-friendly code.
+
+### Making a machine (CPU) Server / Web Server:
+
+- Any Machine (CPU) is not a web server by default because it is not configured to handle HTTP requests.
+- So to make it web server we have to install some software depend on need:
+  - Node.js
+  - Nginx
+  - Apache
+  - Tomcat
+- WOnce configured, the machine gets a default IP address: `127.0.0.1`(loopback address) and domain name for this IP Address is `localhost`.
+- The default domain for local development is `localhost`.
+- Along with the web server software, we also need database software.
+
+  - Step 1: Install Web Server (e.g., Node.js).
+  - Step 2: Install Database Software.
+
+- Database stores data (mainly text/structured data).
+
+  - We can store binary data (images, audio, video) in databases, but it is not recommended.
+  - Instead, such files are usually stored in cloud storage (e.g., AWS S3, Google Cloud Storage), and databases only store file references/URLs.
+
+### Database Softwares
+
+Some common database systems are:
+
+- Relational (SQL) Databases
+
+  - MySQL
+  - PostgreSQL
+  - SQL Server
+
+- Non-Relational (NoSQL) Databases
+  - MongoDB ✅
+  - Amazon DocumentDB
+  - DynamoDB
+
+### Database Language
+
+- SQL (Structured Query Language) – Standard language for interacting with relational databases.
+
+### Types of Database
+
+- Relational Database (SQL Database)
+  - Stores data in tables (rows & columns).
+  - Old and mature technology.
+  - Maintenance can be costly at enterprise scale.
+  - Examples: MySQL, PostgreSQL, SQL Server.
+- Non-Relational Database (NoSQL Database)
+
+  - Stores data in objects/documents (JSON-like format).
+  - Newer technology.
+  - Cost-effective and flexible for scaling.
+  - Examples: MongoDB ✅, DocumentDB, DynamoDB.
+
+- **⚠️Note**: Neither programming languages, databases, nor servers provide inbuilt security by default.
+  Security depends on the developer’s implementation (e.g., authentication, encryption, firewalls).
+
+### Scaling
+
+- To improve/increase compute capacity of server is called scaling, there are 2 type of scaling:
+  - **Horizontal Scaling**
+    - Adding/removing multiple CPUs(servers) on demand
+    - common in cloud infrastructure.
+    - Example: Adding more servers behind a load balancer.
+  - **Vertical Scaling**
+    - Increasing the power of the same CPU (e.g., upgrading RAM, CPU cores, or storage).
+
+### Server & Serverless
+
+- In cloud hosting:
+
+  - Server:
+    - You decide the hardware/software (RAM, storage, OS).
+    - Charged hourly (24×7) whether the app is used or not.
+    - Best for enterprise or large-scale apps.
+  - Serverless:
+    - Cloud provider (e.g., AWS Lambda, Azure Functions) decides the hardware/software.
+    - Charged per request/response (pay-as-you-go).
+    - Best for startups and apps with variable or low traffic.
+
+- The same concept applies to both application hosting and databases.
+
+  - Example:
+    - Server-based database: MongoDB on a dedicated VM.
+    - Serverless database: DynamoDB (AWS managed NoSQL).
+
+- In enterprise applications:
+  - Application Code and Database are usually hosted on separate servers for better scalability and performance.
+
 # 🚀 Day-10 Node.js Onboarding
 
 ### 🌍 Running a Web Application
@@ -128,7 +246,7 @@ In web development, our application code is kept on the server so it’s accessi
 
 ### 🔄 Request & Response
 
-- **Request :** When a user performs an action (e.g., typing in search bar and pressing Enter) is called request.
+- **Request :** When a user performst an action (e.g., typing in search bar and pressing Enter) is called request.
 
 - **Response :** The data/resource the server sends back to the client for that request is called response.
 
