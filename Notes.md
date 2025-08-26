@@ -228,6 +228,331 @@ Some common database systems are:
 - In enterprise applications:
   - Application Code and Database are usually hosted on separate servers for better scalability and performance.
 
+# 🧿 Day-03 Understanding MongoDB
+
+📌 What is MongoDB?
+
+- MongoDB is a database software used to store textual data (strings and numbers).
+- We do not store files (like images, PDFs, videos) directly inside the database. Instead, they are stored on hard disk/SSD, while MongoDB stores their references/paths.
+- MongoDB is a NoSQL (Non-relational) database.
+- It stores data in object format (JSON-like structure).
+- A single object in MongoDB is called a Document.
+
+```js
+// example document
+  {
+    title: 'white shirt',
+    price: 3200,
+    discount: 20
+  }
+```
+
+### 📌 MongoDB Hierarchy
+
+- MongoDB works in this structure:
+
+  - MongoDB -> Database -> Collection (folder) -> Document (one item)
+
+- Database name is usually based on the company/project name.
+- Collection names should always be plural (e.g. `users`, `courses`).
+- A database can have multiple collections.
+- A collection can have multiple documents.
+
+```
+  - wapInstitute (Database)
+    - users (Collection)
+    - employees (Collection)
+    - courses (Collection)
+```
+
+### Installing MongoDB
+
+- Download & install MongoDB community server download
+- Download & install MongoDB shell (mongosh)
+- Open terminal and run
+
+  ```sh
+    mongosh
+  ```
+
+- ✅ If it shows something like:
+
+```sh
+  PS C:\Users\Ajeet Singh> mongosh
+  Current Mongosh Log ID: 68ac92f1ee50594f80eec4a8
+  Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.6
+  Using MongoDB:          8.0.12
+  Using Mongosh:          2.5.6
+
+  For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+  ------
+    The server generated these startup warnings when booting
+    2025-08-15T09:45:03.918+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+  ------
+
+  test>
+```
+
+That means MongoDB is running correctly.
+
+- ⚠️ Troubleshooting:
+
+- If not working goto `startmenu -> services -> mongodb server` check if it is start or not. if not start start that.
+- Still not working → Reinstall MongoDB correctly.
+
+- Rare case: Even though it not working that means some certificate file can be missing in your windows (OS).In this case you to install new OS.
+
+### Operating Mongodb
+
+There are 2 ways to work with MongoDB:
+
+1. Using Terminal (mongosh) → for learning & server management.
+
+- `mongosh` start mongo shell in terminal
+- Using Code (Node.js, Python, Java, Go, PHP, .NET, etc.) → for real applications.
+
+- When we took dedicated server for database to manage that you need to know mongoDB CLI. So we first learn mongodb using terminal.
+
+- Default selected database is `test`.
+- To show list of all databases:
+
+```sh
+  show dbs
+```
+
+- Default databases are: `admin, local, config,test`
+
+- To use (or create) a database:
+
+```shell
+  use "databasename"
+```
+
+🔹 If the database doesn’t exist, it will be created once data is inserted.
+
+- It remains temporary until there is no data in the database. It will not appear in the list of databases.
+
+- To select collection:
+
+```sh
+  db.courses
+```
+
+### Inserting Data
+
+- To insert data in database we have two methods:
+
+  - **insertOne()** - method is used to insert single document in collection.
+  - It take a document as an argument.
+
+```sh
+  db.courses.insertOne({title: "react course", price: 9000, discount: 20})
+
+  // or
+
+  db.courses.insertOne({
+... title: "angular",
+... price: 6999,
+... discount: 20
+... })
+
+```
+
+- Response:
+
+```sh
+{
+acknowledged: true,
+insertedId: ObjectId("68aca067ee50594f80eec4a9")
+}
+```
+
+- And for each document mongodb generate an unique id and attach with document that means document inserted successfully.
+
+  ```sh
+    {
+      acknowledged: true,
+      insertedId: ObjectId('68aca067ee50594f80eec4a9')
+    }
+  ```
+
+  - `ObjectId` is a **Primary Key** in mongodb.
+
+- **insertMany()** - It is used to insert multiple document at once.
+- It take array of document as an argument.
+
+```sh
+  db.collection.insertMany([{}, {}, {}, ...])
+```
+
+- If you insert 4 document it return 4 unique ObjectIds. - If you are using insertMany(), create your array of document in vscode it will prevent from errors.
+
+```sh
+      db.courses.insertMany([
+      ... {
+      ... title: "java",
+      ... price: 7999,
+      ... discount: 10
+      ... },
+      ... {
+      ... title: "python",
+      ... price: 6999,
+      ... discount: 15
+      ... },
+      ... {
+      ... title: "go",
+      ... price: 9999,
+      ... discount: 25
+      ... },
+      ... {
+      ... title: "c++",
+      ... price: 3999,
+      ... discount: 10
+      ... },
+      ... {
+      ... title: "dsa",
+      ... price: 14999,
+      ... discount: 30
+      ... }
+      ... ])
+```
+
+- Response:
+
+```sh
+{
+      acknowledged: true,
+      insertedIds: {
+      '0': ObjectId('68ad24571000155643eec4a9'),
+      '1': ObjectId('68ad24571000155643eec4aa'),
+      '2': ObjectId('68ad24571000155643eec4ab'),
+      '3': ObjectId('68ad24571000155643eec4ac'),
+      '4': ObjectId('68ad24571000155643eec4ad')
+}
+```
+
+### Reading/fetching data
+
+- To fetch data in MongoDB we use 2 methods all these methods are used with:
+
+```sh
+ db.collection
+```
+
+1. findOne()
+
+- It returns 1st matching document
+
+```sh
+  db.collectionName.findOne()
+```
+
+```shell
+    db.courses.findOne()
+  // result
+  {
+  \_id: ObjectId('68aca067ee50594f80eec4a9'),
+  title: 'react course',
+  price: 9000,
+  discount: 20
+  }
+```
+
+2. find()
+
+- It returns all matching documents.
+
+```sh
+  db.collectionName.find()
+```
+
+```shell
+db.courses.find()
+// result
+[
+  {
+  _id: ObjectId('68ad24571000155643eec4ab'),
+  title: 'go',
+  price: 9999,
+  discount: 25
+},
+{
+  _id: ObjectId('68ad24571000155643eec4ac'),
+  title: 'c++',
+  price: 3999,
+  discount: 10
+},
+{
+  _id: ObjectId('68ad24571000155643eec4ad'),
+  title: 'dsa',
+  price: 14999,
+  discount: 30
+}
+]
+```
+
+### 📌 Queries & Projection
+
+- Condition in database is called `query`.
+- Queries are conditions inside find() or findOne().
+
+- Both methods(find(), findOne()) accept two arguments: {query}, {projection}.
+
+```sh
+   findOne({query}, {projection})
+```
+
+```sh
+  db.courses.findOne({title: 'java'})
+
+  {
+  _id: ObjectId('68ad24571000155643eec4a9'),
+  title: 'java',
+  price: 7999,
+  discount: 10
+  }
+```
+
+- Query parameter is an object you can pass multiple properties.
+- If query not match with any document it will return `null`
+- DataType of `_id` is `ObjectId` already present in mongoDB.
+- Always match `_id` with findOne.
+- `Projection` is used to fetch specific data from a document.
+
+```sh
+  db.courses.findOne({title:'java'}, {price:1, _id:0})
+```
+
+- Response:
+
+```sh
+{ price: 7999 }
+```
+
+✅ Benefits of Projection:
+
+- Projection reduces latency.
+- Low latency = fast response.
+  -Reduces unnecessary data transfer → cost-effective in serverless architecture.
+- Example: A landing page should load within 3 seconds → projection helps.
+- There are multiple ways to improves latency projection is one of them.
+- Projection said only fetch data what you need.
+
+- find({query}, {projection})
+
+#### Limit
+
+- we use limit(n) function to fetch only n document.
+- It also improves latency.
+
+```sh
+  db.collection.limit(2)
+```
+
+- It will fetch 2 documents from db.
+- It is used to create pagination.
+
 # 🚀 Day-10 Node.js Onboarding
 
 ### 🌍 Running a Web Application
