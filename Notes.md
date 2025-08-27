@@ -553,6 +553,175 @@ db.courses.find()
 - It will fetch 2 documents from db.
 - It is used to create pagination.
 
+# 🌳 Day-04 MongoDB Basics
+
+### 🔹 Show Collections
+
+To list all collections in the current database:
+
+```sh
+  show collections
+```
+
+### 🔹 Store Data with Date & Time
+
+- Always add a `createdAt` field when inserting documents.
+- Use `new Date()` for current timestamp (MongoDB stores it in ISODate format).
+
+```js
+db.products.insertOne({
+  name: "Product1",
+  price: 100,
+  createdAt: new Date(),
+});
+```
+
+### 🔹 Sorting Data
+
+- MongoDB provides sort() for ordering query results.
+- To sort data in MongoDB we use `sort()` method.
+- Takes an object `{ field: 1/-1 }`
+
+```sh
+  db.collection.find().sort({field: 1})
+```
+
+- `1` for Ascending order
+- `-1` for Descending order
+- `field` based on which you want to sort
+- Example:
+
+```sh
+  db.products.find().sort({ createdAt: -1 }).limit(4)
+```
+
+- Note: The order for `limit()` and `sort()` does not matter.
+
+### Skiping Data (Pagination)
+
+- Use `skip(n)` function to skip documents.
+- skip() fetch data in chunks
+- Used in to create Pagination feature with `limit()`
+- In pagination we do not change limit
+- Formula: `(p-1)*limit`
+  - Here `p` is page number which come from backend
+
+```sh
+  db.collection.find().skip(n)
+
+  db.products.find({}, { name: 1, price: 1, _id: 0 })
+           .sort({ price: -1 })
+           .skip(3)
+           .limit(5)
+
+```
+
+- Task: create pagination feature
+
+### Updating Data:
+
+- In mongodb to update data we have two methods
+  - updateOne()
+    - Update first matching document.
+    - Syntax:
+    ```js
+    db.collection.updateOne(filter, update);
+    ```
+    - It take two argument query(filter), updated data
+    ```js
+    db.products.updateOne(
+      { name: "Product2" },
+      { $set: { name: "Product-2" } }
+    );
+    ```
+    - Response:
+    ```json
+    {
+      "acknowladged": true,
+      "insertedId": null,
+      "matchedCount": 1,
+      "modifiedCount": 1,
+      "upsertedCount": 0
+    }
+    ```
+    - `$set` is an operator.
+    - 💡 Always use \_id when updating to avoid `ambiguity`.
+    - When we do update and delete use \_id especially with updateOne().
+    - If you are matching with \_id it will call updateOne() only.
+    - Always match \_id to update or delete.
+    - If modifiedCount > 0, it means document updated
+  - updateMany() - Updates all matching documents.
+    ```js
+    db.products.updateMany(
+      { category: "Electronics" },
+      { $set: { inStock: true } }
+    );
+    ```
+
+### 🔹 Deleting Data
+
+- To delete data in mongodb:
+
+  - deleteOne(filter)
+
+    - deletes the first match.
+    - 90% we pass \_id
+    - If {} empety query deletes 1st document
+    - ⚠️ If deleteOne({}) is run with an empty query, it deletes only the first document.
+
+    ```js
+    db.products.deleteOne({ _id: ObjectId("64f23...") });
+    ```
+
+  - deleteMany(filter)
+
+    - deletes all matches.
+
+  - Examples:
+    ```js
+    db.products.deleteMany({ category: "Clothing" });
+    ```
+
+### CRUD
+
+**Interview Question**: How do you perform CRUD operations in MongoDB?
+👉 By using the following methods:
+- C: Create -> `insertOne()`, `insertMany()`
+- R: Read -> `find()`, `findOne()`
+- U: Update -> `updateOne()`, `updateMany()`
+- D: Delete -> `deleteOne()`, `deleteMany()`
+
+### Note
+
+- Database
+- Collection
+- Document
+- Field
+
+**Products prompt**:
+
+- generate product.json with createdAt must follow mongodb date pattern in createdAt give me atleast 20 products and do not ad duplicate createdAt
+
+#### Robust Rule-1
+
+- Code should work same even after years.
+- Fetching data in chunks (`limit`, `skip`, `pagination`) improves performance, reduces latency, and makes applications cost-effective.
+
+### Count Documents
+
+- To count documents in a collection we have countDocuments() method.
+- It can also accept query as an argument.
+
+```sh
+  db.collection.countDocuments();
+  db.collection.countDocuments({property : value});
+```
+
+### 🔹 Tools
+- Mongosh: CLI software for MongoDB
+- MongoDB Compass: GUI software for MongoDB
+- We always use `limit()`, `sort()`, `skip()` after `find()` or `findOne()`
+
 # 🚀 Day-10 Node.js Onboarding
 
 ### 🌍 Running a Web Application
