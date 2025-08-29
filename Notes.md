@@ -686,6 +686,7 @@ db.products.insertOne({
 
 **Interview Question**: How do you perform CRUD operations in MongoDB?
 👉 By using the following methods:
+
 - C: Create -> `insertOne()`, `insertMany()`
 - R: Read -> `find()`, `findOne()`
 - U: Update -> `updateOne()`, `updateMany()`
@@ -718,9 +719,189 @@ db.products.insertOne({
 ```
 
 ### 🔹 Tools
+
 - Mongosh: CLI software for MongoDB
 - MongoDB Compass: GUI software for MongoDB
 - We always use `limit()`, `sort()`, `skip()` after `find()` or `findOne()`
+
+# 🔥 Day-05 MongoDB Operators
+
+### 🔗 Connecting with MongoDB
+
+- MongoDB is a software.
+- To connect to MongoDB we need its protocol, host, and port.
+
+```sh
+  mongodb://localhost:27017
+  (protocal + domain + port)
+```
+
+## ⚡ Operators in MongoDB
+
+- In MongoDB, any word that starts with `$` is called an operator.
+
+### 1. Comparison Operators
+
+- `$eq` → equal to (`==`)
+- `$ne` → not equal to (`!=`)
+- `$gt` → greater than (`>`)
+- `$gte` → greater than or equal to (`>=`) ✅
+- `$lt` → less than (`<`)
+- `$lte` → less than or equal to (`<=`) ✅
+  ⚠️ Note: Always apply comparison operators to a field.
+
+### 2. Date Operators
+
+- In MongoDB, every value has a specific data type.
+- For dates, the datatype is `Date`.
+- To insert a date in raw JSON, use `$date` operator.
+
+```js
+  {
+  "name": "Atul",
+  "grade": 11,
+  "city": "Delhi",
+  "createdAt": { "$date": "2025-11-21T23:51:56Z" }
+}
+```
+
+- Date Format in MongoDB "YYYY-MM-DDTHH:MM:SSz"
+
+  - `T` → separates date & time
+  - `Z` → UTC timezone indicator
+
+- ✅ If you compare dates in `find()`, always use ISODate.
+
+```js
+db.collection.find({
+  createdAt: {
+    $gt: ISODate("2021-01-01"),
+    $lt: ISODate("2021-02-01"),
+  },
+});
+```
+
+- If you are matching date useing ISODate with find() without operators use complete DateTime format
+
+```js
+db.payments.find({ createdAt: ISODate("2025-03-19T13:55:50.000+00:00") });
+```
+
+- Otherwise it will throw error:
+
+```js
+db.payments.find({ createdAt: ISODate("25-03-19") });
+// MongoshInvalidInputError: [COMMON-10001] "25-03-19" is not a valid ISODate
+```
+
+#### Fetch data of one day
+
+```js
+db.payments.find({
+  createdAt: {
+    $gte: ISODate("2023-01-05T00:00:00.000+00:00"), // Start of Jan 5, 2023
+    $lte: ISODate("2023-01-05T23:59:59.999+00:00"), // End of Jan 5, 2023
+  },
+});
+```
+
+- `$gte` → includes all docs from midnight (`00:00:00.000`) of Jan 5th.
+- `$lte` → includes up to the very last millisecond of the day (`23:59:59.999``).
+- The `+00:00` means it’s using UTC time (not local timezone).
+
+**⚠️ Alternative (simpler & safer)**: instead of using `$lte 23:59:59.999`, many developers prefer `$lt` the next day at 00:00, which is equivalent but avoids edge-case issues:
+
+```js
+db.payments.find({
+  createdAt: {
+    $gte: ISODate("2023-01-05T00:00:00.000+00:00"),
+    $lt: ISODate("2023-01-06T00:00:00.000+00:00"),
+  },
+});
+```
+
+- You cannot use 24 for the hour part in ISODate("2023-01-05T24:00:00.000Z").
+- Why?
+
+  - Because 24 is not a valid hour in the ISO-8601 date format — hours go from `00` to `23`.
+
+- If you write `T24:00:00`, MongoDB (and JavaScript’s `Date`) will throw an error or auto-roll it into the next day at `00:00:00`.
+
+```js
+ISODate("2023-01-05T24:00:00.000Z") ❌
+ISODate("2023-01-06T00:00:00.000Z") ✅
+```
+
+### ObjectId
+
+- DataType of `_id` is `ObjectId`.
+- To create that we use `$oid` operator
+- `\_id -> $oid -> ObjectId
+
+- When importing JSON, MongoDB represents it as:
+
+```sh
+  _id: {"$oid": "68b1745805ce50b012fea04c"}
+```
+
+- In MongoDB shell / Compass it appears as:
+
+```sh
+  _id: ObjectId("68b1745805ce50b012fea04c")
+```
+
+### Operator in find()
+
+- General syntax
+
+```js
+db.collection.find({ field: { operator: value, operator: value } });
+```
+
+- Example
+
+```js
+db.products.find({
+  price: { $gte: 299, $lte: 999 },
+});
+```
+
+### Uploading Data from MongoDB Compass
+
+- From `.json` or `.csv` file
+- Insert-data
+
+### Accessing nested fields
+
+- Use dot notation to query inside nested objects:
+
+```js
+db.collection.find({ "price.amount": 499 });
+```
+
+### Regular Expressions (RegExp)
+
+- MongoDB supports regex for pattern matching.
+- It takes to arguments 'data' and 'i/s'
+
+```js
+db.collection.find({ RegExp("Price.Amount", "i"): 499 });
+```
+
+- `$options`
+  - `i` → case-insensitive
+  - `s` -> dotall mode (dot `.` matches newlines) / sensitive
+
+```js
+db.collection.find({ field: { $regex: "pattern", $options: "i" } });
+```
+
+- Example
+
+```js
+db.users.find({ name: { $regex: "^a", $options: "i" } });
+// Finds all names starting with "a" or "A"
+```
 
 # 🚀 Day-10 Node.js Onboarding
 
