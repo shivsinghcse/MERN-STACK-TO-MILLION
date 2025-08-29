@@ -921,7 +921,7 @@ db.users.find({ name: { $regex: "^a", $options: "i" } });
 
 ### 🔄 Request & Response
 
-- **Request :** When a user performst an action (e.g., typing in search bar and pressing Enter) is called request.
+- **Request :** When a user perform an action (e.g., typing in search bar and pressing Enter) is called request.
 
 - **Response :** The data/resource the server sends back to the client for that request is called response.
 
@@ -934,10 +934,67 @@ db.users.find({ name: { $regex: "^a", $options: "i" } });
 
 ### 👩🏼‍💻 Client-side & Server-side Language
 
+- To run fully functional website you need two type of language:
+- Client-Side language
+- Server-Side language
 - **Client-side :** The language which runs on client's computer (browser) is called client side language. ex - HTML, CSS, JavaScript, VBScript(outdated).
 - **Server-side :** The language which runs on server is called server-side language. ex - Node.js, php, Laravel, CodeIgnitor, Java, python, c++, .Net, C#.
 
-# Day - 16 Node.js API
+### 🌐 Types of Websites
+
+1. **Static Website** (Raw coded)
+
+- Built using only HTML, CSS, and JavaScript.
+- Content is fixed and does not change dynamically.
+- **Dynamic Website**
+  - Content Comes from a Database.
+  - Uses server-side languages for features like authentication, payments, etc.
+
+### 📝 CMS (Content Management System)
+
+- CMS stands for Content Management System (not services).
+- Provides tools to manage website content without coding.
+- Example: WordPress, Joomla, Drupal.
+- Often includes an Admin Panel for managing users, posts, products, etc.
+
+### ⚙️ Features Requiring Server-Side Language
+
+- OTP (send/resend)
+- Email handling
+- Payment Gateway integration
+- SMS sending
+- User Authentication
+  - Login
+  - Signup
+  - Forgot Passwaord
+
+### 💻 Languages & Their Best Use Cases
+
+- Every language is expert in a specific domain.
+- **Node.js** → Best for Network-Centric Applications (real-time data transfer)
+  - Video Streaming (Amazon Prime, Netflix, Zoom, Google Meet)
+  - Chat Applications
+  - IoT Applications
+- **PHP** → Strong in E-commerce & Cloud Telephony (IVR systems)
+
+- **Java & .NET** → Best for Transactional Security (e.g., Banking, Enterprise apps)
+- **Python** → Best for AI/ML, Data Science, Automation
+
+⚠️ Note: No language or server is secure by default.
+
+- Security comes from developer’s logic and implementation (experience matters).
+
+### 🚀 Building a Startup – Key Points
+
+- Keep in mind 3 major factors when building products:
+  1. **Cost Effective** – Should fit budget without wasting resources.
+  2. **Scalable** – Must grow from 0 → millions of users smoothly.
+  3. **Robust** – Must be reliable and fault-tolerant.
+     - Downtime tolerance should be near zero.
+
+👉 If confused about which tech to use, do freelance projects & R&D to gain clarity.
+
+# ⚛️ Day - 16 Node.js API
 
 ### 🔹 Definition
 
