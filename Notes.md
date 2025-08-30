@@ -1102,8 +1102,8 @@ function myCode() {
 
 - And return two functions `resolve` and `reject`
 
+### <mark> correct above based on geiven info below</mark>
 
-### <mark> correct it</mark>
 - A Promise represents a value that may be available now, later, or never.
 - Used to handle asynchronous operations.
 - Promise constructor takes a callback function with two arguments:
@@ -1166,7 +1166,6 @@ function greet(callback) {
   callback();
 }
 greet(() => console.log("World"));
-
 ```
 
 #### Callback Hell
@@ -1245,6 +1244,165 @@ const a = new Promise(12);
   ```
 
 - 👉 In OOP, to execute a class we create instance (Object) of a class using `new` keyword.
+
+# 📈 Day -12 Nodejs, async await and exception handling
+
+### 🚀 Node.js
+
+- Node.js is not a language.
+- It is a **JavaScript runtime environment** that allows JavaScript to run on the server.
+
+### 🧵 Threads in Node.js
+
+- Thread is a mechanism to handle a request.
+- It's a program present in software which makes your machine server ex- Node.js, Tomcat etc.
+- A thread is a lightweight process that handles tasks/requests.
+  Examples of software that use threads: Node.js, Tomcat, Apache etc.
+
+#### Types of Threads
+
+- There are two types of threads:
+  - **Single-threaded** – Only one task at a time.
+  - **Multi-threaded** – Multiple tasks at the same time.
+- Since **JavaScript is a single threaded** language. So **Node.js is also single threaded**(it has one main thread for executing JS code).
+  Example:
+  - For example user1, user2, user3, user4.... sent request thread accept that request and transfer to server (worker) now thread is busy with user1 so others will wait in a queue and when thread sent response back to user1 after that accept request of user2
+    - If user1 request is being processed, the main thread is busy → user2, user3 wait in a queue.
+    - This would block execution under heavy load if Node.js didn’t have a special mechanism.
+- For heavy traffic, practically it is not possible.
+- 👉 To solve this, Node.js uses libuv for asynchronous, non-blocking behavior.
+
+### ⚙️ How Node.js Handles Multiple Requests
+
+-Node.js is written in C++.
+
+- In C++ there is a program(s/w) called `Kernal` which has a package( a folder which have collection of source code ) called `libuv`
+- `libuv` has capability to create dynamic threads.
+- **libuv provides**:
+  - Event Loop
+  - Thread Pool (creates background threads dynamically)
+
+👉 Workflow:
+
+```scss
+Request → Event Loop → Thread (libuv) → Worker (processes) → Response
+
+```
+
+**Now the secne is changed😀**
+
+- user1 sent request, libuv generates a dynamic thread, it accept the request and sent to worker and now thread is free. Now user2 sent request and the same thread will accept the request.
+
+- **But what if multiple request sent parallely?**
+  - libuv will generate the threads
+
+#### Worker
+
+- A program in server which works in background.
+- Worker is like code processorthat executes actual code and sends response back.
+
+```scss
+Request1 ---> Thread ---> worker (processor) ---> response (back to client)
+```
+
+- In interviews answer straight forward `worker(server)`
+- Mostly `200-500` thread limit are defined, we can increase it but we don't do because hardware use will increase and latency will grow.
+
+
+#### Scaling (when traffic is very high)
+- In case of heavy traffic server crashes, we prevent it through scaling.
+- There are 2 type of scaling:
+  - Horizontal Scaling - Add more servers and distribute traffic (load balancing).
+  - Vertical Scaling - Add more CPU/RAM to the server.
+
+### 🔄 Event Loop
+
+- Event-loop is a mechanism, Node.js server continously keep checking things on basics of events eg: user sent request, file downloading etc.
+- Event Loop = mechanism that keeps checking for tasks/events (requests, timers, file I/O).
+- It decides what to execute next and ensures non-blocking execution.
+- This is the core reason Node.js can handle thousands of concurrent requests even with a single thread.
+
+### async await
+
+- Synchronoous & Asynchronous are type of statement execution:
+
+  - `sync ---> async ---> use promise`
+  - `async ---> sync ---> use asunc await`
+
+- Where Promise returns come from there to resolve the promise we use `.then().catch()` or `async await`
+
+- `await` keyword is a member of a function.
+- To use `await` we write `async` before a function, it basically represents the function is asynchronous.
+
+- There are two ways to resolve a Promise
+
+  1. Asynchronously
+
+  - To resolve a promise asynchronously we use `.then().catch()` it works by default asynchronously.
+  - From `.then()` we get info about success from `resolve()`
+  - From `.catch()` we get info about error from `reject()`
+
+  ```js
+  function myCode() {
+    return new Promise((resolve, reject) => {
+      if (22 === 22) {
+        resolve("Two");
+      } else {
+        reject("Failed");
+      }
+    });
+  }
+
+  console.log("One");
+  myCode()
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  console.log("Three");
+  ```
+
+  2. Synchronously
+
+  - To resolve a promise synchronously we use `async await`
+  - To handle Promise error is compulsary other wise server will crash.
+    - On cloud Server crash means compilation will terminate from Node.js - To fix this restart server.
+    - But in case of shared server, server crash can be anything.
+  - But in async await there is no way to get information about error, so we use exception handling (`try` & `catch`).
+
+    - exception handling means is a way to find error in async await.
+
+    - **finally**: Wether `try` or `catch` any of them is executed after that `finally` block will execute.
+    `finally` always executes.
+
+  ```js
+  function myCode() {
+    return new Promise((resolve, reject) => {
+      if (22 === 22) {
+        resolve("Two");
+      } else {
+        reject("Failed");
+      }
+    });
+  }
+
+  async function main() {
+    try {
+      console.log("One");
+      const x = await myCode();
+      console.log(x);
+      console.log("Three");
+    } catch (err) {
+      console.log(err);
+    } finally {
+      console.log("Promise Executed");
+    }
+  }
+
+  main();
+  ```
 
 # ⚛️ Day - 16 Node.js API
 
@@ -1409,3 +1567,7 @@ if (method === "GET") {
 
 ✅ Final Takeaway:
 A REST API is built around endpoints (resources) + HTTP methods (actions). Always return JSON responses with proper status codes.
+
+```
+
+```
