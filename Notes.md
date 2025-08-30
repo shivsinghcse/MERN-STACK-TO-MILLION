@@ -994,6 +994,258 @@ db.users.find({ name: { $regex: "^a", $options: "i" } });
 
 👉 If confused about which tech to use, do freelance projects & R&D to gain clarity.
 
+# 🪧 Day - 11 Node.js, Promises, Synchronous & Asynchronous Code
+
+### Why Do We Need Server-Side Language?
+
+- Client-side languages (like plain JavaScript in the browser) cannot directly communicate with databases.
+- That’s why we use server-side languages (like Node.js, PHP, Java, etc.) to interact with databases.
+
+##### Flow:
+
+`JavaScript (gives instruction) --> NodeJS (accept instruction & process) --> Database
+
+### Limitations of Server-Side Language
+
+- Server-side languages are mainly used to give instructions to the machine.
+- The nature (type) of instructions can vary (anything) (DB operations, file handling, etc.).
+- Code executes on the server (not on the browser).
+
+### What is NodeJS?
+
+- In developer terms: Node.js is not a language. It is a JavaScript runtime environment that allows JavaScript to run on the server.
+- It uses the V8 engine (from Chrome) to execute JS outside the browser.
+
+- With Node.js, JavaScript can perform server-side operations like handling HTTP requests, accessing databases, file systems, etc.
+
+### JavaScript Execution
+
+- JavaScript runs on both client & server:
+
+  - Browser → JavaScript (DOM, BOM, UI operations)
+  - Server → Node.js (database, APIs, business logic)
+
+- Not all JS code works on the server:
+
+  - UI related code does not execute
+  - BOM and DOM related code does not execute on server
+
+  ```js
+  window.alert("Hello World!"); ❌ // Browser only
+  document.write("Hello World!"); ❌ // Browser only
+
+  console.log("Hello World!"); ✅ // Works in Node.js
+  ```
+
+- JavaScript code --> NodeJS --> Compile/Interprate on Server machine
+
+### Making a machine (CPU) Server / Web Server:
+
+- Any Machine (CPU) is not a web server by default because it is not configured to handle HTTP requests.
+- So to make it web server we have to install some software depend on need:
+  - Node.js
+  - Nginx
+  - Apache
+  - Tomcat
+  - Bitnami
+- We use Node.js for dev server
+- Nginx is used for production web server (often used with Node.js apps)
+- Apache is used mostly for php apps
+- Tomcat for Java apps.
+- Bitnami -> Bundled stack for quick setup.
+
+- Node.js
+  - make machine capable to handle http request
+  - help javascript code run on server (JavaScript Runtime Environment)
+  - Compile / Interprate using compiler / Interpretor (both exist in V8 engine)
+
+## Synchronous vs Asynchronous
+
+### Types of Execution Types:
+
+- Statement executes in two ways:
+
+  - **Synchronous (blocking)**: code execute line by line in order.
+
+  ```js
+  console.log("One");
+  console.log("Two");
+  console.log("Three");
+
+  // output
+  // One -> Two -> Three
+  ```
+
+  - **Asynchronous (non-blocking)**: does not wait for the async task (statements) to finish.
+
+  ```js
+  console.log("One");
+  setTimeout(() => {
+    console.log("Two");
+  }, 3000);
+  console.log("Three");
+
+  // Output: One → Three → (after 3s) Two
+  ```
+
+### Promises in JavaScript
+
+- Promise is a way to make any synchronous code to asynchronous.
+- We always write Promise code in a function. And inside function we create instance of Promise class and return it because we have to send it from where it called.
+- Promise take a callback function as an argument which is received by constructor function
+
+```js
+function myCode() {
+  return new Promise(() => {});
+}
+```
+
+- And return two functions `resolve` and `reject`
+
+
+### <mark> correct it</mark>
+- A Promise represents a value that may be available now, later, or never.
+- Used to handle asynchronous operations.
+- Promise constructor takes a callback function with two arguments:
+  - `resolve` -> success
+  - `reject` -> failure
+
+```js
+function myCode() {
+  return new Promise((resolve, reject) => {
+    if (12 === 12) {
+      resolve("Success");
+    } else {
+      reject("Failed");
+    }
+  });
+}
+
+const x = myCode();
+console.log(x); // Promise {<Pending>}
+```
+
+- Promise has three states:
+
+  - `Pending` --> if you did not use promise (initial state)
+  - `Fullfilled` --> resolve() called
+  - `Rejected` --> reject() called
+
+- To resolve Promise we use callback.
+- For Fullfilled state we use `.then()`
+- For Rejected State we use `.catch()`
+
+```js
+function myCode() {
+  return new Promise((resolve, reject) => {
+    if (12 === 12) {
+      resolve("Success");
+    } else {
+      reject("Failed");
+    }
+  });
+}
+
+console.log("One");
+const x = myCode();
+x.then((msg) => {
+  console.log(msg);
+}).catch((err) => {
+  console.log(err);
+});
+console.log("Three");
+```
+
+#### Callback
+
+- A callback function is a function in Javascript that is passed as an argument to another function.
+
+```js
+function greet(callback) {
+  console.log("Hello");
+  callback();
+}
+greet(() => console.log("World"));
+
+```
+
+#### Callback Hell
+
+- Nesting of the callback is called callback hell.
+- jQuery by default support callback hell.
+
+#### Promise behind the sence:
+
+```js
+class Promise{
+  constructor(){
+    // .....
+    // .....
+  }
+
+  function demo(){
+    // ......
+    // ......
+  }
+}
+
+const x = new Promise();
+// If you want to call a function from class
+// 1st create instance of that class
+// than call the function using that instance
+x.demo();
+```
+
+- A Promise is just a class in JavaScript.
+- `Constructor` is a function which invoke automatically ASAP when new instance is created..
+- We do not need to call constructor function.
+- If at the time of creating instance of the class we pass something as an argument, constructor function accept it as a parameter.
+
+```js
+class Promise {
+  constructor(x) {
+    console.log("Constructor called with:", x);
+  }
+
+  //.....
+  //.....
+}
+const a = new Promise(12);
+// Constructor automatically invoked
+```
+
+### Programming Paradigm:
+
+- In Programming there is a concept known as paradigm.
+- There are different ways (paradigms) to write code:
+- But mainly we uses 2 paradigm:
+
+  1. Procedural-Oriented: step by step, no classes
+
+  ```js
+  // write code without class
+  console.log("One");
+  console.log("Two");
+  console.log("Three");
+  ```
+
+  2. Object-Oriented (OOP) : using classes & objects
+
+  ```js
+  class Code {
+    run() {
+      console.log("One");
+      console.log("Two");
+      console.log("Three");
+    }
+  }
+
+  const code = new Code();
+  code.run();
+  ```
+
+- 👉 In OOP, to execute a class we create instance (Object) of a class using `new` keyword.
+
 # ⚛️ Day - 16 Node.js API
 
 ### 🔹 Definition
@@ -1005,16 +1257,16 @@ db.users.find({ name: { $regex: "^a", $options: "i" } });
 ### 🔹 How APIs Work
 
 - Server-side code can be written in any backend language:
-  - PHP, Node.js, Python, Java, Go, etc.
+- PHP, Node.js, Python, Java, Go, etc.
 - The API then exposes functionalities that can be consumed by client-side applications:
-  - JavaScript (JS), React, Angular, Vue.js, PHP, Java, Go, etc.
+- JavaScript (JS), React, Angular, Vue.js, PHP, Java, Go, etc.
 
 ### 🔹 Example Use Case: Video Calling
 
 - Earlier (Old Way – SDKs)
-  - SDKs were language-dependent, requiring separate implementations for PHP, Node.js, Java, etc..
+- SDKs were language-dependent, requiring separate implementations for PHP, Node.js, Java, etc..
 - Now (Modern Way – APIs)
-  - APIs are language-independent → one API works for all clients regardless of language.
+- APIs are language-independent → one API works for all clients regardless of language.
 
 ### 🔹 Types of APIs
 
