@@ -1308,8 +1308,8 @@ Request1 ---> Thread ---> worker (processor) ---> response (back to client)
 - In interviews answer straight forward `worker(server)`
 - Mostly `200-500` thread limit are defined, we can increase it but we don't do because hardware use will increase and latency will grow.
 
-
 #### Scaling (when traffic is very high)
+
 - In case of heavy traffic server crashes, we prevent it through scaling.
 - There are 2 type of scaling:
   - Horizontal Scaling - Add more servers and distribute traffic (load balancing).
@@ -1375,7 +1375,7 @@ Request1 ---> Thread ---> worker (processor) ---> response (back to client)
     - exception handling means is a way to find error in async await.
 
     - **finally**: Wether `try` or `catch` any of them is executed after that `finally` block will execute.
-    `finally` always executes.
+      `finally` always executes.
 
   ```js
   function myCode() {
@@ -1403,6 +1403,254 @@ Request1 ---> Thread ---> worker (processor) ---> response (back to client)
 
   main();
   ```
+
+# 😶‍🌫️ Day - 13 Nodejs Modules and Packages
+
+### 📦 Module
+
+- In Node.js any javascript file created to perform a specific task is called `Module`.
+- Modules help in re-usability, maintainability, and code organization.
+- Terms like module, package, dependency, library are often used interchangeably (though technically they differ slightly).
+
+Example module files:
+
+```js
+video_streaming.js;
+download.js;
+upload.js;
+live.js;
+```
+
+### 🔹 Types of Modules
+
+- There are 3 types of module:
+  - **Built-in / pre-defined module**: Provided by Node.js (`fs`, `http`, `path`, etc.).
+  - **User defined module**: Created by developers.
+  - **Third party Module**: Installed from npm registry (`express`, `moment`, etc.)
+
+### ✂️ Code Splitting
+
+- Breaking code into smaller chunks for better performance and maintainability.
+- Benefits:
+
+  - Faster app loading.
+  - Easier team collaboration.
+
+- In Node.js & JavaScript there are multiple approaches of code splitting (ways to split code):
+  - Modules
+  - Functions
+  - Classes
+
+### 👨‍💻 User-defined Modules
+
+- Create an external `.js` file.
+- Export the code using `module.exports`.
+- To use module: import using `require()`(similar to import)
+
+**Syntax**
+
+```js
+    module.exports =variable or function or class
+```
+
+**Example 1 – Exporting a Single Value**
+
+```js
+// file.js
+
+const test = "Hello NodeJS";
+module.exports = test;
+```
+
+#### How to use
+
+- **require()**: when we read module using require() it is called `Common Js`
+
+  - Syntax
+
+  ```js
+  const moduleName = require("path of module");
+  ```
+
+  - Example:
+
+  ```js
+  // index.js
+
+  const file = require("./file");
+
+  console.log(file); // Hello Node.js
+  ```
+
+- If you are exporting multiple values in Common JS, use object `{}` to export
+- Since Module is re-usable, so function inside module return data not result directly.
+
+```js
+// file.js
+
+const test = "Hello NodeJS";
+const addTwoNumbers = (a, b) => {
+  return a + b;
+};
+
+module.exports = {
+  test,
+  addTwoNumbers,
+};
+```
+
+```js
+// index.js
+const file = require("./file");
+
+console.log(file.test);
+console.log(file.addTwoNumbers(2, 3));
+```
+
+- Since you exporting object you can recieve values through object de-structuring.
+
+```js
+// index.js
+
+const { test, addTwoNumbers } = require("./file");
+
+console.log(test);
+console.log(addTwoNumbers(2, 3));
+```
+
+- Node.js uses common js (CJS) by default before v13.
+
+#### Import/Export in EcmaScript
+
+- Uses `import`/`export`. (Modern Standard)
+  - **import**: used to import it is called EcmaScript Module (ESM)
+  - **export/export default**: use to export in ESM
+
+**Example**:
+
+```js
+// file.mjs
+export const test = "Hello ESM";
+export default function add(a, b) {
+  return a + b;
+}
+```
+
+```js
+// index.mjs
+import add, { test } from "./file.mjs";
+console.log(test);
+console.log(add(2, 3));
+```
+
+- ⚠️ To use ESM in Node.js:
+  - Either save file as `.mjs`
+  - OR set `"type": "module"` in `package.json`.
+
+## Moment.js
+
+- In JavaScript use this link as cdn `https://momentjs.com/downloads/moment.js`
+- Get Current Date and Time: `moment()`
+
+- Visit `moment.js` documentation
+- Visit `Day.js` documentation (Recomonded)
+
+### 🌍 Third-party Modules
+
+- If a feature isn’t available in Node.js, install a third-party module via `npm`.
+- To download and manage third party module we need a tool called `npm` and it comes with Node.js.
+- Packages are hosted on 👉 `npmjs.com`
+- You can also host your packages on `www.npmjs.com`
+
+```sh
+npm install package/module_name
+npm i package/module_name
+```
+
+#### 📅 Example: Moment.js
+
+- It is a package which help to with date related task.
+- A library for date and time manipulation.
+
+```js
+const moment = require("moment");
+
+const dt = moment();
+console.log(dt.format("DD:MM:YYYY HH:MM:SS A));
+```
+
+**✅ Notes:**
+
+- `HH:mm:ss` → 24-hour format
+- `hh:mm:ss` → 12-hour format
+- `A` → AM/PM (uppercase)
+- `a` → am/pm (lowercase)
+
+### ⚙️ Process Manager
+
+- It is a concept in Node.js which automatically restarts/recompiles code when changes occur.
+- There are two process manager in Node.js
+  1. `nodemon` : used in Development server
+  ```js
+  npm install -g nodemon
+  // how to run file
+  nodemon filename
+  // if your file name is index.js
+  nodemon
+  ```
+  2. `PM2`: Used in production for load balancing and process monitoring.
+
+### 🛠️ Creating a Project in Node.js
+
+- Create a folder --> name as product/company name
+- Add to workspace
+- `npm init -y`
+  - It initilize `package.json` file also called metadata file or manifest file.
+  - `package.json` contains:
+    1. MetaData (application related details like name, version, root file(entry point of application) etc)
+    2. Config/scripts (command to run project)
+    3. Author details
+    4. Dependencies
+
+Example:
+
+```js
+// package.json
+{
+  "name": "wap_demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "moment": "^2.30.1",
+    "nodemon": "^3.1.10"
+  }
+}
+```
+
+### 📤 Sharing a Project
+
+- Select all files except `node_modules/`
+- Create zip
+- Share
+
+### 📥 Running a Shared Project
+
+- Unzip project.
+- Open in workspace/IDE.
+- Goto Terminal
+- Run
+
+```sh
+npm install
+```
 
 # ⚛️ Day - 16 Node.js API
 
