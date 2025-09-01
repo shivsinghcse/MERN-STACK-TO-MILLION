@@ -1652,6 +1652,268 @@ Example:
 npm install
 ```
 
+# 🔥 Day - 14 Nodejs Server and Database
+
+### NPM (Node Package Manager)
+
+- `npm` is a cli(Command Line Interface) tool, which is used to manage (install, uninstall, update, upgrade) Node.js packages.
+- Common operations with `npm`
+
+  - Install packages
+  - Uninstall packages
+  - Update packages
+  - Upgrade packages
+
+- **👉 CLI Tool**: A tool that operates via the terminal/command line.
+
+### URL (Uniform Resource Locator)
+
+Example:
+
+```sh
+http://www.demo.com:3000
+```
+
+- A URL consists of 3 parts:
+
+```js
+protocol + domain name (or IP) + port
+
+```
+
+#### 1. Protocal
+
+- Defines the set of rules for communication.
+- Example:
+  - `http` → HyperText Transfer Protocol
+  - `https` → Secure HyperText Transfer Protocol
+
+#### 2. Domain Name / IP Address
+
+- **Domain Name**: Human-readable address (e.g., `www.google.com`)
+- **IP Address**: Numeric form of domain name (e.g., `127.0.0.1`)
+
+  - IPv4 (e.g., `192.168.1.1`)
+  - Ipv6 (e.g., `2400:cb00:2048:1::c629:d7a2`)
+
+#### 3. Port:
+
+- A numeric identifier for services running on a machine (2–4 digits).
+- Common Ports:
+  - `http - 80`
+  - `https - 443`
+
+## Stateless vs Stateful Protocols
+
+### 🔹 Stateless Protocol (e.g., HTTP, HTTPS)
+
+- After sending the response, the server disconnects from the client.
+- Client and server don’t maintain a continuous connection.
+- **Advantage**: Saves resources. (If you leave a website open overnight, it won’t consume data.)
+
+```
+- `http` and `https` are stateless protocal, when user sent request to server it connect and server sent response back to client and disconnected.
+- Now client and server do not know each other.
+```
+
+### 🔹 Stateful Protocol
+
+- A continuous connection is maintained between client and server.
+- Server disconnects only when it decides to.
+- Used where real-time data transfer is needed.
+- Example:
+
+  - **WebRTC** (`webrtc://`) → video calls, audio calls, stock market apps, banking portals
+  - **WebSocket** (`ws://`) → chat apps like WhatsApp, Messenger (keeps users connected until explicitly closed)
+
+  - **TCP (Transmission Control Protocol)** : Learn
+  - **SSH (Secure Shell)** : Learn
+
+    ```
+    - Where real time data transfer takes place, it is done using web Socket protocall
+    - user1 and user2 both are connected to server eg. whatsapp (chat open --> connected)
+    ```
+
+### 📦 Uninstalling a Package
+
+```sh
+npm uninstall package_name
+```
+
+### 📂 Entry Point / Root File
+
+- A Node.js project can have multiple files, but it needs one entry point (root file) from where execution starts.
+- This root file is usually defined in `package.json` under `"main"` (default: `index.js`).
+
+### 🖥️ What is a Server?
+
+- When a CPU is capable to handle request and response, called server.
+- A server is a machine (or software) that listens for requests and sends responses.
+- When we use Node.js, our CPU acts as the server.
+
+### 🌐 HTTP Module
+
+- `http` is a **built-in module** module in Node.js.
+- It provides a method `createServer()` to create an HTTP server.
+- It returns a Promise
+- `createServer()` takes a callback function with two parameters:
+  - `req` → request object
+  - `res` → response object
+
+```js
+const http = require("http");
+
+const server = http.createServer((req, res) => {
+  console.log("Hello Server!");
+  res.end("Hi, I am your server");
+});
+
+server.listen(8080, () => {
+  console.log("Server running at http://localhost:8080");
+});
+```
+
+#### 🔌 Why Do We Set Ports?
+
+- On a local computer, multiple applications may run on the same domain (`localhost` → `127.0.0.1`).
+  To differentiate applications, each runs on a unique port number (e.g., `8080`, `5000`, `3000`).
+
+```
+  - We are working on local computer, maybe we develop different application in different languages like php, python, node, java
+  - Since we are working on local, so our CPU is server which has default address 127.0.0.1 (domain - localhost)
+  - So all application can not run with same domain name
+  - to provide uniqueness to domain we create 4 digit port, port can be any number
+  - When you set port, now you can access your node application from browser
+```
+
+### ❓ Query Parameters
+
+- If you want to send data from client to server there are multiple ways for that : `query parameter/string` is one them.
+- In URL `?` is known as query parameter.
+- A way to send data from client → server via URL.
+- Format:
+
+```sh
+www.demo.com?name=user&roll=123
+# name --> query (key)
+# user --> parameter / string (value)
+# & --> seprate
+```
+
+### Status Code:
+
+- Status code is way via that server tells about response status to browser.
+- Status codes tell the browser/client the result of the request.
+
+- Common ones:
+  - `200` → OK (success)
+  - `201` → Created
+  - `424` → Failed Dependency
+  - `500` → Internal Server Error
+  - `401` → Unauthorized
+  - `404` → Not Found
+  - `409` → Conflict (duplicate)
+- Always send respose to browser with Status Code.
+- 👉 Default status code is `200` unless changed.
+
+```js
+const http = require("http");
+
+const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  res.end("Hi, I am your server");
+});
+
+server.listen(8080);
+```
+
+### Writing Efficient Code
+
+Bad (nested):
+
+```js
+const http = require("http");
+
+const server = http.createServer((req, res) => {
+  const userName = "demo@gmail.com";
+  const password = "hello@1234";
+
+  if (userName === "demo@gmail.com") {
+    if (password === "hello@1234") {
+      res.statusCode = 200;
+      res.end("Login success!");
+    } else {
+      res.statusCode = 401;
+      res.end("Login failed,Incorrect Password.");
+    }
+  } else {
+    res.statusCode = 404;
+    res.end("User does exist please register or signup to continue.");
+  }
+});
+
+server.listen(8080);
+```
+
+Better (flat structure):
+
+```js
+if (userName !== "demo@gmail.com") {
+  res.statusCode = 404;
+  return res.end("User does not exist. Please register.");
+}
+
+if (password !== "hello@1234") {
+  res.statusCode = 401;
+  return res.end("Incorrect Password.");
+}
+
+res.statusCode = 200;
+res.end("Login success!");
+```
+
+- As senior developer:
+  - Avoide nesting, nesting use more compute power
+
+### 🗄️ Connecting MongoDB via Node.js
+
+- To use MongoDb in Node.js, we use `mongodb` module.
+
+```sh
+npm install mongodb
+```
+
+- `require()` mongodb module.
+- This module has property called `MongoClient` which helps to establish connection using `connect()` method with MongoDB.
+- `MongoClient.connect()` takes URL as an argument and return a Promise.
+- To resolve Promise in MongoDB we use `.then().catch()` because `async await` is not supported in latest version.
+- Database act as layer of server, if database connection is failed so server should be crash.
+- To crash(kill) server we call exit method from process and pass 0:
+
+```js
+process.exit(0);
+// exit nodemon then check because nodemon recompile code
+```
+
+```js
+const { MongoClient } = require("mongodb");
+
+const conn = MongoClient.connect("mongodb://localhost:27017");
+
+conn
+  .then(() => {
+    console.log("Connected");
+  })
+  .catch((err) => {
+    console.error("❌ Database connection failed!", err.message);
+    process.exit(1); // 1 = failure, 0 = success exit
+
+    // 1 = failure, 0 = success exit  learn more about it
+  });
+```
+
+# 🧿 Day - 15
+
 # ⚛️ Day - 16 Node.js API
 
 ### 🔹 Definition
