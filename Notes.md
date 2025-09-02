@@ -1804,15 +1804,19 @@ www.demo.com?name=user&roll=123
 
 - Status code is way via that server tells about response status to browser.
 - Status codes tell the browser/client the result of the request.
+- Server is responsible to inform browser about the result, for that server uses status code.
 
 - Common ones:
+
   - `200` → OK (success)
   - `201` → Created
   - `424` → Failed Dependency
   - `500` → Internal Server Error
   - `401` → Unauthorized
   - `404` → Not Found
+  - `408` → Connection timeout
   - `409` → Conflict (duplicate)
+
 - Always send respose to browser with Status Code.
 - 👉 Default status code is `200` unless changed.
 
@@ -1873,11 +1877,12 @@ res.end("Login success!");
 ```
 
 - As senior developer:
-  - Avoide nesting, nesting use more compute power
+  - Avoide nesting, nesting use more compute power means more time complexity.
 
 ### 🗄️ Connecting MongoDB via Node.js
 
-- To use MongoDb in Node.js, we use `mongodb` module.
+- To establish connection with MongoDb in Node.js, for that we use `mongodb` module.
+-
 
 ```sh
 npm install mongodb
@@ -1886,11 +1891,12 @@ npm install mongodb
 - `require()` mongodb module.
 - This module has property called `MongoClient` which helps to establish connection using `connect()` method with MongoDB.
 - `MongoClient.connect()` takes URL as an argument and return a Promise.
-- To resolve Promise in MongoDB we use `.then().catch()` because `async await` is not supported in latest version.
+- To resolve Promise in MongoDB we use `.then().catch()` because `connect()` does not support `async await` in latest version.
 - Database act as layer of server, if database connection is failed so server should be crash.
 - To crash(kill) server we call exit method from process and pass 0:
 
 ```js
+// in .catch()
 process.exit(0);
 // exit nodemon then check because nodemon recompile code
 ```
@@ -1912,7 +1918,130 @@ conn
   });
 ```
 
-# 🧿 Day - 15
+# 🧿 Day - 15 Nodejs Conditional Statements
+
+### HTTP & HTTPS
+
+- To create server we use Node.js built-in modules:
+  - `http`
+  - `https`
+- Also keep in mind about `stateful` and `stateless` protocals.
+- Generally we follow stateless protocal because server disconnect after response.
+- HTTP and HTTPS are stateless protocols, meaning once the server sends a response, it closes the connection.
+- Stateful protocols maintain connection after response (example: WebSockets).
+
+### IP Address & Ports
+
+- IP address is a numeric representation of domain name or any digital identity.
+
+- Port Numbers: Numeric identifiers for protocols. Common ones:
+
+  - `HTTP` → 80
+  - `HTTPs` → 443
+  - `SSH` → 22
+  - `MongoDB` → 27017
+
+### Node.js Server vs Other Languages
+
+- Node.js is a JavaScript runtime environment that has capability to create server.
+- Other progeamming language uses some software for that like:
+  - PHP → Apache
+  - Java → Tomcat
+
+#### ⚡ Limitation:
+
+- But Node.js has some limitation:
+
+  - Development environment → Node.js is enough.
+  - Production environment → Usually deployed with Node.js + Nginx (for load balancing, reverse proxy, SSL, caching, etc.).
+
+### Response Handling
+
+- `res.end()` function along with sending request to client, it disconnect from server (close the connection), that means it follows the stateless protocal.
+
+### Agile & Scalability
+
+- According to Agile development if you want to make a software scalabe you must follow a pattern.
+
+### Node.js Modules
+
+#### Third Party Module
+
+- Moment (date/time manipulation)
+- Nodemon (auto-restart server)
+- MongoDB (database driver)
+
+#### Built-in Module
+
+- http
+- queryString
+- url (important to learn)
+
+### Request & Query String
+
+- `req.url` gives query String
+- To read that query String we have to convert it into object first for that we have `queryString` moddule.
+- Query strings must be parsed into an object using the `querystring` module.
+
+#### Example 1 – Nested Condition (❌ not recommended)
+
+```js
+const http = require("http");
+const queryString = require("querystring");
+
+const server = http.createServer((req, res) => {
+  const { name, password } = queryString.parse(req.url.slice(2));
+
+  if (name === "shiv") {
+    if (password === "1234") {
+      res.statusCode = 200;
+      res.end("Success");
+    }
+  } else {
+    res.statusCode = 401;
+    res.end("User does not exist.");
+  }
+});
+
+server.listen(8080);
+```
+
+- The data which is send with the help of request (client), is called `payload`.
+  ⚠️ Note:
+- The data which we receive from url or queryString, it is always a String even if you pass numbers or booleans.
+
+- Code nesting requires more compute power, so it is not allowed in production.
+- Senior developer ignore `else`, to do that handle failure first using `if` and `return`.
+
+#### Example 2 – Improved Version (✅ production style)
+
+```js
+const http = require("http");
+const queryString = require("querystring");
+
+const server = http.createServer((req, res) => {
+  const { name, password } = queryString.parse(req.url.slice(2));
+
+  if (name !== "shiv") {
+    res.statusCode = 401;
+    res.end("User does not exist, please register to login");
+    return;
+  }
+
+  if (password !== "1234") {
+    res.statusCode = 401;
+    res.end("Invalid Password!");
+    return;
+  }
+
+  res.statusCode = 200;
+  res.end("Login Success.");
+});
+
+server.listen(8080);
+```
+
+✅ Here we handle failures first and avoid deep nesting. This improves readability and performance.
 
 # ⚛️ Day - 16 Node.js API
 
