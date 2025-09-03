@@ -2054,9 +2054,9 @@ server.listen(8080);
 ### 🔹 How APIs Work
 
 - Server-side code can be written in any backend language:
-- PHP, Node.js, Python, Java, Go, etc.
+  - PHP, Node.js, Python, Java, Go, etc.
 - The API then exposes functionalities that can be consumed by client-side applications:
-- JavaScript (JS), React, Angular, Vue.js, PHP, Java, Go, etc.
+  - JavaScript (JS), React, Angular, Vue.js, PHP, Java, Go, etc.
 
 ### 🔹 Example Use Case: Video Calling
 
@@ -2120,9 +2120,27 @@ Modern APIs use REST + JSON for efficient and flexible data transfer.
 
 ```js
 http://localhost:8080/users
-http://www.codingott.com/users
+http://www.codingott.com/courses
 
 - Here, `/users` is the endpoint (resource)(interms of backend)
+```
+
+### How to get endPoint:
+
+```js
+const http = require("http");
+const url = require("url");
+
+const server = http.createServer((req, res) => {
+  const parsedURL = url.parse(req.url, true);
+  const endPoint = parsedURL.pathname;
+
+  console.log(endPoint);
+
+  res.end(`EndPoint: ${endPoint}`);
+});
+
+server.listen(8080);
 ```
 
 ### 🔹 CRUD Operations in REST API
@@ -2130,7 +2148,7 @@ http://www.codingott.com/users
 - Generally when we create APIs, we do mainly 4 things and this is called CRUD.
 - Each resource usually supports 4 main actions:
 
-  - Store (Create)
+  - Create (Store)
   - Fetch (Read)
   - Update
   - Delete
@@ -2207,6 +2225,48 @@ if (method === "GET") {
 ✅ Final Takeaway:
 A REST API is built around endpoints (resources) + HTTP methods (actions). Always return JSON responses with proper status codes.
 
-```
+```js
+const http = require("http");
+const url = require("url");
 
+const server = http.createServer((req, res) => {
+  const parsedURL = url.parse(req.url, true);
+  const endPoint = parsedURL.pathname;
+  const method = req.method;
+
+  if (endPoint !== "/products") {
+    res.writeHead(404, { "content-type": "application/json" });
+    res.end(JSON.stringify({ message: `${endPoint} not found.` }));
+    return;
+  }
+
+  if (method === "GET") {
+    res.writeHead(200, { "content-type": "application/json" });
+    res.end(JSON.stringify({ message: "Products fetched." }));
+    return;
+  }
+
+  if (method === "POST") {
+    res.writeHead(200, { "content-type": "application/json" });
+    res.end(JSON.stringify({ message: "Products added." }));
+    return;
+  }
+
+  if (method === "PATCH") {
+    res.writeHead(200, { "content-type": "application/json" });
+    res.end(JSON.stringify({ message: "Products updated." }));
+    return;
+  }
+
+  if (method === "DELETE") {
+    res.writeHead(200, { "content-type": "application/json" });
+    res.end(JSON.stringify({ message: "Products deleted." }));
+    return;
+  }
+
+  res.writeHead(405, { "content-type": "application/json" });
+  res.end(JSON.stringify({ message: "Method not allowed!" }));
+});
+
+server.listen(8080);
 ```
