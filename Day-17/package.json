@@ -11,6 +11,6 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "mongodb": "^6.18.0"
+    "mongodb": "^6.19.0"
   }
 }

@@ -1,64 +1,96 @@
 const http = require("http");
 const { MongoClient } = require("mongodb");
+let db = null;
 
-MongoClient.connect("mongodb://127.0.0.1:27017")
+const conn = MongoClient.connect("mongodb://127.0.0.1:27017");
 
-  .then(async (client) => {
-    console.log("Connected");
-    const db = client.db("ecom");
-    const user = db.collection("users");
-    const x = await user.insertOne({
-      name: "Shiv Singh",
-      email: "shiv0204@gmail.com",
-      mobile: "9140520890",
-    });
+conn
 
-    console.log(x);
+  .then((client) => {
+    db = client.db("ecom");
   })
 
   .catch((err) => {
-    // console.log("Failed to connect with database");
     console.log(err.message);
     process.exit(0);
   });
 
-const server = http.createServer((req, res) => {
+const getMessage = (msg) => {
+  return JSON.stringify({
+    message: msg,
+  });
+};
+
+const server = http.createServer(async (req, res) => {
   const url = req.url;
-  const type = { "content-type": "application/json" };
   const method = req.method;
+  const type = {
+    "content-Type": "application/json",
+  };
 
   if (url !== "/user") {
+    const message = getMessage("Endpoint not found.");
     res.writeHead(404, type);
-    res.end(JSON.stringify({ message: "Endpoint not found" }));
+    res.end(message);
     return;
   }
 
-  if (method === "GET") {
-    res.writeHead(200, type);
-    res.end(JSON.stringify({ message: "User data fetched" }));
+  if (!db) {
+    const message = getMessage("Database not initilised yet.");
+    res.writeHead(500, type);
+    res.end(message);
     return;
   }
 
-  if (method === "POST") {
+  if (method == "GET") {
+    try {
+      const User = db.collection("users");
+      const users = await User.find().toArray();
+
+      res.writeHead(200, type);
+      res.end(JSON.stringify(users));
+      return;
+    } catch (err) {
+      const message = getMessage(err.message);
+      res.writeHead(500, type);
+      res.end(message);
+    }
+  }
+
+  if (method == "POST") {
+    try {
+      const payload = {
+        name: "Laxmi",
+        email: "laxmi123@gmail.com",
+        mobile: 9140404050,
+      };
+      const User = db.collection("users");
+      await User.insertOne(payload);
+
+      res.writeHead(200, type);
+      res.end(JSON.stringify(payload));
+      return;
+    } catch (err) {
+      const message = getMessage(err.message);
+      res.writeHead(500, type);
+      res.end(message);
+    }
+  }
+
+  if (method == "PUT") {
     res.writeHead(200, type);
-    res.end(JSON.stringify({ message: "User data stored" }));
+    res.end(JSON.stringify({ message: "User updated." }));
     return;
   }
 
-  if (method === "PUT") {
+  if (method == "DELETE") {
     res.writeHead(200, type);
-    res.end(JSON.stringify({ message: "User data updated!" }));
-    return;
-  }
-
-  if (method === "DELETE") {
-    res.writeHead(200, type);
-    res.end(JSON.stringify({ message: "User data deleted!" }));
+    res.end(JSON.stringify({ message: "User deleted." }));
     return;
   }
 
   res.writeHead(405, type);
-  res.end(JSON.stringify({ message: "Method not allowed" }));
-}); // it will return instance of server
+  res.end(JSON.stringify({ message: "Endpoint not found." }));
+});
 
 server.listen(8080);

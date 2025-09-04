@@ -2270,3 +2270,55 @@ const server = http.createServer((req, res) => {
 
 server.listen(8080);
 ```
+
+# Day - 17
+
+```js
+const http = require("http");
+// const url = require("url");
+const server = http.createServer((req, res) => {
+  // const parsedURL = url.parse(req.url);
+  // const endPoint = parsedURL.pathname;
+
+  const url = req.url;
+  const method = req.method;
+  const type = {
+    "content-Type": "application/json",
+  };
+
+  if (url !== "/user") {
+    res.writeHead(404, type);
+    res.end(JSON.stringify({ message: "Endpoint not found." }));
+    return;
+  }
+
+  if (method == "GET") {
+    res.writeHead(200, type);
+    res.end(JSON.stringify({ message: "User matched." }));
+    return;
+  }
+
+  if (method == "POST") {
+    res.writeHead(200, type);
+    res.end(JSON.stringify({ message: "User created." }));
+    return;
+  }
+
+  if (method == "PUT") {
+    res.writeHead(200, type);
+    res.end(JSON.stringify({ message: "User updated." }));
+    return;
+  }
+
+  if (method == "DELETE") {
+    res.writeHead(200, type);
+    res.end(JSON.stringify({ message: "User deleted." }));
+    return;
+  }
+
+  res.writeHead(405, type);
+  res.end(JSON.stringify({ message: "Endpoint not found." }));
+});
+
+server.listen(8080);
+```
