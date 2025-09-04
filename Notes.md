@@ -2179,6 +2179,11 @@ server.listen(8080);
 
 - `req.method` method property returns which method is used by client for a particular endpoint.
 
+```js
+const method = req.method;
+console.log(method);
+```
+
 - Whenever client sends a request for a particular endpoint via URL, request method will be GET by default.
 
 ### 🔹 API Testing Tools
@@ -2271,15 +2276,26 @@ const server = http.createServer((req, res) => {
 server.listen(8080);
 ```
 
-# Day - 17
+# 🚀 Day - 17 Node.js MongoDB CRUD
+
+### Rules for Creating Rest API
+
+1. endPoint setup (eg: `/login`, `/signup` etc)
+2. http methods
+3. send status code
+4. Response in JSON format
+
+### Rules for Creating SOAP API
+
+1. endPoint setup (eg: `/login`, `/signup` etc)
+2. http methods
+3. send status code
+4. Response in XML format
 
 ```js
 const http = require("http");
-// const url = require("url");
-const server = http.createServer((req, res) => {
-  // const parsedURL = url.parse(req.url);
-  // const endPoint = parsedURL.pathname;
 
+const server = http.createServer((req, res) => {
   const url = req.url;
   const method = req.method;
   const type = {
@@ -2322,3 +2338,212 @@ const server = http.createServer((req, res) => {
 
 server.listen(8080);
 ```
+
+### Cleaning Above Code
+
+```js
+const http = require("http");
+
+const getMessage = (msg) => {
+  return JSON.stringify({
+    message: msg
+  })
+}
+const server = http.createServer((req, res) => {
+
+  const url = req.url;
+  const method = req.method;
+  const type =  { 
+    "content-type": "application/json" 
+  };
+
+  if (url !== "/user")
+  {
+    const message = getMessage("Endpoint not found.")
+    res.writeHead(404, type);
+    res.end(message);
+    return;
+  }
+
+  if(method === "GET")
+  {
+    const message = getMessage("User matched.")
+    res.writeHead(200, type);
+    res.end(message);
+    return;
+  }
+
+  if(method === "POST")
+  {
+    const message = getMessage("User Created.")
+    res.writeHead(200, type);
+    res.end(message);
+    return;
+  }
+
+  if(method === "PUT")
+  {
+    const message = getMessage("User Updated.")
+    res.writeHead(200, type);
+    res.end(message);
+    return;
+  }
+
+  if(method === "DELETE")
+  {
+    const message = getMessage("User Deleted.")
+    res.writeHead(200, type);
+    res.end(message);
+    return;
+  }
+    
+  const message = getMessage("Method Not allowed!!")
+  res.writeHead(405, type);
+  res.end(message);
+});
+
+server.listen(8080);
+```
+
+### Connecting MongoDB using Node.js
+
+1. Install MongoDB package from npm.
+
+```sh
+npm install mongodb
+```
+
+2. require() mongodb, it returns an object which has a property `MongoClient`, it has `connect()` method which take url as an argument and helps to connect with database.
+
+```js
+const mongo = require("mongodb");
+// or
+const { MongoClient } = require("mongodb");
+
+const conn = MongoClient.connect("mongodb://127.0.0.1:27017")
+
+// same url hit when you write mongosh in terminal
+// 127.0.0.1 = localhost
+```
+  - `MongoClient.connect("mongodb://127.0.0.1:27017")` returns Promise, to resolve that we use `.then().catch()`
+  - callback in `.then()` take `client` object as an argument, which has access of all collections and all.
+  - callback in `.catch()` take `err` object which has `message` property by which we can read error message.
+
+3. Select database
+
+```js
+const db = client("dbname");
+```
+
+4. Select collection
+
+```js
+const x = db.collection("collection_name");
+```
+
+5. Perform operation (CRUD)
+  - Ever function related to database return Promise expect `find()`, to resolve these we handle it synchronously means using `async await`.
+  - Must use exception handling in this case using `try{} & catch(){}`
+  - Since `.find()` did not return Promise so we have to make it Promisable using `.toArray()` function.
+```js
+const x = db.collection("collection_name");
+x.find().toArray();
+```
+
+### Final Clean Code:
+
+```js
+const http = require("http");
+const { MongoClient } = require("mongodb");
+let db = null;
+
+ MongoClient.connect("mongodb://127.0.0.1:27017")
+
+ .then((client) => {
+  db = client.db("ecom");
+ })
+
+ .catch((err) => {
+  console.log(err.message);
+  process.exit(0);
+ })
+
+
+const getMessage = (msg) => {
+  return JSON.stringify({
+    message: msg
+  })
+}
+const server = http.createServer( async (req, res) => {
+
+  const url = req.url;
+  const method = req.method;
+  const type =  { 
+    "content-type": "application/json" 
+  };
+
+  if (url !== "/user")
+  {
+    const message = getMessage("Endpoint not found.")
+    res.writeHead(404, type);
+    res.end(message);
+    return;
+  }
+
+  if(!db){
+    const message = getMessage("Database not initialized!!");
+    res.writeHead(500, type);
+    res.end(message);
+    return;
+  }
+
+  if(method === "GET")
+  {
+    try
+    {
+      const User = db.collection("users");
+      const users = await User.find().toArray();
+      res.writeHead(200, type);
+      res.end(JSON.stringify(users));
+      return;
+    }
+    catch(err)
+    {
+      const message = getMessage(err.message);
+      res.writeHead(500, type);
+      res.end(message)
+    }
+  }
+
+  if(method === "POST")
+  {
+    try
+    {
+      const payload = {
+      name: "Shiv Singh",
+      email: "singhshiv0402@gmail.com",
+      mobile: 9140520890
+    }
+    const User = db.collection("users");
+    await User.insertOne(payload);
+    res.writeHead(200, type);
+    res.end(JSON.stringify(payload));
+    return;
+    }
+    catch(err)
+    {
+      const message = getMessage(err.message);
+      res.writeHead(500, type);
+      res.end(message) 
+    }
+  }
+
+    
+  const message = getMessage("Method Not allowed!!")
+  res.writeHead(405, type);
+  res.end(message);
+});
+
+server.listen(8080);
+```
+
