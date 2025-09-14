@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filemoon</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+        rel="stylesheet"
+    />
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+
+</head>
+<body>
+    <div class="bg-gray-200 min-h-screen flex items-center justify-center animate__animated animate_fadeIn">
+        <div class="px-8 py-12 w-[420px] bg-white rounded-lg space-y-6 animate__animated animate__pulse">
+
+            <div class="flex justify-center items-center gap-2">
+                <i class="ri-contrast-2-fill text-5xl text-violet-600"></i>
+                <h1 class="text-2xl font-medium">Filemoon</h1>
+            </div>
+
+            <form class="flex flex-col gap-6">
+
+                <div class="space-y-1">
+                    <label 
+                        for="fullname"
+                        class="text-[17px] text-gray-500 block"
+                    >
+                        Fullname
+                    </label>
+                    <input 
+                        type="text"
+                        name="fullname"
+                        id="fullname"
+                        class="border border-gray-300 rounded p-2 w-full"
+                        required
+                        placeholder="Jhon Doe"
+                    />
+                </div>
+
+                <div class="space-y-1">
+                    <label 
+                        for="mobile"
+                        class="text-[17px] text-gray-500 block"
+                    >
+                        Mobile
+                    </label>
+                    <input 
+                        type="number"
+                        name="mobile"
+                        id="mobile"
+                        class="border border-gray-300 rounded p-2 w-full"
+                        required
+                        placeholder="9874563210"
+                    />
+                </div>
+
+                <div class="space-y-1">
+                    <label 
+                        for="email"
+                        class="text-[17px] text-gray-500 block"
+                    >
+                        Email
+                    </label>
+                    <input 
+                        type="email"
+                        name="email"
+                        id="email"
+                        class="border border-gray-300 rounded p-2 w-full"
+                        required
+                        placeholder="user@email.com"
+                    />
+                </div>
+
+                <div class="space-y-1">
+                    <label 
+                        for="password"
+                        class="text-[17px] text-gray-500 block"
+                    >
+                        Password
+                    </label>
+                    <input 
+                        type="password"
+                        name="password"
+                        id="password"
+                        class="border border-gray-300 rounded p-2 w-full"
+                        required
+                        placeholder="********"
+                    />
+                </div>
+
+                <button class="bg-violet-500 rounded p-2 w-full text-white font-medium hover:bg-violet-600">Signup</button>
+
+            </form>
+
+            <div class="flex justify-center gap-2">
+                <p class="text-gray-500">Already have an account ?</p>
+                <a href="./index.html" class="text-green-500 font-medium">Login</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
