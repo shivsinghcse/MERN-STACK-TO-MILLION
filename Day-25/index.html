@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TailwindCSS</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        #page{
+            background: #ddd;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #card{
+            background: white;
+            width: 420px;
+            padding: 16px;
+            border-radius: 8px;
+        }
+
+        form{
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .form-group{
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        input {
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        label{
+            color: lightslategray;
+        }
+
+        #sign-button{
+            padding: 7px;
+            font-size: 17px;
+            font-weight: 500;
+            cursor: pointer;
+            margin: 12px 0;
+            border: none;
+            background: orangered;
+            color: white;
+            border-radius: 4px;
+        }
+
+        #sign-button:hover{
+            cursor: pointer;
+            background-color: dodgerblue;
+        }
+    </style>
+</head>
+<body>
+    <div id="page">
+        <div id="card">
+            <form>
+                <div class="form-group">
+                    <label>Fullname</label>
+                    <input name="fullname"/>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Password</label>
+                    <input name="password" type="password"/>
+                </div>
+
+                <button id="sign-button">Sign in</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
