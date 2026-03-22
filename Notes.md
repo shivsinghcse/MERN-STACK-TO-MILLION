@@ -1,3 +1,8 @@
+#  1 - 45 --> Small range 
+#  46 - 108 --> Mid range 
+#  109 - 183 --> Enterprise range 
+
+
 # 🎯 Day-1 Onboarding to Workshop
 
 ## Project vs Product
@@ -16,7 +21,7 @@
 
 ### 📌 Product
 
-- A product is software built with real users in mind.
+- A product is software, built with real users in mind.
 
 - It must work reliably across different devices, browsers, and environments.
 
@@ -33,9 +38,9 @@
 ## Roadmap:
 
 - we will build:
-  - Small range application : cover basics
-  - Mid range application : Job ready with project
-  - Enterprise application : Product development
+  - **Small range application** : cover basics
+  - **Mid range application** : Job ready with project
+  - **Enterprise application** : Product development
 
 ## 🖥️ Server
 
@@ -54,11 +59,11 @@ In web development, our application code is kept on the server so it’s accessi
 - Compnies like GoDaddy, BigRock, Hostinger provide shared service on rent
 - In shared servers OS like linux, windows are already installed so you have to use the same, you can not change.
 - In shared server you do not get root access means you are not admin so you can not change software or hardware configuration.
-- Pros: Cost-effective, simple to set up.
+- **Pros**: Cost-effective, simple to set up.
 
-- Cons: Limited performance, less secure, not scalable (if traffic spikes, all websites slow down).
+- **Cons**: Limited performance, less secure, not scalable (if traffic spikes, all websites slow down).
 
-- Example: Small blogs, portfolio sites, smaller/mid level applications.
+- **Example**: Small blogs, portfolio sites, smaller/mid level applications.
 
 #### 2. Cloud Server ☁️
 
@@ -70,11 +75,11 @@ In web development, our application code is kept on the server so it’s accessi
 - Data centers serves data based on edge location (nearest location), if data is not present at nearest data center it fetches data from origin server, cache it and serve it.
 
 - Some compnies like GoDaddy, BigRock also promise that they provide cloud servers, web hosting is not only cloud server, it provide other multiple services also like team observe, code safety & security, robust architucture, scale
-- Pros: Highly scalable, secure, reliable, pay-as-you-go.
+- **Pros**: Highly scalable, secure, reliable, pay-as-you-go.
 
-- Cons: More expensive than shared hosting, requires technical setup.
+- **Cons**: More expensive than shared hosting, requires technical setup.
 
-- Example: Enterprise apps, e-commerce, social media platforms.
+- **Example**: Enterprise apps, e-commerce, social media platforms.
 
 ##### 👉 In short:
 
@@ -90,25 +95,25 @@ In web development, our application code is kept on the server so it’s accessi
 
 ### 🔑 Types of Hosting
 
-1. Shared Hosting → Multiple websites share the same server.
+1. **Shared Hosting** → Multiple websites share the same server.
 
-2. Cloud Hosting → Application is hosted on cloud infrastructure (AWS, GCP, Azure, etc.).
+2. **Cloud Hosting** → Application is hosted on cloud infrastructure (AWS, GCP, Azure, etc.).
 
-3. Dedicated Hosting → A full physical server is dedicated to one application.
+3. **Dedicated Hosting** → A full physical server is dedicated to one application.
 
-4. VPS Hosting → A physical server is divided into virtual servers, each with dedicated resources.
+4. **VPS Hosting** → A physical server is divided into virtual servers, each with dedicated resources.
 
-5. Serverless Hosting → Code runs on demand without managing servers (e.g., AWS Lambda, Vercel, Netlify).
+5. **Serverless Hosting** → Code runs on demand without managing servers (e.g., AWS Lambda, Vercel, Netlify).
 
 #### 👉 In short:
 
 - Hosting = Putting your code on a server so everyone can access it.
 
-- Example:
+- **Example**:
 
-  - GitHub Pages → Free static hosting.
-  - Vercel/Netlify → Modern frontend hosting.
-  - AWS/Azure/GCP → Enterprise-level hosting.
+  - **GitHub Pages** → Free static hosting.
+  - **Vercel/Netlify** → Modern frontend hosting.
+  - **AWS/Azure/GCP** → Enterprise-level hosting.
 
 # 👩🏼‍💻 Day-02: Understanding Servers and Databases
 
@@ -137,7 +142,6 @@ In web development, our application code is kept on the server so it’s accessi
 - Companies which gives CPUs(servers) on rent, called Hosting companies.
 - Example : GoDaddy, BigRock, Hostinger, AWS, Azure, Google Cloud.
 
-- If Possible learn about hardware configuration it will help you in Software development.
 - 👉 Knowing basic hardware configurations (CPU, RAM, Storage, Network) helps you write efficient and machine-friendly code.
 
 ### Making a machine (CPU) Server / Web Server:
@@ -148,7 +152,7 @@ In web development, our application code is kept on the server so it’s accessi
   - Nginx
   - Apache
   - Tomcat
-- WOnce configured, the machine gets a default IP address: `127.0.0.1`(loopback address) and domain name for this IP Address is `localhost`.
+- Once configured, the machine gets a default IP address: `127.0.0.1`(loopback address) and domain name for this IP Address is `localhost`.
 - The default domain for local development is `localhost`.
 - Along with the web server software, we also need database software.
 
@@ -186,8 +190,8 @@ Some common database systems are:
   - Old and mature technology.
   - Maintenance can be costly at enterprise scale.
   - Examples: MySQL, PostgreSQL, SQL Server.
-- Non-Relational Database (NoSQL Database)
 
+- Non-Relational Database (NoSQL Database)
   - Stores data in objects/documents (JSON-like format).
   - Newer technology.
   - Cost-effective and flexible for scaling.
@@ -206,7 +210,7 @@ Some common database systems are:
   - **Vertical Scaling**
     - Increasing the power of the same CPU (e.g., upgrading RAM, CPU cores, or storage).
 
-### Server & Serverless
+### Server & Serverless Architecure
 
 - In cloud hosting:
 
@@ -267,8 +271,8 @@ Some common database systems are:
 
 ### Installing MongoDB
 
-- Download & install MongoDB community server download
-- Download & install MongoDB shell (mongosh)
+- Download & install **MongoDB community server download**
+- Download & install **MongoDB shell** (mongosh)
 - Open terminal and run
 
   ```sh
@@ -298,10 +302,10 @@ That means MongoDB is running correctly.
 
 - ⚠️ Troubleshooting:
 
-- If not working goto `startmenu -> services -> mongodb server` check if it is start or not. if not start start that.
+- If not working goto `startmenu -> services -> mongodb server` check if it is start or not. if not started, start that.
 - Still not working → Reinstall MongoDB correctly.
 
-- Rare case: Even though it not working that means some certificate file can be missing in your windows (OS).In this case you to install new OS.
+- Rare case: Even though it not working that means some certificate file can be missing in your windows (OS).In this case you have to install new OS.
 
 ### Operating Mongodb
 
@@ -323,11 +327,13 @@ There are 2 ways to work with MongoDB:
 
 - Default databases are: `admin, local, config,test`
 
-- To use (or create) a database:
+- To use/change or create a database:
 
 ```shell
   use "databasename"
+
 ```
+- **Remember**: In MongoDB, a database is not actually created until it gets content!
 
 🔹 If the database doesn’t exist, it will be created once data is inserted.
 
@@ -535,7 +541,7 @@ db.courses.find()
 - Projection reduces latency.
 - Low latency = fast response.
   -Reduces unnecessary data transfer → cost-effective in serverless architecture.
-- Example: A landing page should load within 3 seconds → projection helps.
+- Example: A landing page should load within 3 seconds -→ projection helps.
 - There are multiple ways to improves latency projection is one of them.
 - Projection said only fetch data what you need.
 
@@ -552,6 +558,104 @@ db.courses.find()
 
 - It will fetch 2 documents from db.
 - It is used to create pagination.
+
+### Assignment
+
+#### Insert a single document into the students collection with fields: name, age, grade, and city.
+
+```js
+db.students.insertOne({
+... name: 'ajeet',
+... age: 21,
+... grade: 12,
+... city: 'lucknow'
+... })
+```
+
+#### Insert multiple documents into the books collection with fields: title, author, price, and category. Add at least 4 books.
+
+```js
+db.books.insertMany([
+...     {
+...         title: "the psychology of money",
+...         author: "morgan housel",
+...         price: 290,
+...         category: "finance"
+...     },
+...     {
+...          title: "rich dad poor dad",
+...         author: "robert t kiyosaki",
+...         price: 389,
+...         category: "finance"
+...     },
+...     {
+...         title: "quantum machanics",
+...         author: "Jaivir singh",
+...         price: 105,
+...         category: "science"
+...     },
+...     {
+...         title: "don't belive everything you think",
+...         author: "joseph nguyen",
+...         price: 196,
+...         category: "self help"
+...     },
+...     {
+...         title: "manifest miracles",
+...         author: "rajitha vanga",
+...         price: 192,
+...         category: "self help"
+...     },
+...     {
+...         title: "the diary of a CEO",
+...         author: "stavenbartlett",
+...         price: 626,
+...         category: "business"
+...     }
+... ])
+```
+
+#### Retrieve all documents from the students collection.
+
+```js
+ db.students.find()
+```
+
+#### Retrieve all documents from the books collection but only return the title and author.
+
+```js
+db.books.find({}, {title: 1, author: 1, _id: 0})
+```
+
+#### Retrieve a single book from the books collection where the title is "JavaScript Basics", but only return the title and price.
+
+```js
+db.books.findOne({title: "JavaScript Basics"}, {title: 1, price:1, _id:0})
+```
+
+#### Retrieve all documents from the students collection but return only name and age.
+
+```js
+db.students.find({}, {name: 1, age: 1, _id: 0})
+```
+
+#### Retrieve the first document from the books collection where the category is "Technology" and return only title and author.
+
+```js
+db.books.findOne({category: 'Technology'}, {title: 1, author: 1, _id: 0})
+```
+
+#### Retrieve only 3 documents from the students collection using limit().
+
+```js
+db.students.find().limit(3)
+```
+
+#### Retrieve only 2 books from the books collection using limit().
+
+```js
+db.books.find().limit(2)
+```
 
 # 🌳 Day-04 MongoDB Basics
 
@@ -602,8 +706,8 @@ db.products.insertOne({
 - Use `skip(n)` function to skip documents.
 - skip() fetch data in chunks
 - Used in to create Pagination feature with `limit()`
-- In pagination we do not change limit
-- Formula: `(p-1)*limit`
+- In pagination we do not change limit, change `skip()`
+- Formula: `skip((p-1)*limit)`
   - Here `p` is page number which come from backend
 
 ```sh
@@ -724,7 +828,106 @@ db.products.insertOne({
 - MongoDB Compass: GUI software for MongoDB
 - We always use `limit()`, `sort()`, `skip()` after `find()` or `findOne()`
 
+### Assignment:
+
+#### How can you limit the result to show only 10 documents?
+```js
+	db.collectionName.find().limit(10);
+```  
+#### How do you sort documents in ascending order based on a field called name?
+```js
+	db.collectionName.find().sort({name: 1});
+```  
+#### How do you sort documents in descending order based on a field called createdAt?
+```js
+	db.collectionName.find().sort({createdAt: -1});
+```  
+#### How can you skip the first 5 documents and display the next 10?
+```js
+       db.collectionName.find().skip(5).limit(10);
+```       
+#### How do you count the total number of documents in a collection?
+```js
+	db.collectionName.countDocuments();
+```  
+#### How can you count the number of documents where status is "active"?
+```js
+	db.collectionName.countDocuments({status: 'active'});
+```  
+#### How do you update a single document where email is "test@example.com" to set verified to true?
+```js
+	db.collectionName.updateOne({email: "test@example.com"}, {$set: {verified: true}});
+```  
+#### How do you update all documents where category is "books" by adding a new field discount with a value of 15%?
+```js
+	db.collectionName.updateMany({category: 'books'}, {$set: {discount: 15}});
+```  
+#### How can you delete one document where status is "inactive"?
+```js
+	db.collectionName.deleteOne({status: 'inactive'});
+```
+#### How can you delete all documents where expired is true?
+```js
+	db.collectionName.deleteMany({expired: true})
+```  
+#### How can you find the first 5 documents sorted by price in descending order?
+```js
+	db.collectionName.find().limit(5).sort({price: -1});
+```  
+#### How can you find and display only the name and email fields for all users?
+```js
+	db.collectionName.find({}, {name: 1, email: 1, _id: 0});
+```  
+
+#### How do you find documents where age is greater than 25?
+
+```js
+	db.collectionName.find({age: {$gt: 25}})
+```  
+#### How do you find documents where price is between 100 and 500?
+
+```js
+	db.collectionName.find({price: {$gt: 100, $lt: 500}})
+```  
+#### How can you find all documents where tags contain "mongodb"?
+
+```js
+	db.collectionName.find({tags : "mongodb"})
+```
+
+#### How do you update only the lastLogin field for a user with username: "john_doe"?
+
+```js
+	db.collectionName.updateOne({{username: "john doe"}, {$set: {lastLogin: new Date()}}})
+```
+
+#### How can you remove a specific field (e.g., discount) from all documents?
+
+```js
+	db.collectionName.deleteMany({}, {$unset: {discount: ""}})
+```  
+
+👉 $unset removes only the field, keeping the rest of the document intact.
+
+#### How do you find the total number of documents where rating is greater than 4.5?
+```js
+	db.collectionName.countDocuments({rating: {$gt: 4.5}})
+```  
+
+#### How can you update a document only if it exists, and insert a new one if it doesn’t (upsert)?
+```js
+	db.collectionName.updateOne({field: "value"}, {$set: {field: "value"}}, {upsert: true})
+```
+
+#### How can you delete the oldest document based on createdAt?
+```js
+	db.collectionName.findOneAndDelete({}, { sort: { createdAt: 1 } })
+```  
+
+
+
 # 🔥 Day-05 MongoDB Operators
+- Above content is 90% sufficent for smaller and mid range application.
 
 ### 🔗 Connecting with MongoDB
 
@@ -750,6 +953,22 @@ db.products.insertOne({
 - `$lte` → less than or equal to (`<=`) ✅
   ⚠️ Note: Always apply comparison operators to a field.
 
+```js
+// syntax
+db.collection.find({field: {$operator: value}})
+
+// example-1
+db.products.find({price: {$gte: 999}})
+
+// example-2
+db.products.find({price: {$gt: 1000}}).sort({price: 1}).limit(4)
+
+// example-3
+db.products.find({price: {$gte:1000, $lte: 2000}}).sort({price: 1}).limit(5)
+
+// example-4
+db.payments.find({amount: {$gte: 249, $lte: 999}, status: "success"}, {amount:1, status:1}).sort({amount: 1}).limit(5)
+```
 ### 2. Date Operators
 
 - In MongoDB, every value has a specific data type.
@@ -890,7 +1109,7 @@ db.collection.find({ RegExp("Price.Amount", "i"): 499 });
 
 - `$options`
   - `i` → case-insensitive
-  - `s` -> dotall mode (dot `.` matches newlines) / sensitive
+  - `s` -> dot all mode (dot `.` matches newlines) / sensitive
 
 ```js
 db.collection.find({ field: { $regex: "pattern", $options: "i" } });
@@ -902,22 +1121,842 @@ db.collection.find({ field: { $regex: "pattern", $options: "i" } });
 db.users.find({ name: { $regex: "^a", $options: "i" } });
 // Finds all names starting with "a" or "A"
 ```
+- For the backup of data we export data in MongoDBCompass.
 
+# 🔥 Day-06 MongoDB Arrar
+### Data Structure
+- The way to group data
+  - Array
+  - Object
+  - Array of objects
+
+
+- How to fetch only `colors` field which is an array
+
+```js
+db.shirts.find({}, {colors: 1, _id: 0})
+```
+### Slice operator: 
+- But if you want to fetch limited data from that array for that we use `$slice` operator
+
+```js
+
+db.shirts.find({}, {colors: {$slice: 2}}) // ["Black", "Pink"]
+
+// it will return array of 2 element from start
+
+db.shirts.find({}, {colors: {$slice: -2}}) // ["White", "Red"]
+
+// it will return array of 2 element from end
+
+```
+- But if you want to fetch data of a particular range from array
+
+- `db.shirts.find({}, {field: {$slice: [skip, limit]}})`
+
+- `skip` means how many element you want to skip from start
+- `limit` means how many next element you want
+
+```js
+db.shirts.find({}, {colors: {$slice: [1, 2]}})
+// it will skip first 1 element and give next 2 element
+```
+- `$slice` operator is always used in array and apply in projection it makes cost effective and fast.
+
+### $in and $all operator
+- `$in` and `$all` operators are used to match data like query parameter.
+- Both works similar to AND(&&), OR (||) operator
+  - `$in` works like `||`
+  - `$all` works like `&&`
+
+- We write it in place of query parameter.
+
+- The value of `in` and `all` must be an array
+
+```js
+db.shirts.find({colors: {$in: ["Black", "Orange"]}})
+
+db.shirts.find({colors: {$all: ["Black", "Orange"]}})
+```
+
+- If you want to update multiple ids, use updateMany() with `$in` operator
+
+```js
+db.shirts.updateMany({_id: {$in: [ObjectId('68e146c351142379318907c0'), ObjectId('68e146c351142379318907c1')]}}, {$set: {stock: 115}})
+```
+
+### $push Operator
+- If you want to add data in array, we use `$push` operator it add element at the end of the array.
+
+- $set operator is used when field is not array or array of objects.
+
+```js
+db.shirts.updateOne({_id: ObjectId('')}, {$push: {colors: "Cyan"}})
+```
+
+- If you want to add multiple element to the array for that we use `$each` operator and it takes array as a value
+```js
+db.shirts.updateOne({_id: ObjectId('68e146c351142379318907c0')}, {$push: {colors: {$each: ["Gray", "Pink"]}}})
+```
+- But there is a problem with `$push` operator it allows duplicates, so in production we use `$addToSet` instead of `$push`. it does the same job but don't allow duplicates
+```js
+db.shirts.updateOne({_id: ObjectId('68e146c351142379318907c0')}, {$addToSet: {colors: "Pink"}})
+
+db.shirts.updateOne({_id: ObjectId('68e146c351142379318907c0')}, {$addToSet: {colors: {$each: ["Blue", "Brown"]}}})
+```
+- If You want to add an element of a particular index of an array. for that we use `$position` operator and we use it with `$each` operator.
+
+```js
+db.shirts.updateOne(
+  { _id: ObjectId('68e146c351142379318907c0')},
+  {
+    $push:{
+      colors: {
+        $each: ["Dodgger Blue", "Aqua"],
+        $position: 2
+      }
+    }
+  }
+)
+
+//  It is not working with $addToSet
+db.shirts.updateOne({_id: ObjectId('68e146c351142379318907c0')}, {$addToSet: {colors: {$each: ["Dodgger Blue", "Aqua"], $position: 1}}})
+
+// You can use $sort operator also 1-assending, -1 descending, use $position if you are not sorting 
+db.shirts.updateOne(
+  { _id: ObjectId('68e146c351142379318907c0')},
+  {
+    $push:{
+      colors: {
+        $each: ["Dodgger Blue", "Aqua"],
+        $position: 2,
+        $sort: 1
+      }
+    }
+  }
+)
+
+```
+### `$pop` Operator
+- We used `$pop` operator to remove the element from an array
+```js
+// Syntax
+{$pop: {field: 1}} // 1 means remove 1 element from end
+{$pop: {field: -1}} // -1 means remove 1 element from start
+```
+- Example
+
+```js
+db.shirts.updateOne(
+  {_id: ObjectId('68e146c351142379318907c0')},
+  {
+    $pop: {
+      colors: 1
+    }
+  }
+)
+
+db.shirts.updateOne(
+  {_id: ObjectId('68e146c351142379318907c0')},
+  {
+    $pop: {
+      colors: -1
+    }
+  }
+)
+```
+
+### `$pull` Operator:
+- It is also used to remove data from an array, but here you remove data after matching conditionally.
+
+```js
+db.shirts.updateOne(
+  {_id: ObjectId('68e146c351142379318907c0')},
+  {
+    $pull: {colors: "Grey"}
+  }
+)
+
+// if there are multiple elements with same values, it removes all matching fields
+```
+- If you want to remove multiple data, use `$pillAll` operator.
+```js
+db.shirts.updateOne(
+  {_id: ObjectId('68e146c351142379318907c0')},
+  {
+    $pullAll: {colors: ["Black", "Blue"]}
+  }
+)
+```
+
+## Array of objects
+
+### `$elemMatch` operator
+- This operator is only works with array of objects.
+- It returns documents, if field and value matches
+```js
+db.items.find({variants: {$elemMatch: {sku: "WE-SM-101"}}})
+```
+
+- We can use `$slice` operator in array of objects also
+
+```js
+db.items.find({}, {variants: {$slice: 1}})
+```
+- We can also and $push and $pull in array of objects
+
+```js
+db.items.updateOne({_id: ObjectId('68e1eb9b78c468e9411e5ff7')}, {$push: {variants: {size: "Large", quantity: 55, sku: "UP-LG-001"}}})
+```
+- If you want to delete a documents of a collection
+```js
+db.items.deleteOne({_id: ObjectId('68e1eb9b78c468e9411e5ff7')})
+```
+- If you want to delete all documents of a collection
+```js
+db.items.deleteMany({})
+```
+- If you want to delete some documents of a collection
+```js
+db.items.deleteMany({_id: {
+  $in: [
+    ObjectId('68e1eb9b78c468e9411e5ff7'),
+    ObjectId('68e1eb9b78c856e9411e5fe7'),
+    ObjectId('68e1eb9b78c468f9411e5fd7')
+  ]
+}})
+```
+<mark>Intermediate Level Complete: 95% development task can be done via this.</mark>
+
+# 🧿 Day-07 MongoDB Aggregate
+<mark>Enterprise Level Started : 5%</mark>
+
+## Aggregation Pipelines <mark>imp.</mark>
+- Aggregation operations allow you to group, sort, perform calculations, analyze data, and much more.
+
+- Aggregation pipelines can have one or more "stages". The order of these stages are important. Each stage acts upon the results of the previous stage.
+
+### aggregate() 
+- It is used for complex query (nested calculation)
+- It can also perform all task (eg: fetch, countDocuments, update, limit etc) but it does not means that you perform small task, it is used for complex task
+- It uses more compute power. Your server should have 4GB of RAM, You can also perform with less RAM while number of concurrent user are less. Otherwise there can be multiple types of problem:
+  - Server stuck (It will not accept request and send response - Solution: restart server cpu)
+  - Database can freez (can not  perform DB operations)
+
+- max 10k/sec traffic mid range application, here we avoid aggregate pipeline , it is not cost effective.
+
+- To work in `aggregate` we use `stage`. For every task there is different `stage`s. In aggregate something which is start with `$` is called `stage`.
+
+- `aggregate` has multiple `stage`
+  - $match (query parameter/match)
+  - $project (projection)
+  - $limit (limit)
+  - $skip (skip)
+  - $count (countDocuments)
+  - $sample ( fetch random data)(useCase: youtube suggested video- buid via AI/ML like feature - but for starting we use it, you can recomonded system)
+  - $addFields (create any specific field, it takes any data)
+  - $cond (condition --> if/else)
+  - $switch (switch case) 
+
+- Every stage has seprate body wrapped in `{}`
+  - {$match}
+
+- `stage` should be inside an object and the value of `stage` also should be an `{}`
+
+```js
+// syntax
+aggregate([])
+
+// if you did not give any stage it will perform like find()
+db.books.aggregate()
+db.books.aggregate([])
+// both performs like find()
+
+
+// query match
+db.books.aggregate([
+  {
+    $match: {title: "rich dad poor dad"}
+  }
+])
+// it returns an document
+
+// projection
+db.books.aggregate([
+  {
+    $match: {title: "rich dad poor dad"}
+  },
+  {
+    $project: {
+      title: 1, 
+      price: 1,
+      _id: 0
+    }
+  }
+])
+// it returns an array of object
+
+
+// limit
+
+db.books.aggregate([
+  {
+    $project: {
+      title: 1, 
+      price: 1,
+      _id: 0
+    }
+  },
+  {
+      $limit: 2
+  }
+])
+// it returns an array of object
+
+// skip
+// here order matter in skip and limit
+db.books.aggregate([
+  {
+    $project: {
+      title: 1, 
+      price: 1,
+      _id: 0
+    }
+  },
+  {
+    $skip: 2
+  },
+  {
+    $limit: 2
+  }
+])
+
+db.books.aggregate([
+  {
+    $match: {
+      "price": {
+        $gte: 99,
+        $lte: 300
+      }
+    }
+  }
+])
+// aggregate pipeline is latest feature in mongodb
+// $sort
+db.books.aggregate([
+  {
+    $match: {
+      "price": {
+        $gte: 99,
+        $lte: 300
+      }
+    }
+  },
+  {
+      $sort: {
+      "price": 1
+    }
+  },
+  {
+    $project:{
+      "title": 1,
+      "price": 1,
+      "_id": 0
+    }
+  }
+])
+
+// problem statement : i want to insert a new field "amount" and value of this should be price or name price field as amount or how to read a field value
+// inside $project stage if you want to read any field value use $ before fieldname and wrap it in single quote '$fieldname'
+
+
+
+db.books.aggregate([
+  {
+    $match: {
+      "price": {
+        $gte: 99,
+        $lte: 300
+      }
+    }
+  },
+  {
+      $sort: {
+      "price": 1
+    }
+  },
+  {
+    $project:{
+      "title": 1,
+      "amount": '$price',
+      "_id": 0
+    }
+  }
+])
+
+
+// inside $project if create any field during runtime you can set static data as value but it should be string if you want to keep number you have to perform some calculation - 
+
+
+db.books.aggregate([
+  {
+    $match: {
+      "price": {
+        $gte: 99,
+        $lte: 300
+      }
+    }
+  },
+  {
+      $sort: {
+      "price": 1
+    }
+  },
+  {
+    $project:{
+      "title": 1,
+      "amount": 'Shiv', // it will work
+      "_id": 0
+    }
+  }
+])
+
+// but if you write number it won't
+
+
+db.books.aggregate([
+  {
+    $match: {
+      "price": {
+        $gte: 99,
+        $lte: 300
+      }
+    }
+  },
+  {
+      $sort: {
+      "price": 1
+    }
+  },
+  {
+    $project:{
+      "title": 1,
+      "amount": 199, // it will not work, it will skip this field
+      "_id": 0
+    }
+  }
+])
+
+// $ sample - give random documents
+
+db.books.aggregate([
+  {
+    $sample: {size: 2}
+  }
+])
+
+// $addFields - create a specific fields
+
+db.books.aggregate([
+  {
+    $addFields: {
+      tax: 12,
+      gst: 18
+    }
+  }
+])
+```
+
+
+#### Aggregation `$match`
+- This aggregation stage behaves like a find. It will filter documents that match the query provided.
+- Using `$match` early in the pipeline can improve performance since it limits the number of documents the next stages must process
+
+```js
+db.books.aggregate([
+  { $match: {_id: ObjectId('68ad5d4a1000155643eec4af')} }
+])
+```
+- This will only return document that have `_id` of `68ad5d4a1000155643eec4af`
+
+
+#### Aggregation `$limit`
+- This aggregation stage limits the number of documents passed to the next stage.
+
+```js
+db.books.aggregate([
+  {$limit: 3}
+])
+```
+- This will return 3 documents from collection.
+
+#### Aggregation `$project`
+- This aggregation stage passes only the specified fields along to the next aggregation stage.
+- This is the same projection that is used with the `find()` method.
+
+```js
+  db.books.aggregate([
+    {$project: {
+      "title": 1,
+      "price": 1,
+      "_id": 0
+    }},
+    {
+      $limit: 3
+    }
+  ])
+
+  // by mistake if you write any field which does not exist so it will skip that.It won't through error.
+```
+- This will return the documents but only include the specified fields.
+
+- Notice that the `_id` field is also included. This field is always included unless specifically excluded.
+- We use a `1` to include a field and `0` to exclude a field.
+- In production (real world) never hide `_id`.
+- **Note**: You cannot use both 0 and 1 in the same object. The only exception is the _id field. You should either specify the fields you would like to include or the fields you would like to exclude.
+
+#### Aggregation `$sort`
+- This aggregation stage groups sorts all documents in the specified sort order.
+- Remember that the order of your stages matters. Each stage only acts upon the documents that previous stages provide.
+- The sort order can be chosen by using `1` or `-1`. `1` is `ascending` and `-1` is `descending`.
+
+```js
+db.books.aggregate([
+  {
+    $match: {
+      "price": {
+        $gte: 99,
+        $lte: 300
+      }
+    }
+  },
+  {
+      $sort: {
+      "price": 1
+    }
+  },
+  {
+    $project:{
+      "title": 1,
+      "price": 1,
+      "_id": 0
+    }
+  }
+])
+```
+
+- This will return the documents sorted in ascending order by `price` field.
+
+#### Aggregation `$addFields`
+
+- This aggregation stage adds new fields to documents
+
+```js
+db.books.aggregate([
+  {
+    $addFields: {
+      tax: 12,
+      gst: 18
+    }
+  }
+])
+```
+- This will return the documents along with a new field, `tax, gst`.
+
+
+#### Aggregation `$cond`
+
+
+```js
+grade: {
+        $cond: {
+          if: {
+            $gte: ["$percentage", 60]
+          },
+          then: "A",
+          else: "B"
+        }
+      }
+```
+
+#### Aggregation `$switch`
+
+```js
+grade: {
+        $switch: {
+          branches: [
+            {
+              case: {$gte: ['$percentage', 90]},
+              then: "A+"
+            },
+            {
+              case: {$gte: ['$percentage', 80]},
+              then: "A"
+            },
+            {
+              case: {$gte: ['$percentage', 70]},
+              then: "B"
+            },
+            {
+              case: {$gte: ['$percentage', 60]},
+              then: "C"
+            }
+          ],
+          default: "D"
+        }
+      }
+```
+
+### Problems
+
+#### how to find sum of marks array:
+- Use `$addFields` stage and use `$sum` operator to calculate sum of all array elements 
+
+```js
+db.students.aggregate([
+  {
+    $addFields:{
+      totalMarks: {$sum: '$marks'}
+    }
+  }
+])
+```
+- And now totalMarks is calculated so there is no need of marks array for that use `$project`
+
+```js
+db.students.aggregate([
+  {
+    $addFields:{
+      totalMarks: {$sum: '$marks'},
+      totalSubjects: {$size: '$marks'},
+    }
+  },
+  {
+    $addFields: {
+      percentage: {$divide: ['$totalMarks', '$totalSubjects']}
+    }
+  },
+  {
+    $addFields: {
+      grade: {
+        $cond: {
+          if: {
+            $gte: ["$percentage", 60]
+          },
+          then: "A",
+          else: "B"
+        }
+      }
+    }
+  },
+  {
+    $project: {
+      marks: 0,
+      totalSubjects: 0
+    }
+  }
+])
+```
+
+- here $project works on addFields, and addField already gives data and from that data $project hides marks field
+
+- $size operator kisi property ka member hota hai
+- One stage can be use multiple time
+- Jo field jis body/stage me bana hai us field ko usi body me read nahi kar sakte ho
+- to divide use `$divide` operator and it takes an array
+
+#### Aggregation `$cond`
+
+
+
+# Day-08 Aggregation Business Problem
+
+#### Aggregation `$unwind`
+- It creates multiple documents based field which is an array
+- Total documents == number of elements in array
+
+```js
+db.products.aggregate([
+  {$unwind: "$tags"}
+])
+```
+#### Aggregation `$group`
+- It is important and havely used in aggregate.
+- There is 90% chances that you are using aggregate because of group
+- Agile says data (code pattern) should be centralized.
+- It removes duplicate data.
+
+```js
+db.products.aggregate([
+  {
+    $group: {
+      _id: "$category"
+    }
+  }
+])
+```
+
+```js
+// total products
+db.products.aggregate([
+  {
+    $group: {
+      _id: "$category",
+      totalProduct: {$sum: 1}
+    }
+  }
+])
+```
+
+```js
+// total stocks price
+db.products.aggregate([
+  {
+    $group: {
+      _id: "$category",
+      totalProduct: {$sum: 1},
+      totalStocks: {$sum: 
+        {$multiply: ['$price', '$stock']}
+      }
+    }
+  },
+  {
+    $addFields: {
+      category: "$_id",
+    }
+  },
+  {
+    $project:{
+      _id: 0
+    }
+  }
+])
+```
+
+```js
+db.payments.aggregate([
+... {
+...   $group: {_id: "$status"}
+... }
+])
+```
+
+```js
+db.payments.aggregate([
+... {
+...   $group: {
+...       _id: "$status",
+...       noOfPayments: {$sum: 1}
+...     }
+... }
+])
+```
+```js
+db.payments.aggregate([
+  {
+    $group:{
+      _id: "$status",
+      noOfpayments: {$sum: 1},
+      totalPayment: {
+        $sum: "$amount"
+      } 
+    }
+  }, 
+  {
+    $addFields: {
+      status: "$_id"
+    }
+  },
+  {
+    $project: {
+      _id: 0
+    }
+  }
+])
+```
+
+```js 
+// how much and how many times a used payed
+
+db.payments.aggregate([
+  {
+    $group: {
+      _id: "$userId",
+      noOfPayments: {$sum: 1},
+      totalPayment: {$sum: "$amount"}
+    }
+  }
+])
+```
+
+# 😀 Day-09 MongoDB JOIN
+
+- You can install MongoDB Software at 2 places
+  - A server where you hosted the website (this approach is called un-managed database, manage by self - here you can not manage scalability) - use as a startup
+  - A dedicate Database server (cpu) [Big player do this - if 10k/sec traffic] {managed database - cloud engineer manage from AWS, Azure,  GCP, etc.}
+
+
+- Every collection has limit of 1GB(recomonded size, scale for more than this), don't store more than 1GB, we only store text data, we do not store binary data in database store it in harddisk, we store reference of that
+
+
+- Primary Cloud (expensive)
+  - AWS
+  - GCP
+  - Azure
+- Secondary Cloud (Affordable)
+  - Digital Ocean
+  - Linode
+  - Vulture
+  - Utho
+
+### MongoDB Atlas 
+- Atlas is service provided by MongoDB
+- It is another way using MongoDB on cloud
+- here you can take managed database (choose any of them: AWS, GCP, Azure)
+- Direct setup of database on AWS, GCP, Azure is cost effecctive as compare to Atlas, but it need technical knowladge.
+
+### JOIN in MongoDB
+
+- To link two documents of different collections we use _id.
+
+- To perform the tihs we use `join` operation -> to perform join operation we use `$lookup` stage
+
+```js
+db.userPayments.aggregate([
+  {
+    $lookup:{
+      from: "users",
+      localField: "userId",
+      foreignField: "_id",
+      as: "user"
+    }
+  }
+])
+```
+- **from** - from which collection you want to fetch document
+- **foreignField** - which field you write in current collection to connect both collection
+- **localField** - name of field in which you store foreign key
+- **as** - name in which you want to stored fetched value 
+
+### Atlas
+- Generally server is called cluster
+- Name of cluster sholud be appName+DB
+- If you have global customer base choose Region: Singapore because fast data deliver accross ASIA, if country is outside of ASIA in this case AWS cloudfront we will use, otherwise select Mumbai
 # 🚀 Day-10 Node.js Onboarding
 
 ### 🌍 Running a Web Application
 
-- If you are creating web apps, to run a web app you need atleast 2 computer.
+- If you are creating web apps, to run a web app you need atleast 2 computers.
 
   1. Client (User's computer) - The machine where the user opens the browser and interacts with the app.
   2. Server (Hosting Machine) – A powerful computer with 24×7 electricity and high-speed internet, responsible for handling client requests.
 
-- 👉 Keeping code on a server so it can be accessed worldwide is called Web Hosting / Website Hosting / Deployment.
+- 👉 Keeping code on a server, so it can be accessed worldwide is called Web Hosting / Website Hosting / Deployment.
 
 ### 📈 Traffic
 
-- **100k traffic** : means 100k total users visiting the website.
-- **100k concurrent traffic** : 100,000 users accessing the website at the same time (per second).
+- **100k traffic** : means 100,000 total visits ( not necessarily unique users) to the website over a period of time (e.g., per day, per month, etc. ).
+- **100k concurrent traffic** : 100,000 users accessing the website at the same time ( per second - simultaneous active users at a specific moment ).
 
 ### 🔄 Request & Response
 
@@ -927,18 +1966,19 @@ db.users.find({ name: { $regex: "^a", $options: "i" } });
 
 ### ⚡ Latency
 
-- The total time taken for a request to reach the server and for the response to come back.
+- The total time taken for a request to reach the server and for the response to come back, is called Latency.
 
-- **Low Latency**: Faster loading and better user experience.
+- **Low Latency**: Faster loading (response) and better user experience.
+
 - **Best Practice**: For landing pages, latency should be 3s to 5s maximum.
 
 ### 👩🏼‍💻 Client-side & Server-side Language
 
 - To run fully functional website you need two type of language:
-- Client-Side language
-- Server-Side language
+  - Client-Side language
+  - Server-Side language
 - **Client-side :** The language which runs on client's computer (browser) is called client side language. ex - HTML, CSS, JavaScript, VBScript(outdated).
-- **Server-side :** The language which runs on server is called server-side language. ex - Node.js, php, Laravel, CodeIgnitor, Java, python, c++, .Net, C#.
+- **Server-side :** The language which runs on server is called server-side language. ex - Node.js, php, Laravel, CodeIgnitor (CI), Java, python, c++, .Net, C#.
 
 ### 🌐 Types of Websites
 
@@ -946,7 +1986,8 @@ db.users.find({ name: { $regex: "^a", $options: "i" } });
 
 - Built using only HTML, CSS, and JavaScript.
 - Content is fixed and does not change dynamically.
-- **Dynamic Website**
+
+2. **Dynamic Website**
   - Content Comes from a Database.
   - Uses server-side languages for features like authentication, payments, etc.
 
@@ -971,14 +2012,17 @@ db.users.find({ name: { $regex: "^a", $options: "i" } });
 ### 💻 Languages & Their Best Use Cases
 
 - Every language is expert in a specific domain.
+- It is not necessory that whole application is made in one language.
 - **Node.js** → Best for Network-Centric Applications (real-time data transfer)
-  - Video Streaming (Amazon Prime, Netflix, Zoom, Google Meet)
+  - Video Streaming (Youtube, Amazon Prime, Netflix, Zoom, Google Meet)
   - Chat Applications
   - IoT Applications
 - **PHP** → Strong in E-commerce & Cloud Telephony (IVR systems)
 
 - **Java & .NET** → Best for Transactional Security (e.g., Banking, Enterprise apps)
-- **Python** → Best for AI/ML, Data Science, Automation
+- **Python** → Best for AI/ML, Data Science & Automation
+
+> For AI/ML there is no language dependency
 
 ⚠️ Note: No language or server is secure by default.
 
@@ -989,7 +2033,8 @@ db.users.find({ name: { $regex: "^a", $options: "i" } });
 - Keep in mind 3 major factors when building products:
   1. **Cost Effective** – Should fit budget without wasting resources.
   2. **Scalable** – Must grow from 0 → millions of users smoothly.
-  3. **Robust** – Must be reliable and fault-tolerant.
+  3. **Robust**:
+     - Must be reliable and fault-tolerant.
      - Downtime tolerance should be near zero.
 
 👉 If confused about which tech to use, do freelance projects & R&D to gain clarity.
@@ -998,7 +2043,7 @@ db.users.find({ name: { $regex: "^a", $options: "i" } });
 
 ### Why Do We Need Server-Side Language?
 
-- Client-side languages (like plain JavaScript in the browser) cannot directly communicate with databases.
+- Client-side languages (like plain JavaScript runs in the browser) cannot directly communicate with databases.
 - That’s why we use server-side languages (like Node.js, PHP, Java, etc.) to interact with databases.
 
 ##### Flow:
@@ -1027,14 +2072,20 @@ db.users.find({ name: { $regex: "^a", $options: "i" } });
 
 - Not all JS code works on the server:
 
-  - UI related code does not execute
+  - UI related code does not execute on server
   - BOM and DOM related code does not execute on server
 
   ```js
   window.alert("Hello World!"); ❌ // Browser only
   document.write("Hello World!"); ❌ // Browser only
 
-  console.log("Hello World!"); ✅ // Works in Node.js
+  console.log("Hello World!"); ✅ // Works in Node.js also
+
+   window.alert("Hello") // ReferenceError: window is not defined
+
+  alert("Hello") // ReferenceError: alert is not defined
+
+  same with "document"
   ```
 
 - JavaScript code --> NodeJS --> Compile/Interprate on Server machine
@@ -1087,6 +2138,38 @@ db.users.find({ name: { $regex: "^a", $options: "i" } });
 
   // Output: One → Three → (after 3s) Two
   ```
+
+### Programming Paradigm:
+
+- In Programming there is a concept known as paradigm (way of writing code).
+- There are different ways (paradigms) to write code:
+- But mainly we uses 2 paradigm:
+
+  1. Procedural-Oriented: step by step, no classes
+
+  ```js
+  // write code without class
+  console.log("One");
+  console.log("Two");
+  console.log("Three");
+  ```
+
+  2. Object-Oriented (OOP) : using classes & objects
+
+  ```js
+  class Code {
+    run() {
+      console.log("One");
+      console.log("Two");
+      console.log("Three");
+    }
+  }
+
+  const code = new Code();
+  code.run();
+  ```
+
+- 👉 In OOP, to execute a class we create instance (Object) of a class using `new` keyword.
 
 ### Promises in JavaScript
 
@@ -1213,37 +2296,7 @@ const a = new Promise(12);
 // Constructor automatically invoked
 ```
 
-### Programming Paradigm:
 
-- In Programming there is a concept known as paradigm.
-- There are different ways (paradigms) to write code:
-- But mainly we uses 2 paradigm:
-
-  1. Procedural-Oriented: step by step, no classes
-
-  ```js
-  // write code without class
-  console.log("One");
-  console.log("Two");
-  console.log("Three");
-  ```
-
-  2. Object-Oriented (OOP) : using classes & objects
-
-  ```js
-  class Code {
-    run() {
-      console.log("One");
-      console.log("Two");
-      console.log("Three");
-    }
-  }
-
-  const code = new Code();
-  code.run();
-  ```
-
-- 👉 In OOP, to execute a class we create instance (Object) of a class using `new` keyword.
 
 # 📈 Day -12 Nodejs, async await and exception handling
 
@@ -1255,7 +2308,7 @@ const a = new Promise(12);
 ### 🧵 Threads in Node.js
 
 - Thread is a mechanism to handle a request.
-- It's a program present in software which makes your machine server ex- Node.js, Tomcat etc.
+- It's a program present in software which makes your machine, server ex- Node.js, Tomcat etc.
 - A thread is a lightweight process that handles tasks/requests.
   Examples of software that use threads: Node.js, Tomcat, Apache etc.
 
@@ -1264,7 +2317,7 @@ const a = new Promise(12);
 - There are two types of threads:
   - **Single-threaded** – Only one task at a time.
   - **Multi-threaded** – Multiple tasks at the same time.
-- Since **JavaScript is a single threaded** language. So **Node.js is also single threaded**(it has one main thread for executing JS code).
+- Since **JavaScript is a single threaded** language. So **Node.js is also single threaded** (it has one main thread for executing JS code).
   Example:
   - For example user1, user2, user3, user4.... sent request thread accept that request and transfer to server (worker) now thread is busy with user1 so others will wait in a queue and when thread sent response back to user1 after that accept request of user2
     - If user1 request is being processed, the main thread is busy → user2, user3 wait in a queue.
@@ -1299,7 +2352,7 @@ Request → Event Loop → Thread (libuv) → Worker (processes) → Response
 #### Worker
 
 - A program in server which works in background.
-- Worker is like code processorthat executes actual code and sends response back.
+- Worker is like code processor that executes actual code and sends response back.
 
 ```scss
 Request1 ---> Thread ---> worker (processor) ---> response (back to client)
@@ -1535,6 +2588,7 @@ export default function add(a, b) {
   return a + b;
 }
 ```
+**NOTE**: If a function does not returning anything, it will return `undefined`.
 
 ```js
 // index.mjs
@@ -1684,9 +2738,11 @@ protocol + domain name (or IP) + port
 #### 1. Protocal
 
 - Defines the set of rules for communication.
+- A protocol defines the set of rules or standards that determine how data is transmitted and received over a network.
 - Example:
-  - `http` → HyperText Transfer Protocol
-  - `https` → Secure HyperText Transfer Protocol
+  - `http` → HyperText Transfer Protocol (used for web communication)
+  - `https` → Secure HyperText Transfer Protocol (HTTP + encryption via SSL/TLS)
+  - TCP/IP → Transmission Control Protocol / Internet Protocol (foundation of internet communication)
 
 #### 2. Domain Name / IP Address
 
@@ -1699,6 +2755,7 @@ protocol + domain name (or IP) + port
 #### 3. Port:
 
 - A numeric identifier for services running on a machine (2–4 digits).
+
 - Common Ports:
   - `http - 80`
   - `https - 443`
@@ -1730,7 +2787,7 @@ protocol + domain name (or IP) + port
   - **SSH (Secure Shell)** : Learn
 
     ```
-    - Where real time data transfer takes place, it is done using web Socket protocall
+    - Where real time data transfer takes place, it is done using web Socket protocal
     - user1 and user2 both are connected to server eg. whatsapp (chat open --> connected)
     ```
 
@@ -1755,13 +2812,13 @@ npm uninstall package_name
 
 - `http` is a **built-in module** module in Node.js.
 - It provides a method `createServer()` to create an HTTP server.
-- It returns a Promise
-- `createServer()` takes a callback function with two parameters:
-  - `req` → request object
-  - `res` → response object
+- `createServer()` method returns **an instance of an HTTP server object**.
+- `createServer()` takes a callback function with two parameters, this callback executed every time a request hits the server:
+  - `req` → request object (contains details about the incoming request like URL, method, headers, etc.)
+  - `res` → response object (used to send a response back to the client)
 
 ```js
-const http = require("http");
+const http = require("http"); // returns an object
 
 const server = http.createServer((req, res) => {
   console.log("Hello Server!");
@@ -1927,7 +2984,7 @@ conn
   - `https`
 - Also keep in mind about `stateful` and `stateless` protocals.
 - Generally we follow stateless protocal because server disconnect after response.
-- HTTP and HTTPS are stateless protocols, meaning once the server sends a response, it closes the connection.
+- `HTTP` and `HTTPS` are stateless protocols, meaning once the server sends a response, it closes the connection.
 - Stateful protocols maintain connection after response (example: WebSockets).
 
 ### IP Address & Ports
@@ -1980,7 +3037,7 @@ conn
 ### Request & Query String
 
 - `req.url` gives query String
-- To read that query String we have to convert it into object first for that we have `queryString` moddule.
+- To read that query String we have to convert it into `object` first for that we have `queryString` moddule.
 - Query strings must be parsed into an object using the `querystring` module.
 
 #### Example 1 – Nested Condition (❌ not recommended)
@@ -2048,7 +3105,7 @@ server.listen(8080);
 ### 🔹 Definition
 
 - API stands for Application Programming Interface.
-- It is a way to write server code efficiently, making it independent of the client.
+- It is a way to write server code efficiently, making it independent of the client (request can be from react, angular, vue, java, etc).
 - APIs allow different applications or systems to communicate with each other.
 
 ### 🔹 How APIs Work
@@ -2122,7 +3179,7 @@ Modern APIs use REST + JSON for efficient and flexible data transfer.
 http://localhost:8080/users
 http://www.codingott.com/courses
 
-- Here, `/users` is the endpoint (resource)(interms of backend)
+- Here, `/users` is the endpoint (resource)(in terms of backend)
 ```
 
 ### How to get endPoint:
@@ -2547,3 +3604,54 @@ const server = http.createServer( async (req, res) => {
 server.listen(8080);
 ```
 
+
+
+
+# Day - 20 Introduction to Express
+-for production grade application we use packages like express or fastify
+
+
+
+# 🧿 Entering to Mid Range Applications
+
+### What will you learn
+
+1. Job Interview Final
+2. React/Node - TypeScript (Mid Range)
+
+
+# 🔥 Day - 46 Welcome to ES6
+
+- External file of JS is generally called `module`.
+- To use `module` there are two ways:
+  - Using `require` statement --> Common JS
+  - Using `import` statement --> ES6
+
+- Most of the Node application (70%) are using commonJS.
+- To use ES6 in NodeJS you have to write `"type" : "module"` after `"main"` in `package.json`
+```js 
+{
+  "name": "day-46",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "mongoose": "^8.19.1"
+  }
+}
+```
+#### require , module.exports, import, export, export default
+- Learn in details
+- named export sends an {}, that why in named import we do object destructureing
+
+### Array & Object Destructuring
