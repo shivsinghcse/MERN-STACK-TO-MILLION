@@ -2084,7 +2084,8 @@ db.userPayments.aggregate([
    window.alert("Hello") // ReferenceError: window is not defined
 
   alert("Hello") // ReferenceError: alert is not defined
-
+  
+  console.asdf("hello") // TypeError: console.asdf is not a function
   same with "document"
   ```
 
@@ -2136,7 +2137,7 @@ db.userPayments.aggregate([
   }, 3000);
   console.log("Three");
 
-  // Output: One → Three → (after 3s) Two
+  // Output: One → Three → Two (after 3s)
   ```
 
 ### Programming Paradigm:

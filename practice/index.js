@@ -1,27 +1,33 @@
-// console.log("One")
-// setTimeout(()=>{
-//     console.log("Two")
-// }, 3000)
-// console.log("Three")
+function myCode(){
+    return new Promise((resolve, reject) => {
+        if(12 === 12){
+            resolve("Equal")
+        }else{
+            reject("not equal")
+        }
+    })
+}
 
-// class code{
-//     run() {
-//         console.log("class code");
-//     }
-// }
+console.log("one");
+const result = myCode()
+result
+.then((data) => {
+    console.log(data);
+})
+.catch((err) => {
+    console.log(err); 
+})
+console.log("three");
 
-// const mycode = new code()
-// console.log(mycode);
-// mycode.run()
+class xxx {
+    constructor(w){
+        console.log(`hello ${w}`);
+    }
 
-// function myCode(){
-//     return new Promise(()=>{
-//         vvhv
-//     })
-// }
+    demo(){
+        console.log("demo");
+    }
+}
 
-
-
-
-console.log("Hello NodeJS");
-alert("ddd")
+const x = new xxx('world')
+x.demo()
