@@ -19,7 +19,7 @@ const server = http.createServer((req, res) => {
   //   }
 
   if (endPoint !== "/product") {
-    res.writeHead(200, { "content-type": "application/json" });
+    res.writeHead(404, { "content-type": "application/json" });
     res.end(JSON.stringify({ message: "API does not exist." }));
     return;
   }

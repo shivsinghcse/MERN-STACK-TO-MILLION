@@ -1,5 +1,5 @@
 {
-  "name": "day-22",
+  "name": "demo",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,10 +11,7 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "dotenv": "^17.3.1",
     "express": "^5.2.1",
-    "mongoose": "^9.3.2",
-    "morgan": "^1.10.1",
-    "nodemon": "^3.1.14"
+    "mongoose": "^9.3.2"
   }
 }

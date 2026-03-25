@@ -2048,7 +2048,7 @@ db.userPayments.aggregate([
 
 ##### Flow:
 
-`JavaScript (gives instruction) --> NodeJS (accept instruction & process) --> Database
+`JavaScript (gives instruction) --> NodeJS (accept instruction & process) --> Database`
 
 ### Limitations of Server-Side Language
 
@@ -2381,7 +2381,7 @@ Request1 ---> Thread ---> worker (processor) ---> response (back to client)
 - Synchronoous & Asynchronous are type of statement execution:
 
   - `sync ---> async ---> use promise`
-  - `async ---> sync ---> use asunc await`
+  - `async ---> sync ---> use async await`
 
 - Where Promise returns come from there to resolve the promise we use `.then().catch()` or `async await`
 
@@ -2537,7 +2537,7 @@ module.exports = test;
   ```
 
 - If you are exporting multiple values in Common JS, use object `{}` to export
-- Since Module is re-usable, so function inside module return data not result directly.
+- Since Module is re-usable, so function inside module return **data not result** directly.
 
 ```js
 // file.js
@@ -2632,6 +2632,8 @@ const moment = require("moment");
 
 const dt = moment();
 console.log(dt.format("DD:MM:YYYY HH:MM:SS A));
+
+console.log(dt.add(2, 'years').format('DD/MM/YYYY'));
 ```
 
 **✅ Notes:**
@@ -2702,16 +2704,15 @@ Example:
 - Open in workspace/IDE.
 - Goto Terminal
 - Run
-
-```sh
-npm install
-```
+  ```sh
+  npm install
+  ```
 
 # 🔥 Day - 14 Nodejs Server and Database
 
 ### NPM (Node Package Manager)
 
-- `npm` is a cli(Command Line Interface) tool, which is used to manage (install, uninstall, update, upgrade) Node.js packages.
+- `npm` is a CLI (Command Line Interface) tool, which is used to manage (install, uninstall, update, upgrade) Node.js packages.
 - Common operations with `npm`
 
   - Install packages
@@ -2883,7 +2884,7 @@ const http = require("http");
 
 const server = http.createServer((req, res) => {
   res.statusCode = 200;
-  res.end("Hi, I am your server");
+  res.end("Hi, I am your server"); // end() disconnect user from server after sending response
 });
 
 server.listen(8080);
@@ -3605,6 +3606,365 @@ const server = http.createServer( async (req, res) => {
 server.listen(8080);
 ```
 
+# Day - 18 Node.js REST API
+
+
+
+
+## How to get dynamic id
+- use url module
+- `const {id} = url.parse(req.url).query
+
+## to update document we need 2 data
+- id
+- updated data
+
+## startsWith and endsWith
+
+##
+but this way of creating REST apis is not good because
+- it is not scalable
+- not readable
+- hard to maintain
+
+---
+
+# 📘 Day 18 – Node.js REST API Notes
+
+## 📌 1. REST API Structure (Modular Approach)
+
+### 🔹 Rule: Separate module for each endpoint
+
+- REST API rules says that create seprate module for each endpoint
+- Instead of writing everything in one file, split your code:
+- Keep all modules in a separate folder like `modules`, `lib` or `util` etc
+
+```
+/modules
+   ├── user.js
+   ├── payment.js
+   ├── cart.js
+```
+
+### ✅ Example:
+
+* `/user` → `user.js`
+* `/payment` → `payment.js`
+* `/cart` → `cart.js`
+
+### 💡 Why use modules?
+
+* Improves **readability**
+* Makes code **scalable**
+* Easier to **maintain**
+* Helps in **code splitting**
+
+---
+
+## 📌 2. Common Utility File
+
+Create a shared file for reusable logic.
+
+```js
+// common.js
+
+const type = {
+    'Content-Type': 'application/json'
+}
+
+const getMessage = (msg) => {
+    return JSON.stringify({ message: msg })
+}
+
+module.exports = {
+    type,
+    getMessage
+}
+```
+
+### ✅ Usage Example:
+
+```js
+res.writeHead(200, type)
+res.end(getMessage("User created successfully"))
+```
+
+---
+
+## 📌 3. Receiving Data from Postman
+
+### 🔹 Steps:
+
+1. Open Postman
+2. Select **Body**
+3. Choose **x-www-form-urlencoded**
+4. Add key-value pairs
+
+```
+fullname: Shiv Singh
+email: shiv@gmail.com
+```
+
+---
+
+## 📌 4. How Node.js Receives Data
+
+### 🔹 Important Concepts
+
+#### 🧩 Chunks
+
+* When client sends data, Data is received in **small pieces**
+* Each piece is called a **chunk**
+* These chunks stored in Array Buffer
+
+#### 🧠 Array Buffer
+* Data is stored in **binary format**(Machine understandable numeric form of data)
+* Convert to readable format using:
+
+```js
+chunk.toString()
+```
+
+---
+
+## 📌 5. Events Used to Read Data
+
+Node.js uses events to read data because of its **event-driven architecture**
+
+### 🔹 `data` Event
+
+* Triggered when a chunk is received
+* Can run multiple times
+
+### 🔹 `end` Event
+
+* Triggered when all chunks are received
+
+---
+
+### ✅ Example: Reading Request Body
+
+```js
+let body = ''
+
+req.on('data', (chunk) => {
+    body += chunk.toString()
+})
+
+req.on('end', () => {
+    console.log(body)
+})
+```
+
+---
+
+## 📌 6. Convert Data into Object
+
+Data from Postman comes in **query string format**
+
+### 🔹 Example:
+
+```
+fullname=Shiv+Singh&email=shiv@gmail.com
+```
+
+### 🔹 Convert using `querystring` module:
+
+```js
+const querystring = require('querystring')
+
+const parsedData = querystring.parse(body)
+
+console.log(parsedData.fullname)
+```
+
+---
+
+## 📌 7. Restart Server Quickly
+
+Use:
+
+```
+rs
+```
+
+👉 Works when using **nodemon**
+
+---
+
+## 📌 8. MongoDB – `find()` vs `findOne()`
+
+## why toArray() with find()
+
+### 🔹 `find()`
+
+* Returns a **cursor (not actual data)**
+* Needs `.toArray()`
+* **(optional)** find() return instance of find method it is bug in mongodb and we need promise there , find() gives data in array of object format thats why we need toArray() method but in the case of findOne() we did not need it
+
+```js
+const users = await collection.find({}).toArray()
+```
+
+### 🔹 `findOne()`
+
+* Returns **single object**
+* No need for `.toArray()`
+
+```js
+const user = await collection.findOne({ email })
+```
+
+---
+
+## 📌 9. `deleteOne()` Warning ⚠️
+
+## deleteOne()
+
+- to pass id use ObjectId() and import it from 'mmongodb'
+- dirctly do not pass id in ObjectId() it will throw error "Class constructor ObjectId cannot be invoked without 'new' "
+- so
+  ```js
+    const id = new ObjectId(req.parse.id)
+  ```
+### why this happens 
+- In newer version of mongodb driver:
+  - ObjectId is a class
+  - class must be instanciated using `new`
+
+
+### ❌ Wrong: If did not pass anything
+
+```js
+collection.deleteOne({})
+```
+
+👉 This deletes the **first document** (dangerous!)
+
+---
+
+### ✅ Correct Way:
+- Always pass the id as query parameter
+```js
+const { ObjectId } = require('mongodb')
+
+const id = new ObjectId(req.params.id)
+
+await collection.deleteOne({ _id: id })
+```
+
+---
+
+## 📌 10. ObjectId Error Fix
+
+### ❌ Error:
+
+```
+Class constructor ObjectId cannot be invoked without 'new'
+```
+
+### ✅ Fix:
+
+```js
+const id = new ObjectId("your_id_here")
+```
+
+### 💡 Why?
+
+* `ObjectId` is a **class**
+* Must be used with `new`
+
+---
+
+## 📌 11. Get Dynamic ID from URL
+
+### 🔹 Using `url` module:
+
+```js
+const url = require('url')
+
+const parsedUrl = url.parse(req.url, true)
+const { id } = parsedUrl.query
+
+console.log(id)
+```
+
+---
+
+## 📌 12. Update Document
+
+To update data, you need:
+
+### ✅ Required:
+
+1. **ID**
+2. **Updated Data**
+
+### 🔹 Example:
+
+```js
+await collection.updateOne(
+    { _id: new ObjectId(id) },
+    { $set: { fullname: "New Name" } }
+)
+```
+
+---
+
+## 📌 13. `startsWith()` and `endsWith()`
+
+Useful for route matching.
+
+### 🔹 Example:
+
+```js
+if (req.url.startsWith('/user')) {
+    console.log("User route")
+}
+
+if (req.url.endsWith('/delete')) {
+    console.log("Delete route")
+}
+```
+
+---
+
+## 📌 14. Problem with This Approach ❌
+
+Although this works, it has limitations:
+
+* ❌ Not scalable
+* ❌ Hard to manage routes
+* ❌ Code becomes messy
+* ❌ Difficult to maintain in large apps
+
+---
+
+## 📌 15. Better Approach ✅
+
+Use frameworks like:
+
+* **Express.js**
+* **Fastify**
+
+### 💡 Why?
+
+* Built-in routing
+* Middleware support
+* Cleaner code structure
+* Faster development
+
+---
+
+# 🚀 Summary
+
+* Use **modular structure**
+* Handle **chunks with events**
+* Convert data using `querystring`
+* Always use `new ObjectId()`
+* Avoid raw Node.js for large apps → use **Express**
+
+---
 
 
 
