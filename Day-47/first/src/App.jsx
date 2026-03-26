@@ -1,47 +1,42 @@
 const App = () => {
-  const name = "Shiv Singh";
+  const name = 'Shiv Singh'
   const product = {
-    title: "White Shirt",
+    title: 'red shirt',
     price: 2000,
-    discount: 20,
-  };
-  const friends = ["saurav", "ravi"];
-  const test = () => {
-    alert("test");
-  };
+    discount: 20
+  }
 
-  const boxStyle = {
-    width: 200,
-    height: 200,
-    backgroundColor: "dodgerblue",
-    borderRadius: 10,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    margin: 25,
-  };
+  const users = ['saurav', 'mohit']
+  const test = (msg) => {
+    alert(msg)
+  }
+
+
   return (
     <>
-      <h1>Hello {name}</h1>
-      <p>{product.title}</p>
+      <h1>Hello React</h1>
+      <p> My name is {name}</p>
       <p>{JSON.stringify(product)}</p>
-      <p>{friends}</p>
-      <p>{console.log("first")}</p>
-      <p>{alert("Hello")}</p>
-      <button onClick={test}>Test</button>
-      <button onClick={() => alert("clicked")}>Click</button>
+      <p>{users}</p>
+      {console.log('Hello')}
+      {alert('Hello')}
 
-      <div style={boxStyle}>
-        <h1
-          style={{
-            color: "#fff",
-          }}
-        >
-          Box
-        </h1>
+      <button onClick={() => test('tillu test')}>test</button>
+
+      <div style={{
+        width: '100px',
+        height: '100px',
+        backgroundColor: "dodgerblue",
+        color: 'white',
+        display: "flex",
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 20
+      }}>
+        <h4>Box</h4>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default App;
+export default App

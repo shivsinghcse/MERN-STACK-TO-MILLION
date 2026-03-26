@@ -4623,3 +4623,553 @@ console.log(names)
 * map/filter are must for arrays
 * Spread/rest improve flexibility
 
+# Day -47  Welcome to React
+- React is a JavaScript library.
+- It is used to buid the Ui of application.
+- Advantages of react (or why should we lear react)
+  - Re-usability
+  - Team management
+  - Component (a reusable piece of ui)
+  - large ecosystem
+  - high demand
+  - build and maintained by meta
+
+
+## how to create react project using vite
+- Go to cmd
+  - write `npm create vite@latest`
+  - enter `project name`
+  - selet `React`
+  - Select `JavaScript`
+  - 
+    ```cmd
+      cd project-name
+      npm install
+      npm run dev
+    ```  
+- CRA is depricated
+
+### How to create component 
+- Create a function and function name must be same as file name 
+- return UI
+- can return only one element so wrap it in <div> or react fragment
+- export the function
+```js
+const App = () => {
+  return (
+    <>
+      <h1>Hello React</h1>
+    </>
+  )
+}
+
+export default App
+```
+
+### markup language
+- HTML
+- XML (xtensible markup language)
+- client to server or server to client we send data in 2 formats: 
+1. xml
+```xml
+<xml>
+  <salary>20000</salary>
+</xml>
+```
+2. json
+
+
+### JSX
+- jsx - javascript xml 
+- jsx allows to write markup inside javascript
+- js + markup = jsx
+- jsx allows to write javascript in html using jsx expression `{}`
+- react process this html in xml otherwise this `{}` is not possible
+- can not pass object in jsx expression it will throww error : `Uncaught Error: Objects are not valid as a React child`
+- can pass array in jsx expression: it will convert it into string and preview 
+- in jsx expression you can write any js code
+- in react due to strict mode every code runs twice but it happens only in dev mode not in production
+
+```jsx
+const App = () => {
+  const name = 'Shiv Singh'
+  const product = {
+    title: 'red shirt',
+    price: 2000,
+    discount: 20
+  }
+
+  const users = ['saurav', 'mohit']
+  return (
+    <>
+      <h1>Hello React</h1>
+      <p> My name is {name}</p>
+      <p>{JSON.stringify(product)}</p>
+      <p>{users}</p>
+      {console.log('Hello')}
+      {alert('Hello')}
+    </>
+  )
+}
+
+export default App
+```
+### props
+- props are the short form of properties
+- prop in react attribute in html
+- eg: onClick etc
+### events in react
+- event in js and react are almost same but in react we folloe camelCase convention to write events like: 
+  - onClick
+  - onMouseOver
+  - onDoubleClick
+
+#### how to call function
+- in react when we call function that we write function name in jsx expression not  `()`
+```jsx
+<button onClick = {test}>Click</button> ✅
+<button onClick = {test()}>Click</button> ❌
+// if you use () it will execute when ui render or component mount
+
+// we only use () when we have to pass arguments in that case we follow arrawo function syntax
+<button onClick = {() => test('Hello world')}>Click</button> ✅
+
+```
+
+### style in css
+- we can write inline css in form of objects, here css properties are treated as object properties so we follow camelCase convention and not `-` hyphen in between
+```jsx
+<h1 style = {{
+  color: 'white',
+  fontSize: 32
+}}>Hello</h1>
+```
+Here are your **very detailed React (Day 47) notes** from **Beginner → Advanced level**, with clear definitions, explanations, and practical examples 👇
+
+---
+
+# ⚛️ Day 47 – Welcome to React (Complete Notes)
+
+---
+
+# 🚀 1. What is React?
+
+### 📌 Definition:
+
+**React** is a **JavaScript library** used to build **User Interfaces (UI)**, especially for **single-page applications (SPA)**.
+
+👉 It was developed and maintained by Meta Platforms.
+
+---
+
+# 💡 2. Why Learn React? (Advantages)
+
+---
+
+## 🔹 1. Reusability
+
+* You can create components once and reuse them anywhere.
+
+```jsx
+const Button = () => <button>Click</button>
+```
+
+---
+
+## 🔹 2. Component-Based Architecture
+
+### 📌 Definition:
+
+A **Component** is a reusable piece of UI.
+
+```jsx
+const Header = () => <h1>My Website</h1>
+```
+
+---
+
+## 🔹 3. Easy Team Management
+
+* Developers can work on different components independently.
+
+---
+
+## 🔹 4. Large Ecosystem
+
+* Huge community + libraries (Redux, React Router, etc.)
+
+---
+
+## 🔹 5. High Demand
+
+* One of the most in-demand frontend skills.
+
+---
+
+# ⚙️ 3. Create React App using Vite
+
+---
+
+## 📌 Steps:
+
+```bash
+npm create vite@latest
+```
+
+Then:
+
+```bash
+cd project-name
+npm install
+npm run dev
+```
+
+---
+
+### ⚠️ Note:
+
+* **Create React App (CRA)** is now deprecated ❌
+* Use **Vite** ✅ (faster + modern)
+
+---
+
+# 🧩 4. React Component
+
+---
+
+### 📌 Definition:
+
+A **component** is a function that returns UI (JSX).
+
+---
+
+## ✅ Example:
+
+```jsx
+const App = () => {
+  return (
+    <>
+      <h1>Hello React</h1>
+    </>
+  )
+}
+
+export default App
+```
+
+---
+
+### 🧠 Rules:
+
+* Function name should start with **Capital Letter**
+* Must return **one parent element**
+
+  * Use `<div>` or `<> </>` (Fragment)
+
+---
+
+# 🌐 5. Markup Languages
+
+---
+
+### 🔹 HTML
+
+* Used for structuring web pages
+
+---
+
+### 🔹 XML (Extensible Markup Language)
+
+```xml
+<xml>
+  <salary>20000</salary>
+</xml>
+```
+
+---
+
+### 🔹 JSON (Modern Standard)
+
+```json
+{
+  "salary": 20000
+}
+```
+
+👉 Today mostly JSON is used instead of XML
+
+---
+
+# 🔥 6. JSX (JavaScript XML)
+
+---
+
+### 📌 Definition:
+
+**JSX = JavaScript + HTML-like syntax**
+
+👉 It allows writing UI inside JavaScript.
+
+---
+
+## ✅ Example:
+
+```jsx
+const App = () => {
+  const name = "Shiv"
+
+  return <h1>Hello {name}</h1>
+}
+```
+
+---
+
+## 🧠 Key Features of JSX
+
+---
+
+### 🔹 1. JavaScript inside JSX
+
+```jsx
+<p>{2 + 2}</p>
+```
+
+---
+
+### 🔹 2. Expressions inside `{}`
+
+```jsx
+const name = "Shiv"
+<p>{name}</p>
+```
+
+---
+
+### 🔹 3. Cannot Pass Object Directly ❌
+
+```jsx
+const obj = {name: "Shiv"}
+<p>{obj}</p> ❌ ERROR
+```
+
+✅ Fix:
+
+```jsx
+<p>{JSON.stringify(obj)}</p>
+```
+
+---
+
+### 🔹 4. Arrays are Allowed ✅
+
+```jsx
+const users = ["A", "B"]
+<p>{users}</p> // A,B
+```
+
+---
+
+### 🔹 5. Strict Mode Behavior
+
+* In development, React runs components **twice**
+* Only happens in dev mode (not production)
+
+---
+
+# 🎯 7. Props (Properties)
+
+---
+
+### 📌 Definition:
+
+**Props** are used to pass data from one component to another.
+
+---
+
+## ✅ Example:
+
+```jsx
+const User = (props) => {
+  return <h1>{props.name}</h1>
+}
+
+<User name="Shiv" />
+```
+
+---
+
+### 🔄 Destructuring Props:
+
+```jsx
+const User = ({ name }) => <h1>{name}</h1>
+```
+
+---
+
+# ⚡ 8. Events in React
+
+---
+
+### 📌 Definition:
+
+React events are similar to JS events but use **camelCase**.
+
+---
+
+## ✅ Examples:
+
+```jsx
+<button onClick={handleClick}>Click</button>
+<button onMouseOver={hover}>Hover</button>
+```
+
+---
+
+## 🧠 Important Rule
+
+### ❌ Wrong:
+
+```jsx
+<button onClick={test()}>
+```
+
+👉 This executes immediately
+
+---
+
+### ✅ Correct:
+
+```jsx
+<button onClick={test}>
+```
+
+---
+
+### ✅ Passing Arguments:
+
+```jsx
+<button onClick={() => test("Hello")}>
+```
+
+---
+
+# 🎨 9. Styling in React
+
+---
+
+### 📌 Inline CSS (Object format)
+
+```jsx
+<h1 style={{
+  color: "white",
+  fontSize: 32
+}}>
+  Hello
+</h1>
+```
+
+---
+
+### 🧠 Rules:
+
+* Use **camelCase**
+
+  * `font-size` ❌ → `fontSize` ✅
+* Value can be string or number
+
+---
+
+# ⚡ 10. Advanced Concepts (Must Know)
+
+---
+
+## 🔹 1. Fragment (`<> </>`)
+
+* Used to avoid extra `<div>`
+
+```jsx
+<>
+  <h1>Hello</h1>
+  <p>World</p>
+</>
+```
+
+---
+
+## 🔹 2. Conditional Rendering
+
+```jsx
+const isLoggedIn = true
+
+return (
+  <>
+    {isLoggedIn ? <h1>Welcome</h1> : <h1>Login</h1>}
+  </>
+)
+```
+
+---
+
+## 🔹 3. List Rendering
+
+```jsx
+const users = ["Shiv", "Ram"]
+
+return (
+  <>
+    {users.map((u, i) => <p key={i}>{u}</p>)}
+  </>
+)
+```
+
+---
+
+## 🔹 4. Event + State Preview
+
+```jsx
+const App = () => {
+  const handleClick = () => {
+    alert("Clicked")
+  }
+
+  return <button onClick={handleClick}>Click</button>
+}
+```
+
+---
+
+# 🎯 Real-World Example
+
+```jsx
+const Product = ({ title, price }) => {
+  return (
+    <div>
+      <h2>{title}</h2>
+      <p>₹{price}</p>
+    </div>
+  )
+}
+
+const App = () => {
+  return (
+    <>
+      <Product title="Shirt" price={500} />
+      <Product title="Jeans" price={2000} />
+    </>
+  )
+}
+```
+
+---
+
+# 🧠 Summary
+
+* React is a UI library by Meta
+* Uses **components** for reusable UI
+* JSX allows writing HTML inside JS
+* Props pass data between components
+* Events use camelCase
+* Styling is done using JS objects
+
+---
+
