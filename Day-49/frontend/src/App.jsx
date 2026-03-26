@@ -1,38 +1,61 @@
+const env = import.meta.env;
+import axios from 'axios'
+axios.defaults.baseURL = env.VITE_SERVER
 const App = () => {
-  const generate = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const data = form[0].value;
-    alert(data);
-    // console.log(form.data.value);
-    form[0].value = "";
-  };
+
+  const generate = async (e) => {
+    try
+    {
+      e.preventDefault()
+      const payload = e.target.data.value
+      const result = document.getElementById('result')
+      
+      const {data: {encryptedData}} = await axios.post('/', {data: payload})
+      result.innerText = encryptedData
+    }
+    catch(err)
+    {
+      alert(err.response? err.response.data.message : err.message)
+    }
+  }
+
+  const reset = () => {
+    const result = document.getElementById('result')
+    const input = document.getElementById('form').data
+    
+    result.innerText = "Your encrypted string goes here"
+    input.value = ''
+  }
   return (
     <>
-      <div className="w-full h-screen bg-gray-300 flex justify-center items-center">
-        <div className="bg-white p-8 w-[450px] shadow-xl rounded-lg space-y-8">
-          <h1 className="text-2xl font-bold">Bcrypt Generator</h1>
-          <form className="flex flex-col  gap-5" onSubmit={generate}>
-            <input
-              name="data"
-              required
-              placeholder="Enter string here"
-              className="border border-gray-300 rounded p-3"
-            />
-            <button className="bg-indigo-600 py-3 px-7 cursor-pointer text-white w-fit rounded">
-              Generate
-            </button>
-          </form>
-          <div className="bg-green-700 p-3 rounded text-white ">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempore
-            amet voluptas accusamus quas dignissimos eum nemo asperiores
-            quisquam ducimus repellendus. Quasi amet minus iste nesciunt, dolor
-            illo ducimus dicta nihil?
-          </div>
+      <div className="bg-gray-200 h-screen flex justify-center items-center shadow-xl">
+        <div className="bg-white w-100  rounded-lg p-8 space-y-8">
+            <h1 className="text-2xl font-bold text-center">Bcrypt Generator</h1>
+            <form className="flex flex-col gap-4" onSubmit={generate} id='form'>
+              <input 
+                type="text" 
+                className="border border-gray-300 p-2 rounded" 
+                placeholder="Enter string here"
+                name='data'
+                required
+              />
+              <div className='space-x-4'>
+                <button className="py-2 px-6 border-0 rounded bg-[dodgerblue] text-white font-semibold w-fit hover:cursor-pointer transition active:scale-95">Generate</button>
+                <button 
+                  onClick={reset}
+                  type='button' 
+                  className="py-2 px-6 border-0 rounded bg-rose-500 text-white font-semibold w-fit hover:cursor-pointer transition active:scale-95"
+                >Reset</button>
+              </div>
+            </form>
+
+            <div className="bg-green-600 py-2 px-4 rounded text-white break-all" id='result'>
+              Your encrypted string goes here
+            </div>
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default App;
+export default App

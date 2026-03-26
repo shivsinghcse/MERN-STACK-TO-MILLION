@@ -1,6 +1,3 @@
-const currentDate = () => {
-  const date = new Date();
-  return date.toLocaleDateString();
-};
-
-export default currentDate;
+export const currentDate = () => {
+    return new Date().toLocaleDateString()
+}

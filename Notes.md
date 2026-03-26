@@ -5520,3 +5520,487 @@ export default App
 * `useNavigate` for redirection
 
 ---
+
+# Day-49 understanding frontend backend interaction
+
+- in react project inside `lib` or `util` folder we keep js modules
+- use gap over margin
+- e.preventDefault()
+- why should we prevent page reload on form submit
+- in react required={false}
+- when you use es6 in backend and importing any function or variable must use extension in file path
+```js
+import encryptData from './controller/encrypt.controller.js'
+```
+- hash and hashSync
+- in bcrypt.hash() always use string data, convert using toString()
+- payload validation (valid for single data)
+- cors is a method which allows to client which runs on different domian to access the api
+  - import cors
+  - app.use(cors({
+    origin: url
+  }))
+  - and keep variable in .env
+
+- err.message vs err.response? err.response.data.message (api error) : err.message (system error)
+- .env in vite react add `VITE_` prefix
+  - const env = import.meta.env
+  - env.VARIABLE_NAME
+- recompile when change env variable
+
+- axios in react
+  - install axios
+  - import axios
+  - set baseurl `axios.defaults.baseUrl = env.VITE_SERVER`
+  - const res = axios.method('endpoint', payload)
+
+
+# 🔥 Day 49 – Frontend & Backend Interaction 
+
+---
+
+# 🌐 1. What is Frontend–Backend Interaction?
+
+### 📌 Definition:
+
+Frontend–Backend interaction is the process where:
+
+* **Frontend (React)** sends requests (data)
+* **Backend (Node/Express)** processes them
+* Backend sends **response back to frontend**
+
+---
+
+### 🔄 Flow:
+
+```
+React (Frontend)
+   ↓ request (API call)
+Node/Express (Backend)
+   ↓ response (JSON)
+React (UI update)
+```
+
+---
+
+# 📁 2. Folder Structure Best Practice
+
+---
+
+### 📌 Definition:
+
+Inside React projects, reusable logic is stored in:
+
+* `lib/` → API configs, helpers
+* `utils/` → utility functions
+
+---
+
+### ✅ Example:
+
+```
+src/
+ ├── lib/
+ │   └── axios.js
+ ├── utils/
+ │   └── formatDate.js
+```
+
+---
+
+# 🎨 3. CSS Tip – Use `gap` over `margin`
+
+---
+
+### 📌 Why?
+
+| gap                    | margin           |
+| ---------------------- | ---------------- |
+| Works inside flex/grid | Manual spacing   |
+| Clean & consistent     | Hard to maintain |
+
+---
+
+### ✅ Example:
+
+```jsx
+<div className="flex gap-4">
+  <button>1</button>
+  <button>2</button>
+</div>
+```
+
+---
+
+# 🛑 4. e.preventDefault()
+
+---
+
+### 📌 Definition:
+
+Stops the default behavior of an event.
+
+---
+
+### ❓ Why needed in forms?
+
+👉 By default, form submit:
+
+* Reloads page ❌
+* Clears state ❌
+
+---
+
+### ✅ Example:
+
+```jsx
+const handleSubmit = (e) => {
+  e.preventDefault()
+  console.log("Form Submitted")
+}
+```
+
+---
+
+# 🧠 5. Why Prevent Page Reload?
+
+* React is **SPA (Single Page App)**
+* Reload breaks:
+
+  * State
+  * Performance
+  * User experience
+
+---
+
+# ✅ 6. Required Attribute in React
+
+---
+
+### 📌 Definition:
+
+Used to validate form input.
+
+```jsx
+<input required={false} />
+```
+
+---
+
+### 🧠 Tip:
+
+* `required` → true by default if written
+* `required={false}` → explicitly disable
+
+---
+
+# ⚙️ 7. ES6 Import Rule in Backend
+
+---
+
+### 📌 Important:
+
+When using ES Modules in Node.js:
+
+```js
+import encryptData from './controller/encrypt.controller.js'
+```
+
+👉 Must include `.js` extension
+
+---
+
+# 🔐 8. Hashing (bcrypt)
+
+---
+
+### 📌 Definition:
+
+Hashing converts data (like password) into secure format.
+
+---
+
+## 🔹 hash vs hashSync
+
+| Method       | Type  | Usage         |
+| ------------ | ----- | ------------- |
+| `hash()`     | Async | Recommended ✅ |
+| `hashSync()` | Sync  | Blocking ❌    |
+
+---
+
+### ✅ Example:
+
+```js
+import bcrypt from "bcrypt"
+
+const password = "12345"
+
+const hashed = await bcrypt.hash(password.toString(), 10)
+```
+
+---
+
+### ⚠️ Important:
+
+* Always pass **string**
+* Use `.toString()`
+
+---
+
+# ✅ 9. Payload Validation
+
+---
+
+### 📌 Definition:
+
+Checking incoming request data is valid.
+
+---
+
+### ✅ Example:
+
+```js
+if (!email || !password) {
+  throw new Error("All fields required")
+}
+```
+
+---
+
+### 🧠 Best Practice:
+
+* Validate:
+
+  * Required fields
+  * Format (email, phone)
+  * Data type
+
+---
+
+# 🌍 10. CORS (Cross-Origin Resource Sharing)
+
+---
+
+### 📌 Definition:
+
+Allows frontend (different domain) to access backend API.
+
+---
+
+### ❌ Problem:
+
+Frontend: `localhost:5173`
+Backend: `localhost:5000`
+→ Different origin → blocked
+
+---
+
+### ✅ Solution:
+
+```js
+import cors from "cors"
+
+app.use(cors({
+  origin: process.env.CLIENT_URL
+}))
+```
+
+---
+
+### 🧠 Best Practice:
+
+* Store URL in `.env`
+
+```env
+CLIENT_URL=http://localhost:5173
+```
+
+---
+
+# ⚠️ 11. Error Handling
+
+---
+
+### 📌 Types:
+
+---
+
+## 🔹 1. API Error
+
+```js
+err.response.data.message
+```
+
+👉 Comes from backend
+
+---
+
+## 🔹 2. System Error
+
+```js
+err.message
+```
+
+👉 JS / network / internal error
+
+---
+
+### ✅ Example:
+
+```js
+try {
+  await axios.post("/login")
+} catch (err) {
+  console.log(err.response?.data?.message || err.message)
+}
+```
+
+---
+
+# 🔑 12. Environment Variables in Vite
+
+---
+
+### 📌 Rule:
+
+Must start with `VITE_`
+
+---
+
+### ✅ Example:
+
+```env
+VITE_SERVER=http://localhost:5000
+```
+
+---
+
+### 📥 Access:
+
+```js
+const env = import.meta.env
+console.log(env.VITE_SERVER)
+```
+
+---
+
+### ⚠️ Important:
+
+* Restart server after change
+
+---
+
+# 🌐 13. Axios in React
+
+---
+
+### 📌 Definition:
+
+Axios is a library to make HTTP requests.
+
+---
+
+### 📦 Install:
+
+```bash
+npm install axios
+```
+
+---
+
+## 🔹 Setup Base URL
+
+```js
+import axios from "axios"
+
+const env = import.meta.env
+
+axios.defaults.baseURL = env.VITE_SERVER
+```
+
+---
+
+## 🔹 GET Request
+
+```js
+const res = await axios.get("/users")
+```
+
+---
+
+## 🔹 POST Request
+
+```js
+const res = await axios.post("/login", {
+  email,
+  password
+})
+```
+
+---
+
+## 🔹 Dynamic Method
+
+```js
+const res = await axios({
+  method: "post",
+  url: "/login",
+  data: payload
+})
+```
+
+---
+
+# 🎯 Real-World Example (Frontend + Backend)
+
+---
+
+## 🔹 Frontend (React)
+
+```jsx
+const handleSubmit = async (e) => {
+  e.preventDefault()
+
+  try {
+    const res = await axios.post("/login", {
+      email,
+      password
+    })
+
+    console.log(res.data)
+  } catch (err) {
+    console.log(err.response?.data?.message || err.message)
+  }
+}
+```
+
+---
+
+## 🔹 Backend (Node)
+
+```js
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body
+
+  if (!email || !password) {
+    return res.status(400).json({ message: "All fields required" })
+  }
+
+  res.json({ message: "Login successful" })
+})
+```
+
+---
+
+# 🧠 Final Summary
+
+* Frontend talks to backend using APIs
+* Use `axios` for requests
+* Prevent form reload using `e.preventDefault()`
+* Use `.env` for config
+* Use `cors` for cross-origin requests
+* Always validate payload
+* Handle errors properly
+
+---
