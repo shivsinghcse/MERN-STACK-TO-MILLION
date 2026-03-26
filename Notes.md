@@ -4004,15 +4004,622 @@ Use frameworks like:
   "author": "",
   "license": "ISC",
   "type": "commonjs",
-  "dependencies": {
+  "dependencies": { 
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "mongoose": "^8.19.1"
   }
 }
 ```
+## how to create module and use in ecmaScript
+- create a `.js` file
+- export it:
+  - If you want to export only one `function` or `variable` so use `export default variable/function name`, it is called `default export`
+    ```js
+      const createProduct = () => {
+        console.log('Product created')
+      }
+
+      export default createProduct
+    ```
+    - To use that you have to import that where you want to use via `import` keyword
+    ```js
+    import createProduct from "./controller/product.controller.js";
+
+    // you can name "createProduct" it anything and use with that name
+    ```
+    - It is called **default import**
+
+  - But if you want to export multiple variables/functions
+    - Just write `export` keyword before each variable and function, it will send an object
+    ```js
+      export const createProduct = () => {
+        console.log('Product created')
+      }
+
+      export const deleteProduct = () => {
+        console.log('Product created')
+      }
+
+      // it is called named export
+    ```
+    - To use that you have to import it using `import` and `object destructuring` and if you want to use exported function with different name you have to set alias for that using `as` keyword
+    ```js
+        import { createProduct, deleteProduct as deleteItem } from "./controller/product.controller.js";
+
+        createProduct()
+        deleteItem()
+    ```
+
+
+
+
 #### require , module.exports, import, export, export default
 - Learn in details
 - named export sends an {}, that why in named import we do object destructureing
 
 ### Array & Object Destructuring
+#### Object Destructuring:
+- It basically unpack the object value in to constant
+- Constant name must be same as object keys
+- If you want to define alias you can usinh `:`
+- Order does not matter here
+```js
+const product = {
+    title: 'Blue jeans',
+    description: 'hello',
+    price: 2000,
+    discount: 20
+}
+
+console.log(product.price);
+
+const {title, description, price: mrp, discount} = {
+    title: 'Blue jeans',
+    description: 'hello',
+    price: 2000,
+    discount: 20
+}
+
+console.log(mrp);
+console.log(discount);
+
+const student = {
+    name: 'Shiv Singh', 
+    roll: 12,
+    subject: "maths",
+    address: {
+        city: 'Lucknow',
+        state: 'up',
+        country: 'india'
+    }
+}
+
+console.log(student.address.city);
+
+const {address: {city, state, country}} = {
+    name: 'Shiv Singh', 
+    roll: 12,
+    subject: "maths",
+    address: {
+        city: 'Lucknow',
+        state: 'up',
+        country: 'india'
+    }
+}
+
+console.log(city);
+```
+
+#### Array Destructuring:
+- It basically unpack the array values into indivisual constant
+- Order matters here
+
+```js
+  const num = [1, 2, 3, 4, 5]
+  console.log(num[1]) // 2
+
+  const [x] = [1, 2, 3, 4, 5]
+  console.log(x) // 1
+
+  // if you want to skip values
+  const [a, ,b] = [1, 2, 3, 4, 5]
+  console.log(a, b) // 1 3
+
+  const [type, token] = ["Bearer", "dkfnkjdnjkdngjkngkdfgdf"]
+```
+
+## Template literals
+- It is introduced in ES6 and represented by `backtick`
+- It make string concatination easy and you can also write expression and variables using `${}`
+```js
+  let name = "Bob"
+  let age = 22
+
+  // using + operator
+  let intro1 = "Hello my name is " + name + " and i am "+ age + " years old."
+  
+  console.log(intro1)
+
+  // using template string
+  let intro = `Hello my name is ${name} and i am ${age} years old`
+  console.log(intro)
+
+```
+
+## map() and filter() method
+
+## spread operator and rest 
+```js
+const num1 = [1, 2, 3]
+const num2 = [4, 5, 6]
+const number = [...num1, ...num2]
+console.log(number);
+```
+
+Here are your **very detailed ES6 notes (Beginner → Advanced)** based on your content, structured clearly with definitions, explanations, and real-world examples 👇
+
+---
+
+# 🔥 Day 46 – ES6 (ECMAScript 2015) Complete Notes
+
+---
+
+# 🚀 1. What is ES6?
+
+### 📌 Definition:
+
+**ES6 (ECMAScript 2015)** is a major update to JavaScript that introduced modern features to write **clean, modular, and efficient code**.
+
+### 💡 Why ES6?
+
+* Cleaner syntax
+* Better code organization
+* Supports modern development (React, Node, etc.)
+* Makes JavaScript more powerful
+
+---
+
+# 📦 2. Modules in JavaScript
+
+### 📌 Definition:
+
+A **module** is simply a JavaScript file that contains code (functions, variables, classes) that can be reused in other files.
+
+---
+
+## 🔁 Two Types of Modules
+
+### 1. CommonJS (Old Way)
+
+```js
+const fs = require('fs')
+module.exports = myFunction
+```
+
+### 2. ES6 Modules (Modern Way)
+
+```js
+import fs from 'fs'
+export default myFunction
+```
+
+---
+
+## ⚙️ Enable ES6 in Node.js
+
+```json
+{
+  "type": "module"
+}
+```
+
+⚠️ Important:
+
+* `"type": "module"` → enables ES6
+* `"type": "commonjs"` → default (older way)
+
+---
+
+# 📤 3. Export & Import
+
+---
+
+## 🔹 Default Export
+
+### 📌 Definition:
+
+Used when exporting **only one thing** from a file.
+
+### ✅ Example:
+
+```js
+// product.js
+const createProduct = () => {
+  console.log("Product created")
+}
+
+export default createProduct
+```
+
+### 📥 Import:
+
+```js
+import createProduct from './product.js'
+createProduct()
+```
+
+### 💡 Key Points:
+
+* Only **one default export per file**
+* You can rename while importing
+
+```js
+import myFunc from './product.js'
+```
+
+---
+
+## 🔹 Named Export
+
+### 📌 Definition:
+
+Used when exporting **multiple items**.
+
+### ✅ Example:
+
+```js
+export const createProduct = () => {
+  console.log("Created")
+}
+
+export const deleteProduct = () => {
+  console.log("Deleted")
+}
+```
+
+### 📥 Import:
+
+```js
+import { createProduct, deleteProduct } from './product.js'
+```
+
+---
+
+### 🔄 Alias (Rename)
+
+```js
+import { deleteProduct as deleteItem } from './product.js'
+```
+
+---
+
+### 🧠 Important Concept:
+
+* Named export sends an **object `{}`**
+* That’s why we use **destructuring**
+
+---
+
+# 🧩 4. require vs import
+
+| Feature     | require      | import    |
+| ----------- | ------------ | --------- |
+| Type        | CommonJS     | ES6       |
+| Sync/Async  | Sync         | Async     |
+| Usage       | Node (older) | Modern JS |
+| Flexibility | Dynamic      | Static    |
+
+---
+
+# 🧠 5. Destructuring
+
+---
+
+## 🔹 Object Destructuring
+
+### 📌 Definition:
+
+Extract values from an object into variables.
+
+---
+
+### ✅ Basic Example:
+
+```js
+const product = {
+  title: "Jeans",
+  price: 2000
+}
+
+const { title, price } = product
+```
+
+---
+
+### 🔄 Rename (Alias):
+
+```js
+const { price: mrp } = product
+```
+
+---
+
+### 🧠 Nested Destructuring:
+
+```js
+const student = {
+  name: "Shiv",
+  address: {
+    city: "Lucknow"
+  }
+}
+
+const { address: { city } } = student
+```
+
+---
+
+### 💡 Key Points:
+
+* Order does NOT matter
+* Name must match key
+
+---
+
+## 🔹 Array Destructuring
+
+### 📌 Definition:
+
+Extract values from an array based on position.
+
+---
+
+### ✅ Example:
+
+```js
+const arr = [10, 20, 30]
+
+const [a, b] = arr
+console.log(a, b) // 10 20
+```
+
+---
+
+### ⏭ Skip Values:
+
+```js
+const [x, , y] = [1, 2, 3]
+console.log(x, y) // 1 3
+```
+
+---
+
+### 💡 Key Points:
+
+* Order **matters**
+* Uses index internally
+
+---
+
+# 🧵 6. Template Literals
+
+---
+
+### 📌 Definition:
+
+A modern way to write strings using **backticks (`)**.
+
+---
+
+### ✅ Example:
+
+```js
+let name = "Shiv"
+let age = 22
+
+let intro = `My name is ${name} and I am ${age} years old`
+```
+
+---
+
+### 🎯 Advantages:
+
+* Easy string concatenation
+* Supports multiline
+
+```js
+let msg = `
+Hello
+Welcome
+`
+```
+
+---
+
+# 🔁 7. map() Method
+
+---
+
+### 📌 Definition:
+
+Creates a **new array** by applying a function to each element.
+
+---
+
+### ✅ Example:
+
+```js
+const nums = [1, 2, 3]
+
+const square = nums.map(n => n * n)
+console.log(square) // [1, 4, 9]
+```
+
+---
+
+### 🧠 Real Use Case:
+
+```js
+const users = [
+  {name: "Shiv"},
+  {name: "Ram"}
+]
+
+const names = users.map(user => user.name)
+```
+
+---
+
+# 🔍 8. filter() Method
+
+---
+
+### 📌 Definition:
+
+Returns a new array with elements that pass a condition.
+
+---
+
+### ✅ Example:
+
+```js
+const nums = [1, 2, 3, 4]
+
+const even = nums.filter(n => n % 2 === 0)
+console.log(even) // [2, 4]
+```
+
+---
+
+# ➕ 9. Spread Operator (`...`)
+
+---
+
+### 📌 Definition:
+
+Expands elements (array/object).
+
+---
+
+### ✅ Array Example:
+
+```js
+const a = [1, 2]
+const b = [3, 4]
+
+const c = [...a, ...b]
+```
+
+---
+
+### ✅ Object Example:
+
+```js
+const user = {name: "Shiv"}
+const updated = {...user, age: 22}
+```
+
+---
+
+# 📥 10. Rest Operator (`...`)
+
+---
+
+### 📌 Definition:
+
+Collects multiple values into a single variable.
+
+---
+
+### ✅ Example:
+
+```js
+const [a, ...rest] = [1, 2, 3, 4]
+console.log(rest) // [2, 3, 4]
+```
+
+---
+
+### ✅ Function Example:
+
+```js
+function sum(...numbers) {
+  return numbers.reduce((a, b) => a + b)
+}
+```
+
+---
+
+# ⚡ Advanced Concepts (Must Know)
+
+---
+
+## 🔹 Arrow Functions
+
+```js
+const add = (a, b) => a + b
+```
+
+### 💡 Difference:
+
+* No `this` binding
+* Short syntax
+
+---
+
+## 🔹 Default Parameters
+
+```js
+function greet(name = "Guest") {
+  console.log(name)
+}
+```
+
+---
+
+## 🔹 Optional Chaining (`?.`)
+
+```js
+const user = {}
+console.log(user.address?.city)
+```
+
+---
+
+## 🔹 Nullish Coalescing (`??`)
+
+```js
+let value = null
+console.log(value ?? "Default")
+```
+
+---
+
+# 🎯 Real-World Example (Combined)
+
+```js
+const products = [
+  {name: "Shirt", price: 500},
+  {name: "Jeans", price: 2000}
+]
+
+// Filter expensive products
+const expensive = products.filter(p => p.price > 1000)
+
+// Get names
+const names = expensive.map(p => p.name)
+
+console.log(names)
+```
+
+---
+
+# 🧠 Summary
+
+* ES6 makes JavaScript modern and powerful
+* Modules help organize code
+* Destructuring simplifies data access
+* map/filter are must for arrays
+* Spread/rest improve flexibility
+
