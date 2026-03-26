@@ -1,9 +1,9 @@
 const LiveBatches = () => {
-  return (
-    <>
-      <h1>Welcome to Live Batch.</h1>
-    </>
-  );
-};
+    return (
+        <>
+            <h1>Our Live Batches</h1>
+        </>
+    )
+}
 
-export default LiveBatches;
+export default LiveBatches

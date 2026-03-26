@@ -5173,3 +5173,350 @@ const App = () => {
 
 ---
 
+# 🔥 Day 48 – React Routing (Complete Notes)
+
+---
+
+# 🚀 1. What is Routing?
+
+### 📌 Definition:
+
+**Routing** in React means **navigating between different pages/components without reloading the page**.
+
+👉 In traditional websites, each page reloads
+👉 In React, routing happens inside the app (**Single Page Application - SPA**)
+
+---
+
+# 🧠 2. Code Splitting
+
+### 📌 Definition:
+
+Breaking your app into **smaller reusable components/files** is called **code splitting**.
+
+---
+
+### ✅ Example:
+
+```jsx
+// Header.jsx
+const Header = () => <h1>Header</h1>
+
+// Home.jsx
+const Home = () => <h1>Home Page</h1>
+```
+
+👉 Helps in:
+
+* Better performance
+* Easy maintenance
+* Team collaboration
+
+---
+
+# 🎨 3. Using Tailwind CSS in React
+
+---
+
+### 📌 Install Tailwind:
+
+Follow official guide 👉 [Tailwind CSS installation docs](https://tailwindcss.com/docs/installation?utm_source=chatgpt.com)
+
+---
+
+### 📌 Import CSS:
+
+```js
+import "./index.css"
+```
+
+---
+
+### ⚠️ Important:
+
+* Use `className` instead of `class`
+
+```jsx
+<h1 className="text-red-500 text-xl">Hello</h1>
+```
+
+---
+
+# 🛣️ 4. React Router
+
+---
+
+### 📌 Definition:
+
+**React Router** is a library used to handle routing in React apps.
+
+👉 Install:
+
+```bash
+npm install react-router-dom
+```
+
+---
+
+# 🧩 5. Basic Routing Setup
+
+---
+
+## 🔹 Step 1: Import
+
+```jsx
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+```
+
+---
+
+## 🔹 Step 2: Setup in Root (App.jsx)
+
+```jsx
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import Home from "./pages/Home"
+import About from "./pages/About"
+
+const App = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+    </BrowserRouter>
+  )
+}
+
+export default App
+```
+
+---
+
+### 🧠 Key Points:
+
+* `BrowserRouter` → Wraps entire app
+* `Routes` → Container for routes
+* `Route` → Defines path + component
+* `path` → URL (string)
+* `element` → JSX
+
+---
+
+# 🔗 6. Navigation (Link)
+
+---
+
+### 📌 Why NOT `<a>` tag?
+
+❌ `<a>` reloads page
+✅ `<Link>` prevents reload (SPA behavior)
+
+---
+
+### ✅ Example:
+
+```jsx
+import { Link } from "react-router-dom"
+
+const Navbar = () => {
+  return (
+    <>
+      <Link to="/">Home</Link>
+      <Link to="/about">About</Link>
+    </>
+  )
+}
+```
+
+---
+
+### 🧠 Key Points:
+
+* `to` prop → path string
+* Works like anchor but without reload
+
+---
+
+# 🧱 7. Nested Routing & Outlet
+
+---
+
+### 📌 Definition:
+
+**Outlet** is used to render child routes inside parent layout.
+
+---
+
+## ✅ Example:
+
+```jsx
+import { Outlet, Link } from "react-router-dom"
+
+const Layout = () => {
+  return (
+    <>
+      <nav>
+        <Link to="/">Home</Link>
+        <Link to="/about">About</Link>
+      </nav>
+
+      <Outlet />
+    </>
+  )
+}
+```
+
+---
+
+## 🔹 Routing Setup:
+
+```jsx
+<BrowserRouter>
+  <Routes>
+    <Route path="/" element={<Layout />}>
+      <Route index element={<Home />} />
+      <Route path="about" element={<About />} />
+    </Route>
+  </Routes>
+</BrowserRouter>
+```
+
+---
+
+### 🧠 Flow:
+
+* Layout loads first
+* `<Outlet />` decides which child to render
+
+---
+
+# ⚡ 8. Advanced Routing Concepts
+
+---
+
+## 🔹 1. Dynamic Routes
+
+### 📌 Definition:
+
+Used when URL contains dynamic values (like ID)
+
+---
+
+### ✅ Example:
+
+```jsx
+<Route path="/product/:id" element={<Product />} />
+```
+
+---
+
+### Access param:
+
+```jsx
+import { useParams } from "react-router-dom"
+
+const Product = () => {
+  const { id } = useParams()
+  return <h1>Product ID: {id}</h1>
+}
+```
+
+---
+
+## 🔹 2. 404 Page (Not Found)
+
+```jsx
+<Route path="*" element={<h1>Page Not Found</h1>} />
+```
+
+---
+
+## 🔹 3. Programmatic Navigation
+
+```jsx
+import { useNavigate } from "react-router-dom"
+
+const App = () => {
+  const navigate = useNavigate()
+
+  return (
+    <button onClick={() => navigate("/about")}>
+      Go to About
+    </button>
+  )
+}
+```
+
+---
+
+## 🔹 4. NavLink (Active Styling)
+
+```jsx
+import { NavLink } from "react-router-dom"
+
+<NavLink to="/about" style={({ isActive }) => ({
+  color: isActive ? "red" : "black"
+})}>
+  About
+</NavLink>
+```
+
+---
+
+# 🎯 Real-World Example (Complete)
+
+---
+
+## 📁 Folder Structure
+
+```
+src/
+ ├── pages/
+ │   ├── Home.jsx
+ │   ├── About.jsx
+ │   └── Product.jsx
+ ├── components/
+ │   └── Navbar.jsx
+ └── App.jsx
+```
+
+---
+
+## ✅ App.jsx
+
+```jsx
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import Navbar from "./components/Navbar"
+import Home from "./pages/Home"
+import About from "./pages/About"
+
+const App = () => {
+  return (
+    <BrowserRouter>
+      <Navbar />
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+    </BrowserRouter>
+  )
+}
+
+export default App
+```
+
+---
+
+# 🧠 Summary
+
+* Routing allows navigation without reload
+* Use `react-router-dom`
+* Always setup in **App.jsx**
+* Use `<Link>` instead of `<a>`
+* `<Outlet>` for nested routing
+* Dynamic routes for IDs
+* `useNavigate` for redirection
+
+---

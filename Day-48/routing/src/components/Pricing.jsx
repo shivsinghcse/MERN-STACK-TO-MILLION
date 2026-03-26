@@ -1,17 +1,7 @@
 const Pricing = () => {
   return (
-    <>
-      <ul>
-        <li>Frontend Development</li>
-        <li>4,999 + GST</li>
-      </ul>
-      <ul>
-        <li>Backend Development</li>
-        <li>4,599 + GST</li>
-      </ul>
-    </>
-  );
-};
+    <div>Pricing</div>
+  )
+}
 
-export default Pricing;
-
+export default Pricing
