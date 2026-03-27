@@ -6423,3 +6423,554 @@ const App = () => {
 
 ---
 
+# Day-51 : react practicing states
+- toggle password
+```jsx
+import { useState } from "react"
+
+const TogglePassword = () => {
+    const [type, setType] = useState('password')
+    return (
+        <>
+            <div className="border w-70 flex items-center gap-1 pr-2 rounded-md focus-within:outline focus-within:outline-1 focus-within:outline-gray-600">
+                <input 
+                    type={type}
+                    name="password"
+                    placeholder="********"
+                    className="w-full py-2 px-4 focus:outline-none text-base"
+                />
+                {
+                    type === 'password' ?
+                    <button className="hover:cursor-pointer h-8 w-8 hover:bg-gray-300 rounded-full">
+                        <i className="fa fa-eye" onClick={() => setType('text')} ></i>
+                    </button>
+                    :
+                    <button className="hover:cursor-pointer h-8 w-8 hover:bg-gray-300 rounded-full">
+                        <i className="fa fa-eye-slash" onClick={() => setType('password')}></i>
+                    </button>
+                }
+            </div>
+        </>
+    )
+}
+
+export default TogglePassword
+```
+- show/hide loader, timer
+```js
+import { useState } from "react"
+
+const ToggleLoader = () => {
+    const [loader, setLoader] = useState(true)
+
+    const handleLoader = () => {
+        setLoader((pvalue) => !pvalue)
+
+        // const x =setTimeout(()=>{
+        //     setLoader(false)
+        // }, 5000)
+        // console.log(x);
+    }
+  return (
+    <div className="">
+        {
+            loader &&
+            <i className="fa fa-spinner fa-spin !text-4xl"></i>
+        }
+        <br />
+        <button className="bg-indigo-600 text-white py-2 px-6 mt-4 rounded-md " onClick={handleLoader}>Toggle</button>
+    </div>
+  )
+}
+
+export default ToggleLoader
+```
+- setState 2nd ways to read value of state variable
+```js
+const [loader, setLoader] = useState(true)
+
+const handleLoader = () => {
+    setLoader((pvalue) => !pvalue)
+}
+```
+- counter app
+```jsx
+import { useState } from "react"
+
+const Counter = () => {
+  const [count, setCount] = useState(0)
+
+  const increment = () => {
+    setCount((pValue) => pValue + 1)
+  }
+
+  const decrement = () => {
+    setCount((pValue) => pValue - 1)
+  }
+  
+  return (
+    <div className="flex flex-col items-center border border-gray-300 w-70 py-12 rounded-lg shadow-lg gap-6">
+        <h1 className="text-4xl">{count}</h1>
+        <div className="space-x-4">
+            <button className="text-2xl font-bold bg-red-500 py-1 px-6 rounded-lg" onClick={decrement}>-</button>
+            <button className="text-2xl font-bold bg-green-500 py-1 px-6 rounded-lg" onClick={increment}>+</button>
+        </div>
+    </div>
+  )
+}
+
+export default Counter
+```
+- input value live preview
+```js
+import { useState } from "react"
+
+
+const Input = () => {
+    const [fullname, setFullname] = useState('')
+  return (
+    <div>
+        <input 
+            type="text"
+            name="fullname"
+            placeholder="Enter your fullname..."
+            className="py-1 px-3 border rounded"
+            value={fullname}
+            onChange={(e) => setFullname(e.target.value)}
+        />
+        <h1 className="text-2xl font-bold">{fullname}</h1>
+    </div>
+  )
+}
+
+export default Input
+```
+- form register now
+```js
+import { useState } from "react"
+
+const Signup = () => {
+  const [fullname, setFullname] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const handleForm =(e) => {
+    e.preventDefault()
+    const payload = {
+      fullname,
+      email,
+      password
+    }
+
+    console.log(payload)
+  }
+
+  return (
+    <div className="h-screen flex justify-center items-center">
+      <div className="w-120 border border-gray-300 rounded-lg py-4 px-8 bg-white shadow-lg space-y-8">
+        <h1 className="text-2xl font-semibold">Register Now</h1>
+        <form className="flex flex-col gap-5" onSubmit={handleForm}>
+          <input 
+            type="text"
+            name="fullname"
+            placeholder="Enter fullname"
+            className="border border-gray-300 py-1 px-3 rounded"
+            value={fullname}
+            onChange={(e) => setFullname(e.target.value)}
+            required
+          />
+
+          <input 
+            type="email"
+            name="email"
+            placeholder="Enter email"
+            className="border border-gray-300 py-1 px-3 rounded"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+
+          <input 
+            type="password"
+            name="password"
+            placeholder="Enter password"
+            className="border border-gray-300 py-1 px-3 rounded"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+
+          <button className="bg-indigo-500 text-white text-lg font-semibold py-2 px-6 w-fit rounded-md hover:cursor-pointer">Register</button>
+        </form>
+      </div>
+    </div>
+  )
+}
+
+export default Signup
+```
+
+Here are your **very detailed notes for Day 51 – Practicing React State (Beginner → Advanced)** with clear explanations, concepts, and improvements on your examples 👇
+
+---
+
+# 🔥 Day 51 – React State Practice (Complete Guide)
+
+---
+
+# ⚛️ 1. What is State in React?
+
+### 📌 Definition:
+
+**State** is a built-in React feature used to store data that can change over time and automatically update the UI.
+
+---
+
+### 🧠 Key Idea:
+
+👉 When **state changes → component re-renders → UI updates**
+
+---
+
+# 🔁 2. Toggle Password (Real-world Example)
+
+---
+
+### 📌 Concept:
+
+* Switching input type (`password` ↔ `text`)
+* Using state to control UI
+
+---
+
+## ✅ Your Code (Improved Version)
+
+```jsx
+import { useState } from "react"
+
+const TogglePassword = () => {
+  const [type, setType] = useState("password")
+
+  const togglePassword = () => {
+    setType((prev) => (prev === "password" ? "text" : "password"))
+  }
+
+  return (
+    <div className="border w-70 flex items-center gap-1 pr-2 rounded-md focus-within:outline focus-within:outline-1 focus-within:outline-gray-600">
+      <input
+        type={type}
+        placeholder="********"
+        className="w-full py-2 px-4 focus:outline-none"
+      />
+
+      <button onClick={togglePassword}>
+        <i className={`fa ${type === "password" ? "fa-eye" : "fa-eye-slash"}`}></i>
+      </button>
+    </div>
+  )
+}
+
+export default TogglePassword
+```
+
+---
+
+### 🧠 What You Learned:
+
+* Conditional rendering
+* State toggle pattern
+* Cleaner logic using single function
+
+---
+
+# 🔄 3. Show/Hide Loader + Timer
+
+---
+
+### 📌 Concept:
+
+* Conditional rendering (`&&`)
+* Async behavior (setTimeout)
+
+---
+
+## ✅ Improved Version with Timer:
+
+```jsx
+import { useState } from "react"
+
+const ToggleLoader = () => {
+  const [loader, setLoader] = useState(false)
+
+  const handleLoader = () => {
+    setLoader(true)
+
+    setTimeout(() => {
+      setLoader(false)
+    }, 3000)
+  }
+
+  return (
+    <div>
+      {loader && <i className="fa fa-spinner fa-spin text-4xl"></i>}
+
+      <button onClick={handleLoader}>
+        Show Loader
+      </button>
+    </div>
+  )
+}
+
+export default ToggleLoader
+```
+
+---
+
+### 🧠 Key Learning:
+
+* State controls visibility
+* Timer simulates API delay
+
+---
+
+# 🧠 4. Functional State Update (Very Important)
+
+---
+
+### 📌 Definition:
+
+Second way to update state using previous value.
+
+---
+
+## ✅ Example:
+
+```js
+setLoader((prev) => !prev)
+```
+
+---
+
+### 🧠 Why use this?
+
+* Avoids stale values
+* Best for toggles & counters
+
+---
+
+# 🔢 5. Counter App
+
+---
+
+### 📌 Concept:
+
+* Increment / decrement using state
+
+---
+
+## ✅ Your Code is Perfect 👍 (With Explanation)
+
+```jsx
+const [count, setCount] = useState(0)
+
+const increment = () => {
+  setCount((prev) => prev + 1)
+}
+```
+
+---
+
+### 🧠 Why functional update?
+
+```js
+setCount(count + 1) ❌ (may cause bug)
+setCount(prev => prev + 1) ✅
+```
+
+---
+
+### 🎯 Advanced Tip:
+
+Add limits:
+
+```js
+if (count > 0) setCount(prev => prev - 1)
+```
+
+---
+
+# ⌨️ 6. Input Live Preview (Controlled Component)
+
+---
+
+### 📌 Definition:
+
+A **controlled component** is an input controlled by React state.
+
+---
+
+## ✅ Example:
+
+```jsx
+const [fullname, setFullname] = useState("")
+
+<input
+  value={fullname}
+  onChange={(e) => setFullname(e.target.value)}
+/>
+```
+
+---
+
+### 🧠 Flow:
+
+1. User types
+2. `onChange` triggers
+3. State updates
+4. UI updates instantly
+
+---
+
+# 🧾 7. Form Handling (Register Form)
+
+---
+
+### 📌 Concept:
+
+* Multiple states
+* Controlled inputs
+* Form submission
+
+---
+
+## ✅ Your Code is Good 👍 (Improved Version)
+
+```jsx
+const Signup = () => {
+  const [form, setForm] = useState({
+    fullname: "",
+    email: "",
+    password: ""
+  })
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+
+    setForm((prev) => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+  const handleForm = (e) => {
+    e.preventDefault()
+    console.log(form)
+  }
+
+  return (
+    <form onSubmit={handleForm}>
+      <input name="fullname" onChange={handleChange} />
+      <input name="email" onChange={handleChange} />
+      <input name="password" onChange={handleChange} />
+      <button>Submit</button>
+    </form>
+  )
+}
+```
+
+---
+
+### 🧠 Why this is better?
+
+* Cleaner code
+* Scalable for large forms
+
+---
+
+# ⚡ 8. Key Patterns You Learned
+
+---
+
+## 🔹 1. Conditional Rendering
+
+```jsx
+{loader && <Loader />}
+```
+
+---
+
+## 🔹 2. Ternary Rendering
+
+```jsx
+{isLogin ? <Home /> : <Login />}
+```
+
+---
+
+## 🔹 3. Dynamic Class
+
+```jsx
+className={isActive ? "text-red" : "text-black"}
+```
+
+---
+
+## 🔹 4. Event Handling
+
+```jsx
+onClick={() => setCount(prev => prev + 1)}
+```
+
+---
+
+# 🧠 9. Common Mistakes (Very Important)
+
+---
+
+### ❌ Updating state like this:
+
+```js
+count = count + 1 ❌
+```
+
+---
+
+### ❌ Not using functional update:
+
+```js
+setCount(count + 1) ❌ (can break in async)
+```
+
+---
+
+### ❌ Missing `value` in input
+
+```jsx
+<input onChange={...} /> ❌
+```
+
+---
+
+# 🚀 10. Mini Combined Project Idea
+
+---
+
+### 🔥 Build:
+
+* Login form
+* Toggle password
+* Loader on submit
+* Input preview
+
+---
+
+# 🧠 Final Summary
+
+* State is used to manage dynamic data
+* `useState` triggers re-render
+* Functional updates are safer
+* Forms should be controlled
+* UI updates based on state
+
+---
+
