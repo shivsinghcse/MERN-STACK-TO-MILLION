@@ -7414,3 +7414,11 @@ items.map(item => <h1>{item}</h1>)
 
 ---
 
+# Day-54 : react styling and form values
+
+- practice daily
+  - form value
+  - ui mapping
+  - array of object crud
+  - useEffect
+
