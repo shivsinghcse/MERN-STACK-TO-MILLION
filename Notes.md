@@ -7422,3 +7422,7 @@ items.map(item => <h1>{item}</h1>)
   - array of object crud
   - useEffect
 
+# Day-55: react map render ui using http request
+- fakestore for free api
+- useStae: handles state and re-render ui when state variable updates
+- useEffect: execute after component render (100% not true) works asynchronously no side effect
