@@ -7422,7 +7422,413 @@ items.map(item => <h1>{item}</h1>)
   - array of object crud
   - useEffect
 
-# Day-55: react map render ui using http request
-- fakestore for free api
-- useStae: handles state and re-render ui when state variable updates
-- useEffect: execute after component render (100% not true) works asynchronously no side effect
+---
+
+# 🔥 Day 55 – Rendering UI using HTTP Request (API + map)
+
+---
+
+# 🌐 1. What is an API?
+
+### 📌 Definition:
+
+An **API (Application Programming Interface)** allows frontend (React) to communicate with backend/server.
+
+---
+
+### 🔄 Flow:
+
+```
+React → API Request → Server → Response (JSON) → React → UI render
+```
+
+---
+
+# 🛒 2. Fake Store API
+
+---
+
+### 📌 Free API:
+
+Use Fake Store API
+
+👉 Provides:
+
+* Products
+* Categories
+* Prices
+* Images
+
+---
+
+### ✅ Example Endpoint:
+
+```
+https://fakestoreapi.com/products
+```
+
+---
+
+# ⚛️ 3. useState + useEffect Together
+
+---
+
+### 📌 Concept:
+
+* `useState` → store API data
+* `useEffect` → fetch data after render
+
+---
+
+# 🔁 4. Fetch Data using Axios
+
+---
+
+## ✅ Example:
+
+```jsx
+import { useState, useEffect } from "react"
+import axios from "axios"
+
+const Products = () => {
+  const [products, setProducts] = useState([])
+
+  const getProducts = async () => {
+    try {
+      const res = await axios.get("https://fakestoreapi.com/products")
+      setProducts(res.data)
+    } catch (err) {
+      console.log(err.message)
+    }
+  }
+
+  useEffect(() => {
+    getProducts()
+  }, [])
+
+  return (
+    <>
+      {
+        products.map((item) => (
+          <div key={item.id}>
+            <h2>{item.title}</h2>
+            <img src={item.image} width="150" />
+            <p>₹{item.price}</p>
+          </div>
+        ))
+      }
+    </>
+  )
+}
+
+export default Products
+```
+
+---
+
+# 🧠 5. Key Learning
+
+---
+
+### 🔹 Why `useEffect`?
+
+* Runs after component render
+* Used for:
+
+  * API calls
+  * Side effects
+  * Timers
+
+---
+
+### 🔹 Why empty dependency `[]`?
+
+```js
+useEffect(() => {}, [])
+```
+
+👉 Runs only **once (on mount)**
+
+---
+
+# ⚠️ 6. Common Mistake
+
+---
+
+### ❌ Infinite loop:
+
+```js
+useEffect(() => {
+  getProducts()
+})
+```
+
+👉 Runs on every render ❌
+
+---
+
+### ✅ Fix:
+
+```js
+useEffect(() => {
+  getProducts()
+}, [])
+```
+
+---
+
+# 🎯 7. Real-World UI Example
+
+---
+
+```jsx
+{
+  products.map((item) => (
+    <div key={item.id} className="border p-4">
+      <img src={item.image} width="100" />
+      <h3>{item.title}</h3>
+      <p>₹{item.price}</p>
+    </div>
+  ))
+}
+```
+
+---
+# 🧠 Final Summary
+---
+
+* API call using axios
+* Store data in state
+* Render using `map()`
+* useState store data in state variable and whan state variable updates ui re-render
+
+---
+
+# 🔥 Day 56 – useEffect (Complete Guide)
+
+---
+
+# ⚛️ 1. What is useEffect?
+
+---
+
+### 📌 Definition:
+
+`useEffect` is a React Hook used to handle **side effects** in components.
+
+---
+
+### 📌 Side Effects Examples:
+
+* API calls
+* DOM updates
+* Timers (`setTimeout`)
+* Event listeners
+
+---
+
+# 🧠 2. Syntax
+
+---
+
+```jsx
+useEffect(() => {
+  // side effect code
+
+  return () => {
+    // cleanup (optional)
+  }
+}, [dependencies])
+```
+
+---
+
+# 🔁 3. Dependency Array (Very Important)
+
+---
+
+## 🔹 Case 1: No Dependency
+
+```jsx
+useEffect(() => {
+  console.log("Runs every render")
+})
+```
+
+---
+
+## 🔹 Case 2: Empty Array
+
+```jsx
+useEffect(() => {
+  console.log("Runs once")
+}, [])
+```
+
+---
+
+## 🔹 Case 3: With Dependency
+
+```jsx
+useEffect(() => {
+  console.log("Runs when count changes")
+}, [count])
+```
+
+---
+
+# 🧹 4. Cleanup Function
+
+---
+
+### 📌 Definition:
+
+Used to clean side effects (memory leaks)
+
+---
+
+## ✅ Example:
+
+```jsx
+useEffect(() => {
+  const timer = setTimeout(() => {
+    console.log("Hello")
+  }, 2000)
+
+  return () => {
+    clearTimeout(timer)
+  }
+}, [])
+```
+
+---
+
+# ⚡ 5. Real Examples
+
+---
+
+## 🔹 1. API Call
+
+```jsx
+useEffect(() => {
+  fetchData()
+}, [])
+```
+
+---
+
+## 🔹 2. Timer
+
+```jsx
+useEffect(() => {
+  const interval = setInterval(() => {
+    console.log("Running...")
+  }, 1000)
+
+  return () => clearInterval(interval)
+}, [])
+```
+
+---
+
+## 🔹 3. Event Listener
+
+```jsx
+useEffect(() => {
+  const handleResize = () => console.log(window.innerWidth)
+
+  window.addEventListener("resize", handleResize)
+
+  return () => {
+    window.removeEventListener("resize", handleResize)
+  }
+}, [])
+```
+
+---
+
+# ⚠️ 6. Important Rules
+
+---
+
+### ❌ Don’t use useEffect like this:
+
+```jsx
+useEffect(async () => {}) ❌
+```
+
+---
+
+### ✅ Correct Way:
+
+```jsx
+useEffect(() => {
+  const fetchData = async () => {
+    await axios.get(...)
+  }
+
+  fetchData()
+}, [])
+```
+
+---
+
+# 🧠 7. useEffect vs useState
+
+| Hook      | Purpose             |
+| --------- | ------------------- |
+| useState  | Store data          |
+| useEffect | Handle side effects |
+
+---
+
+# 🎯 8. Advanced Pattern
+
+---
+
+## 🔹 Conditional API Call
+
+```jsx
+useEffect(() => {
+  if (userId) {
+    fetchUser()
+  }
+}, [userId])
+```
+
+---
+
+# ❌ 9. Common Mistakes
+
+---
+
+### ❌ Missing dependency:
+
+```jsx
+useEffect(() => {
+  console.log(count)
+}, []) ❌
+```
+
+---
+
+### ❌ Infinite loop:
+
+```jsx
+useEffect(() => {
+  setCount(count + 1)
+}, [count]) ❌
+```
+
+---
+
+# 🧠 Final Summary
+---
+
+* `useEffect` handles side effects
+* Runs based on dependency array
+* Supports cleanup
+
+---
+
+
