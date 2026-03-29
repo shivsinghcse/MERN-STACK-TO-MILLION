@@ -7850,4 +7850,7 @@ input[type=number] {
 }
 ```
 # Day-58
+
 - in react reset form using state
+- never present error for fetch
+- react toastify
