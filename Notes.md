@@ -7828,15 +7828,225 @@ useEffect(() => {
 * `useEffect` handles side effects
 * Runs based on dependency array
 * Supports cleanup
+---
+
+# 🔥 Day 57 – React + Node CRUD (useState + useEffect)
 
 ---
 
+# 🚀 1. What is CRUD?
 
-# Day-57 : react node crud usestate and useffect
-- in backend using es6 import use .js 
-- ::-webkit-scrollbar
-- -mx-5
-- ```css
+### 📌 Definition:
+
+**CRUD** stands for:
+
+| Operation | Meaning              |
+| --------- | -------------------- |
+| C         | Create (add data)    |
+| R         | Read (get data)      |
+| U         | Update (edit data)   |
+| D         | Delete (remove data) |
+
+---
+
+### 🔄 Flow:
+
+```text
+React (Frontend)
+   ↓ API Request
+Node/Express (Backend)
+   ↓ MongoDB
+   ↑ Response
+React updates UI
+```
+
+---
+
+# ⚙️ 2. ES6 Import in Backend
+
+---
+
+### 📌 Rule:
+
+When using ES Modules in Node.js:
+
+```js
+import userController from "./controller/user.controller.js"
+```
+
+👉 Always use `.js` extension ✅
+
+---
+
+# ⚛️ 3. useState in CRUD
+
+---
+
+### 📌 Role:
+
+* Store form data
+* Store API response data
+* Control UI updates
+
+---
+
+### ✅ Example:
+
+```jsx
+const [users, setUsers] = useState([])
+const [form, setForm] = useState({
+  name: "",
+  email: ""
+})
+```
+
+---
+
+# 🔁 4. useEffect in CRUD
+
+---
+
+### 📌 Role:
+
+* Fetch data when component loads
+
+---
+
+### ✅ Example:
+
+```jsx
+useEffect(() => {
+  getUsers()
+}, [])
+```
+
+---
+
+# 🌐 5. Full CRUD Example (Frontend)
+
+---
+
+## 🔹 Create (POST)
+
+```jsx
+const createUser = async () => {
+  await axios.post("/users", form)
+}
+```
+
+---
+
+## 🔹 Read (GET)
+
+```jsx
+const getUsers = async () => {
+  const res = await axios.get("/users")
+  setUsers(res.data)
+}
+```
+
+---
+
+## 🔹 Update (PUT)
+
+```jsx
+const updateUser = async (id) => {
+  await axios.put(`/users/${id}`, form)
+}
+```
+
+---
+
+## 🔹 Delete (DELETE)
+
+```jsx
+const deleteUser = async (id) => {
+  await axios.delete(`/users/${id}`)
+}
+```
+
+---
+
+# 🧾 6. UI Rendering using map()
+
+---
+
+```jsx
+{
+  users.map((user) => (
+    <div key={user._id}>
+      <h2>{user.name}</h2>
+      <button onClick={() => deleteUser(user._id)}>Delete</button>
+    </div>
+  ))
+}
+```
+
+---
+
+# 🎯 7. Form Handling (Dynamic Object State)
+
+---
+
+```jsx
+const handleChange = (e) => {
+  const { name, value } = e.target
+
+  setForm((prev) => ({
+    ...prev,
+    [name]: value
+  }))
+}
+```
+
+---
+
+# 🎨 8. CSS Tricks (Important)
+
+---
+
+## 🔹 1. Custom Scrollbar
+
+```css
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: gray;
+  border-radius: 10px;
+}
+```
+
+---
+
+## 🔹 2. Negative Margin (`-mx-5`)
+
+### 📌 Definition:
+
+Used to **cancel padding effect of parent**
+
+---
+
+### ✅ Example:
+
+```jsx
+<div className="px-5">
+  <div className="-mx-5 bg-red-200">
+    Full width content
+  </div>
+</div>
+```
+
+---
+
+## 🔹 3. Remove Input Number Arrows
+
+---
+
+### ✅ Your Code (Correct 👍)
+
+```css
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -7849,8 +8059,893 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 ```
-# Day-58
 
-- in react reset form using state
-- never present error for fetch
-- react toastify
+---
+
+### 📌 Why?
+
+* Clean UI
+* Better UX for custom inputs
+
+---
+
+# ⚡ 9. Real-World Example (Mini CRUD App)
+
+---
+
+```jsx
+import { useState, useEffect } from "react"
+import axios from "axios"
+
+const App = () => {
+  const [users, setUsers] = useState([])
+  const [name, setName] = useState("")
+
+  const getUsers = async () => {
+    const res = await axios.get("/users")
+    setUsers(res.data)
+  }
+
+  const addUser = async () => {
+    await axios.post("/users", { name })
+    getUsers()
+  }
+
+  const deleteUser = async (id) => {
+    await axios.delete(`/users/${id}`)
+    getUsers()
+  }
+
+  useEffect(() => {
+    getUsers()
+  }, [])
+
+  return (
+    <>
+      <input onChange={(e) => setName(e.target.value)} />
+      <button onClick={addUser}>Add</button>
+
+      {users.map((user) => (
+        <div key={user._id}>
+          <h1>{user.name}</h1>
+          <button onClick={() => deleteUser(user._id)}>Delete</button>
+        </div>
+      ))}
+    </>
+  )
+}
+
+export default App
+```
+
+---
+
+# 🧠 10. Best Practices
+
+---
+
+### ✅ Always re-fetch after CRUD
+
+```js
+await deleteUser(id)
+getUsers()
+```
+
+---
+
+### ✅ Use loading state
+
+```js
+const [loading, setLoading] = useState(false)
+```
+
+---
+
+### ✅ Handle errors
+
+```js
+try {
+  await axios.get(...)
+} catch (err) {
+  console.log(err.message)
+}
+```
+
+---
+
+# ❌ 11. Common Mistakes
+
+---
+
+### ❌ Forgetting dependency array
+
+```js
+useEffect(() => {
+  getUsers()
+}) ❌
+```
+
+---
+
+### ❌ Not updating UI after API
+
+```js
+deleteUser(id) ❌ (no UI update)
+```
+
+---
+
+### ❌ Mutating state directly
+
+```js
+users.push(newUser) ❌
+```
+
+---
+
+# 🧠 Final Summary
+
+* CRUD = Create, Read, Update, Delete
+* `useState` → store data
+* `useEffect` → fetch data
+* `map()` → render UI
+* Axios → API calls
+* CSS tricks improve UI
+
+---
+
+# 🔥 Day 58 – React Form Reset, Edit & Update
+
+---
+
+# 🧾 1. Form Reset in React
+
+---
+
+### 📌 Definition:
+
+Resetting a form means clearing all input values after submission or action.
+
+---
+
+## ❌ Traditional HTML Way:
+
+```html
+<form>
+  <button type="reset">Reset</button>
+</form>
+```
+
+👉 Not recommended in React ❌
+
+---
+
+## ✅ React Way (Using State)
+
+---
+
+### 📌 Concept:
+
+Since inputs are controlled by state → reset state → UI resets
+
+---
+
+### ✅ Example:
+
+```jsx
+const [form, setForm] = useState({
+  name: "",
+  email: "",
+  password: ""
+})
+
+const handleSubmit = (e) => {
+  e.preventDefault()
+
+  console.log(form)
+
+  // reset form
+  setForm({
+    name: "",
+    email: "",
+    password: ""
+  })
+}
+```
+
+---
+
+### 🧠 Key Idea:
+
+👉 **State = Source of Truth**
+
+---
+
+# ✏️ 2. Edit & Update Functionality
+
+---
+
+## 📌 Concept:
+
+* Click **Edit** → fill form with existing data
+* Modify values
+* Click **Update** → send API request
+
+---
+
+## 🔹 Step 1: Store Selected Item
+
+```jsx
+const [editId, setEditId] = useState(null)
+```
+
+---
+
+## 🔹 Step 2: Fill Form on Edit
+
+```jsx
+const handleEdit = (user) => {
+  setForm({
+    name: user.name,
+    email: user.email
+  })
+  setEditId(user._id)
+}
+```
+
+---
+
+## 🔹 Step 3: Update API
+
+```jsx
+const handleUpdate = async () => {
+  await axios.put(`/users/${editId}`, form)
+
+  setEditId(null) // reset edit mode
+}
+```
+
+---
+
+## 🔹 Step 4: Conditional Button
+
+```jsx
+<button onClick={editId ? handleUpdate : handleSubmit}>
+  {editId ? "Update" : "Submit"}
+</button>
+```
+
+---
+
+# 🔄 3. Full Flow (Create + Edit + Reset)
+
+---
+
+```jsx
+import { useState, useEffect } from "react"
+import axios from "axios"
+
+const App = () => {
+  const [users, setUsers] = useState([])
+  const [form, setForm] = useState({ name: "", email: "" })
+  const [editId, setEditId] = useState(null)
+
+  const getUsers = async () => {
+    const res = await axios.get("/users")
+    setUsers(res.data)
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    if (editId) {
+      await axios.put(`/users/${editId}`, form)
+      setEditId(null)
+    } else {
+      await axios.post("/users", form)
+    }
+
+    setForm({ name: "", email: "" }) // reset
+    getUsers()
+  }
+
+  const handleEdit = (user) => {
+    setForm({ name: user.name, email: user.email })
+    setEditId(user._id)
+  }
+
+  useEffect(() => {
+    getUsers()
+  }, [])
+
+  return (
+    <>
+      <form onSubmit={handleSubmit}>
+        <input
+          name="name"
+          value={form.name}
+          onChange={(e) =>
+            setForm({ ...form, name: e.target.value })
+          }
+        />
+
+        <input
+          name="email"
+          value={form.email}
+          onChange={(e) =>
+            setForm({ ...form, email: e.target.value })
+          }
+        />
+
+        <button>{editId ? "Update" : "Add"}</button>
+      </form>
+
+      {users.map((user) => (
+        <div key={user._id}>
+          <h2>{user.name}</h2>
+          <button onClick={() => handleEdit(user)}>Edit</button>
+        </div>
+      ))}
+    </>
+  )
+}
+
+export default App
+```
+
+---
+
+# ⚠️ 4. Error Handling (Very Important)
+
+---
+
+### 📌 Rule:
+
+👉 Never leave fetch/API without error handling
+
+---
+
+## ❌ Wrong:
+
+```js
+await axios.get("/users")
+```
+
+---
+
+## ✅ Correct:
+
+```js
+try {
+  const res = await axios.get("/users")
+} catch (err) {
+  console.log(err.message)
+}
+```
+
+---
+
+### 🧠 Best Practice:
+
+```js
+console.log(err.response?.data?.message || err.message)
+```
+
+---
+
+# 🔔 5. React Toastify (Notifications)
+
+---
+
+### 📌 Definition:
+
+A library to show **popup notifications (toast messages)**
+
+---
+
+## 📦 Install:
+
+```bash
+npm install react-toastify
+```
+
+---
+
+## 🔹 Setup:
+
+```jsx
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+```
+
+---
+
+## 🔹 Use in App:
+
+```jsx
+<ToastContainer />
+```
+
+---
+
+## 🔹 Show Toast:
+
+```jsx
+toast.success("User created successfully")
+toast.error("Something went wrong")
+```
+
+---
+
+## 🎯 Example with API:
+
+```jsx
+const handleSubmit = async () => {
+  try {
+    await axios.post("/users", form)
+    toast.success("User added")
+  } catch (err) {
+    toast.error(err.response?.data?.message || err.message)
+  }
+}
+```
+
+---
+
+# ⚡ 6. Advanced Tips
+
+---
+
+## 🔹 Disable Button While Loading
+
+```jsx
+<button disabled={loading}>
+  {loading ? "Loading..." : "Submit"}
+</button>
+```
+
+---
+
+## 🔹 Clear Edit Mode
+
+```js
+setEditId(null)
+```
+
+---
+
+## 🔹 Reset Form After Update
+
+```js
+setForm({ name: "", email: "" })
+```
+
+---
+
+# ❌ 7. Common Mistakes
+
+---
+
+### ❌ Not resetting form
+
+```js
+// old data remains ❌
+```
+
+---
+
+### ❌ Not handling edit state
+
+```js
+// always creating new user ❌
+```
+
+---
+
+### ❌ No error handling
+
+```js
+// app crashes ❌
+```
+
+---
+
+# 🧠 Final Summary
+
+* Form reset → done via state
+* Edit → preload form + store ID
+* Update → API PUT request
+* Always handle errors
+* Use Toastify for better UX
+
+---
+
+# 🔥 Day 59 – React Components & Props (Complete Guide)
+
+---
+
+# ⚛️ 1. DRY Principle in React
+
+---
+
+### 📌 Definition:
+
+**DRY = Don’t Repeat Yourself**
+
+👉 Write reusable code instead of duplicating it.
+
+---
+
+### ❌ Without DRY:
+
+```jsx
+<button className="bg-blue-500">Login</button>
+<button className="bg-blue-500">Register</button>
+```
+
+---
+
+### ✅ With DRY (Reusable Component):
+
+```jsx
+const Button = ({ children }) => {
+  return <button className="bg-blue-500">{children}</button>
+}
+```
+
+---
+
+# 🧩 2. Types of Components
+
+---
+
+## 🔹 1. Route Components
+
+### 📌 Definition:
+
+Components that represent **pages/routes**
+
+---
+
+### ✅ Examples:
+
+* Home
+* Login
+* Signup
+* Dashboard
+
+---
+
+## 🔹 2. Shared Components
+
+### 📌 Definition:
+
+Reusable UI components used across multiple pages
+
+---
+
+### ✅ Examples:
+
+* Button
+* Input
+* Card
+* Modal
+
+---
+
+# 👶 3. Children Props
+
+---
+
+### 📌 Definition:
+
+Anything written between component tags is called **children**
+
+---
+
+### ✅ Example:
+
+```jsx
+<PrimaryButton>Register Now</PrimaryButton>
+```
+
+---
+
+### 🧠 Inside Component:
+
+```jsx
+const PrimaryButton = ({ children }) => {
+  return <button>{children}</button>
+}
+```
+
+---
+
+### 🎯 Output:
+
+👉 Button will display **"Register Now"**
+
+---
+
+# 🎨 4. Button Variants (Design System)
+
+---
+
+### 📌 Common Types:
+
+| Type      | Color    |
+| --------- | -------- |
+| Success   | Green    |
+| Warning   | Yellow   |
+| Error     | Red      |
+| Info      | Cyan     |
+| Primary   | Blue     |
+| Secondary | Sky Blue |
+
+---
+
+## ✅ Example:
+
+```jsx
+const Button = ({ type, children }) => {
+  const styles = {
+    success: "bg-green-500",
+    warning: "bg-yellow-500",
+    error: "bg-red-500",
+    primary: "bg-blue-500",
+    secondary: "bg-sky-400"
+  }
+
+  return (
+    <button className={`${styles[type]} text-white px-4 py-2`}>
+      {children}
+    </button>
+  )
+}
+```
+
+---
+
+### 🔄 Usage:
+
+```jsx
+<Button type="success">Save</Button>
+<Button type="error">Delete</Button>
+<Button type="primary">Submit</Button>
+```
+
+---
+
+# ⚠️ 5. Native Functionality Issue
+
+---
+
+### 📌 Problem:
+
+Custom components don’t automatically support native HTML props
+
+---
+
+### ❌ Example:
+
+```jsx
+<Button onClick={handleClick}>Click</Button>
+```
+
+👉 `onClick` will NOT work ❌
+
+---
+
+### ✅ Solution (Pass Props):
+
+```jsx
+const Button = ({ children, onClick }) => {
+  return <button onClick={onClick}>{children}</button>
+}
+```
+
+---
+
+### 🧠 Advanced Solution (Spread Operator):
+
+```jsx
+const Button = ({ children, ...props }) => {
+  return <button {...props}>{children}</button>
+}
+```
+
+---
+
+### 🎯 Benefit:
+
+Supports ALL native props:
+
+* onClick
+* disabled
+* type
+* className
+
+---
+
+# 🔁 6. Props (Property Passing)
+
+---
+
+### 📌 Definition:
+
+Passing data from parent → child component
+
+---
+
+## ✅ Example:
+
+```jsx
+const User = ({ name }) => {
+  return <h1>{name}</h1>
+}
+
+<User name="Shiv" />
+```
+
+---
+
+# 🔗 7. Prop Drilling
+
+---
+
+### 📌 Definition:
+
+Passing props through multiple components
+
+---
+
+### ⚠️ Problem:
+
+Becomes messy in large apps
+
+---
+
+### ❌ Example:
+
+```jsx
+<App>
+  <Parent>
+    <Child>
+      <GrandChild name="Shiv" />
+    </Child>
+  </Parent>
+</App>
+```
+
+---
+
+### 🧠 Solution (Advanced):
+
+* Context API
+* Redux
+
+---
+
+# 🎯 8. Real-World Reusable Input Component
+
+---
+
+```jsx
+const Input = ({ label, ...props }) => {
+  return (
+    <div>
+      <label>{label}</label>
+      <input {...props} className="border px-2 py-1" />
+    </div>
+  )
+}
+```
+
+---
+
+### ✅ Usage:
+
+```jsx
+<Input label="Email" type="email" placeholder="Enter email" />
+```
+
+---
+
+# 🎨 9. UI Frameworks
+
+---
+
+### 📌 Definition:
+
+Pre-built UI component libraries
+
+---
+
+## 🔹 Popular UI Frameworks:
+
+* Material UI
+* Ant Design
+* ShadCN UI
+* Next UI
+* Radix UI
+* Magic UI
+* Accenture UI
+
+---
+
+### 🧠 Why use them?
+
+* Faster development
+* Professional UI
+* Accessibility support
+
+---
+
+# ⚡ 10. Advanced Patterns
+
+---
+
+## 🔹 1. Default Props
+
+```jsx
+const Button = ({ type = "primary" }) => {}
+```
+
+---
+
+## 🔹 2. Conditional Classes
+
+```jsx
+className={type === "error" ? "bg-red" : "bg-blue"}
+```
+
+---
+
+## 🔹 3. Composition Pattern
+
+```jsx
+<Card>
+  <h1>Title</h1>
+  <p>Description</p>
+</Card>
+```
+
+---
+
+# ❌ 11. Common Mistakes
+
+---
+
+### ❌ Not passing props
+
+```jsx
+<Button>Click</Button> // but not using children ❌
+```
+
+---
+
+### ❌ Ignoring native props
+
+```jsx
+<button>{children}</button> ❌ (no onClick support)
+```
+
+---
+
+### ❌ Overusing prop drilling
+
+---
+
+# 🧠 Final Summary
+
+* React follows DRY principle
+* Components = reusable UI blocks
+* Props = data passing mechanism
+* Children = content inside component
+* Spread props make components powerful
+* UI frameworks speed up development
+
+---
+
+
+# Day-60 : react modal and drawer component
