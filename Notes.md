@@ -7832,3 +7832,22 @@ useEffect(() => {
 ---
 
 
+# Day-57 : react node crud usestate and useffect
+- in backend using es6 import use .js 
+- ::-webkit-scrollbar
+- -mx-5
+- ```css
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+```
+# Day-58
+- in react reset form using state
