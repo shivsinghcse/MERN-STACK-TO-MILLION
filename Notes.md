@@ -8947,5 +8947,337 @@ className={type === "error" ? "bg-red" : "bg-blue"}
 
 ---
 
+# 🔥 Day 60 – React Modal & Drawer Components
 
-# Day-60 : react modal and drawer component
+---
+
+# ⚛️ 1. Core Concepts Revision
+
+---
+
+## 🔹 1. Children Props
+
+### 📌 Definition:
+
+Content passed inside component tags
+
+```jsx
+<Button>Submit</Button>
+```
+
+👉 `"Submit"` is **children**
+
+---
+
+## 🔹 2. Attribute Props
+
+### 📌 Definition:
+
+Props passed like HTML attributes
+
+```jsx
+<Button type="primary" icon="check-line" />
+```
+
+---
+
+## 🔹 3. Data Flow in React
+
+### 📌 Rule:
+
+👉 **Parent → Child (via props)**
+
+---
+
+# 🧠 2. Component Object Modeling
+
+---
+
+### 📌 Definition:
+
+Using objects to manage styles/configurations for components
+
+---
+
+## ✅ Your Button Model (Perfect Pattern 👏)
+
+```jsx
+const ButtonModel = {
+  primary: "bg-blue-500",
+  success: "bg-green-500",
+  danger: "bg-red-500"
+}
+```
+
+---
+
+### ✅ Usage:
+
+```jsx
+<button className={ButtonModel[type]}>
+```
+
+---
+
+### 🧠 Why this is powerful?
+
+* Centralized styling
+* Easy to scale
+* Clean code
+
+---
+
+# 🎯 3. Reusable Button Component (Enhanced)
+
+---
+
+## ✅ Improved Version:
+
+```jsx
+const Button = ({
+  children = "Button",
+  type = "default",
+  icon,
+  ...props
+}) => {
+  return (
+    <button
+      className={ButtonModel[type] || ButtonModel.default}
+      {...props}
+    >
+      {icon && <i className={`ri-${icon} mr-1`}></i>}
+      {children}
+    </button>
+  )
+}
+```
+
+---
+
+### 🧠 Improvements:
+
+* Default type added
+* Spread props (`...props`) → supports `onClick`, `disabled`, etc.
+
+---
+
+# 🪟 4. Modal Component
+
+---
+
+## 📌 Definition:
+
+A **Modal** is a popup overlay that appears on top of UI.
+
+---
+
+## 🔹 Features:
+
+* Centered UI
+* Background overlay
+* Close on click
+
+---
+
+## ✅ Basic Modal Example:
+
+```jsx
+const Modal = ({ isOpen, onClose, children }) => {
+  if (!isOpen) return null
+
+  return (
+    <div className="fixed inset-0 bg-black/50 flex justify-center items-center">
+      <div className="bg-white p-6 rounded-lg relative">
+        
+        <button
+          className="absolute top-2 right-2"
+          onClick={onClose}
+        >
+          ✖
+        </button>
+
+        {children}
+      </div>
+    </div>
+  )
+}
+```
+
+---
+
+## 🔄 Usage:
+
+```jsx
+const [open, setOpen] = useState(false)
+
+<Button onClick={() => setOpen(true)}>Open Modal</Button>
+
+<Modal isOpen={open} onClose={() => setOpen(false)}>
+  <h1>Hello Modal</h1>
+</Modal>
+```
+
+---
+
+# 📦 5. Drawer Component
+
+---
+
+## 📌 Definition:
+
+A **Drawer** is a panel that slides from side (left/right/top/bottom)
+
+---
+
+## 🔹 Use Cases:
+
+* Sidebar menu
+* Filters panel
+* Settings panel
+
+---
+
+## ✅ Example:
+
+```jsx
+const Drawer = ({ isOpen, onClose, children }) => {
+  return (
+    <div
+      className={`fixed top-0 right-0 h-full w-64 bg-white shadow-lg transform ${
+        isOpen ? "translate-x-0" : "translate-x-full"
+      } transition-transform`}
+    >
+      <button onClick={onClose}>Close</button>
+      {children}
+    </div>
+  )
+}
+```
+
+---
+
+## 🔄 Usage:
+
+```jsx
+const [open, setOpen] = useState(false)
+
+<Button onClick={() => setOpen(true)}>Open Drawer</Button>
+
+<Drawer isOpen={open} onClose={() => setOpen(false)}>
+  <h2>Menu</h2>
+</Drawer>
+```
+
+---
+
+# ⚡ 6. Modal vs Drawer
+
+---
+
+| Feature    | Modal         | Drawer     |
+| ---------- | ------------- | ---------- |
+| Position   | Center        | Side       |
+| Use Case   | Alerts, Forms | Navigation |
+| Background | Overlay       | Optional   |
+
+---
+
+# 🧩 7. Shared Component Strategy
+
+---
+
+### 📌 If NOT using UI libraries → build your own
+
+---
+
+## 🔹 Must-have Components:
+
+* Button ✅
+* Input
+* Form
+* Card
+* Modal
+* Drawer
+* Toast
+* Video
+* Audio
+
+---
+
+### 🧠 Folder Structure:
+
+```
+components/
+ ├── Button.jsx
+ ├── Input.jsx
+ ├── Modal.jsx
+ ├── Drawer.jsx
+ ├── Toast.jsx
+```
+
+---
+
+# 🎯 8. Advanced Patterns
+
+---
+
+## 🔹 1. Controlled Component (Modal)
+
+```jsx
+const [open, setOpen] = useState(false)
+```
+
+👉 Parent controls visibility
+
+---
+
+## 🔹 2. Reusable Composition
+
+```jsx
+<Modal>
+  <LoginForm />
+</Modal>
+```
+
+---
+
+## 🔹 3. Dynamic Content
+
+```jsx
+<Drawer>
+  {user ? <Dashboard /> : <Login />}
+</Drawer>
+```
+
+---
+
+# ⚠️ 9. Common Mistakes
+
+---
+
+### ❌ Not controlling open/close
+
+```jsx
+<Modal /> ❌ (no state control)
+```
+
+---
+
+### ❌ No overlay click handling
+
+---
+
+### ❌ Hardcoding UI
+
+---
+
+# 🧠 Final Summary
+
+* Props → pass data parent → child
+* Children → dynamic content
+* ButtonModel → scalable styling
+* Modal → popup UI
+* Drawer → sliding panel
+* Build reusable components for DRY code
+
+---
